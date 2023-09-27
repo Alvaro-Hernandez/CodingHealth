@@ -1,0 +1,189 @@
+.form {
+    max-width: 90%; /* El elemento no superará el 100% del ancho de su contenedor */
+    margin: 0 auto;
+    padding: 2%; /* Utilizamos un porcentaje para el padding */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    margin-top: 2%; /* Utilizamos un porcentaje para el margen superior */
+  }
+  
+select,
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea {
+  padding: 5px;
+  margin-bottom: 16px;
+  border: 1px solid #3DB9FB;
+  border-radius: 4px;
+}
+
+.submit-button {
+  background-color: rgb(70, 209, 255);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button.loading {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.custom-select {
+  width: 200px;
+  height: 40px;
+}
+
+.opcion input[type="radio"] {
+  display: none; /* Oculta el input radio nativo */
+}
+
+.circulo {
+  width: 10px;
+  height: 10px;
+  background-color: transparent;
+  border: 2px solid #000;
+  border-radius: 50%;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+}
+
+/* Estilo para el círculo seleccionado */
+.opcion.seleccionado .circulo {
+  background-color: yellow; /* Cambia el color de fondo del círculo al seleccionar */
+}
+
+  /* Estilos para filas */
+  .row-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Espacio entre las filas y las columnas */
+    
+  }
+  
+  /* Estilos para cada columna */
+  .column {
+    flex: 1; /* Cada columna se expandirá para ocupar el espacio disponible */
+    max-width: calc(30% - 10px); /* Ancho máximo de cada columna (20% del ancho total - espacio entre columnas) */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espacio entre elementos en la columna */
+  }
+  
+  /* Estilos para los elementos en las columnas */
+  .peso-anterior-container,
+  .talla,
+  .pesoIMC {
+    width: 100%; /* Ocupa todo el ancho disponible en la columna */
+  }
+  
+  .opcion input[type="radio"] {
+    display: none; /* Oculta el input radio nativo */
+  }
+  
+
+
+  .trimestre-container{
+    transform: translate(0, -250px);
+   
+  }
+  
+  .containerTrimestre {
+    display: flex;
+    justify-content: space-between; /* Distribuir los trimestres horizontalmente */
+    gap: 10px; /* Espacio entre los trimestres */
+    padding: 0px;
+    color:black;
+  }
+  .col {
+    text-align: right;
+    margin: 0;
+  }
+  
+  
+  /* Reduce el tamaño de los nombres de los trimestres */
+  .trimestreTitulo {
+    font-size: 14px; /* Ajusta el tamaño de fuente según tus preferencias */
+  }
+   
+  
+  /* Estilos para la tabla y sus elementos */
+  .table-container {
+    margin-bottom: 15px;
+    overflow-x: auto; /* Agrega desplazamiento horizontal si es necesario */
+  }
+  .tableAntirubeola{
+    margin-bottom: 5px;
+    overflow-x: auto; /* Agrega desplazamiento horizontal si es necesario */
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Fuerza que el ancho de la tabla sea fijo */
+  }
+  
+  td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    white-space: nowrap; /* Evita que el contenido de las celdas se rompa */
+    text-align: center; /* Centra el texto horizontalmente en las celdas */
+  }
+  
+  table td:first-child {
+    text-align: left; /* Alinea el texto a la izquierda en la primera columna */
+  }
+
+  textarea {
+    width: 100%;
+    max-width: 100%; /* Asegura que el textarea no se desborde */
+    min-width: 100%; /* Asegura que el textarea tenga un ancho mínimo del 100% */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box; /* Incluye el padding en el ancho total */
+    resize: vertical; /* Permite la redimensión vertical */
+  }
+  .table-row {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #ccc;
+    padding: 8px 12px;
+  }
+  
+  .trimestre-cell {
+    flex: 1;
+    text-align: left;
+    padding: 6px;
+    font-weight: bold;
+    color: black;
+  }
+  
+  .data-cell {
+    display: flex;
+    flex: 3;
+    justify-content: space-between;
+    color: black;
+  }
+  
+  .data-item {
+    flex: 1;
+    text-align: left;
+    padding: 6px;
+    color: black;
+  }
+  
+
+  /* Agrega estos estilos a tu hoja de estilo CSS */
+.opcion {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
