@@ -1,10 +1,9 @@
 import NavBarComponent from "../components/NavbarComponent";
-
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { db } from "../services/FirebaseServices";
-import "../styles/secondModule.css";
+import "../styles/secondModuleStyle.css";
 
-const SecondModule = () => {
+const SecondModuleScreen = () => {
   const [pesoAnterior, setPesoAnterior] = useState("");
   const [talla, setTalla] = useState("");
   const [imc, setIMC] = useState("");
@@ -315,9 +314,8 @@ const SecondModule = () => {
                   <div className="fechaFPP">
                     <label htmlFor="radioSiECO">ECO menos 20 s</label>
                     <label
-                      className={`opcion ${
-                        selectedOptionECO === "si" ? "seleccionado" : ""
-                      }`}
+                      className={`opcion ${selectedOptionECO === "si" ? "seleccionado" : ""
+                        }`}
                       onClick={() => setSelectedOptionECO("si")}
                     >
                       <input
@@ -326,7 +324,7 @@ const SecondModule = () => {
                         name="opcionECO"
                         value="si"
                         checked={selectedOptionECO === "si"}
-                        onChange={() => {}}
+                        onChange={() => { }}
                       />
                       <div className="circulo"></div>{" "}
                       {/* Agregar un div para el círculo */}
@@ -334,9 +332,8 @@ const SecondModule = () => {
                     </label>
                     <label
                       htmlFor="radioNoECO"
-                      className={`opcion ${
-                        selectedOptionECO === "no" ? "seleccionado" : ""
-                      }`}
+                      className={`opcion ${selectedOptionECO === "no" ? "seleccionado" : ""
+                        }`}
                       onClick={() => setSelectedOptionECO("no")}
                     >
                       <input
@@ -345,7 +342,7 @@ const SecondModule = () => {
                         name="opcionECO"
                         value="no"
                         checked={selectedOptionECO === "no"}
-                        onChange={() => {}}
+                        onChange={() => { }}
                       />
                       <div className="circulo"></div>{" "}
                       {/* Agregar un div para el círculo */}
@@ -358,9 +355,8 @@ const SecondModule = () => {
                     <label>EG CONFIABLE por</label>
                     <label>FUM</label>
                     <label
-                      className={`opcion ${
-                        selectedOptionFUM === "si" ? "seleccionado" : ""
-                      }`}
+                      className={`opcion ${selectedOptionFUM === "si" ? "seleccionado" : ""
+                        }`}
                       onClick={() => setSelectedOptionFUM("si")}
                     >
                       <input
@@ -368,16 +364,15 @@ const SecondModule = () => {
                         name="opcionEG"
                         value="si"
                         checked={selectedOptionFUM === "si"}
-                        onChange={() => {}}
+                        onChange={() => { }}
                       />
                       <div className="circulo"></div>{" "}
                       {/* Agregar un div para el círculo */}
                       Sí
                     </label>
                     <label
-                      className={`opcion ${
-                        selectedOptionFUM === "no" ? "seleccionado" : ""
-                      }`}
+                      className={`opcion ${selectedOptionFUM === "no" ? "seleccionado" : ""
+                        }`}
                       onClick={() => setSelectedOptionFUM("no")}
                     >
                       <input
@@ -385,7 +380,7 @@ const SecondModule = () => {
                         name="opcionEG"
                         value="no"
                         checked={selectedOptionFUM === "no"}
-                        onChange={() => {}}
+                        onChange={() => { }}
                       />
                       <div className="circulo"></div>{" "}
                       {/* Agregar un div para el círculo */}
@@ -393,22 +388,20 @@ const SecondModule = () => {
                     </label>
                   </div>
                 </div>
-                
+
               </div>
 
               <div className="table-container">
                 {trimestresData.map((trimestre, index) => (
                   <div className="table-row" key={index}>
-                    <div className="trimestre-cell">{`Trimestre ${
-                      index + 1
-                    }`}</div>
+                    <div className="trimestre-cell">{`Trimestre ${index + 1
+                      }`}</div>
                     <div className="data-cell">
                       <div className="data-item">
                         <label>Fuma PAS</label>
                         <div
-                          className={`opcion ${
-                            trimestre.fumaPas === "si" ? "seleccionado" : ""
-                          }`}
+                          className={`opcion ${trimestre.fumaPas === "si" ? "seleccionado" : ""
+                            }`}
                           onClick={() =>
                             handleTrimestreChange(index, "fumaPas", "si")
                           }
@@ -416,9 +409,8 @@ const SecondModule = () => {
                           <div className="circulo"></div> Sí
                         </div>
                         <div
-                          className={`opcion ${
-                            trimestre.fumaPas === "no" ? "seleccionado" : ""
-                          }`}
+                          className={`opcion ${trimestre.fumaPas === "no" ? "seleccionado" : ""
+                            }`}
                           onClick={() =>
                             handleTrimestreChange(index, "fumaPas", "no")
                           }
@@ -429,9 +421,8 @@ const SecondModule = () => {
                       <div className="data-item">
                         <label>Fuma ACT</label>
                         <div
-                          className={`opcion ${
-                            trimestre.fumaAct === "si" ? "seleccionado" : ""
-                          }`}
+                          className={`opcion ${trimestre.fumaAct === "si" ? "seleccionado" : ""
+                            }`}
                           onClick={() =>
                             handleTrimestreChange(index, "fumaAct", "si")
                           }
@@ -439,9 +430,8 @@ const SecondModule = () => {
                           <div className="circulo"></div> Sí
                         </div>
                         <div
-                          className={`opcion ${
-                            trimestre.fumaAct === "no" ? "seleccionado" : ""
-                          }`}
+                          className={`opcion ${trimestre.fumaAct === "no" ? "seleccionado" : ""
+                            }`}
                           onClick={() =>
                             handleTrimestreChange(index, "fumaAct", "no")
                           }
@@ -452,9 +442,8 @@ const SecondModule = () => {
                       <div className="data-item">
                         <label>Droga</label>
                         <div
-                          className={`opcion ${
-                            trimestre.droga === "si" ? "seleccionado" : ""
-                          }`}
+                          className={`opcion ${trimestre.droga === "si" ? "seleccionado" : ""
+                            }`}
                           onClick={() =>
                             handleTrimestreChange(index, "droga", "si")
                           }
@@ -462,9 +451,8 @@ const SecondModule = () => {
                           <div className="circulo"></div> Sí
                         </div>
                         <div
-                          className={`opcion ${
-                            trimestre.droga === "no" ? "seleccionado" : ""
-                          }`}
+                          className={`opcion ${trimestre.droga === "no" ? "seleccionado" : ""
+                            }`}
                           onClick={() =>
                             handleTrimestreChange(index, "droga", "no")
                           }
@@ -475,9 +463,8 @@ const SecondModule = () => {
                       <div className="data-item">
                         <label>Alcohol</label>
                         <div
-                          className={`opcion ${
-                            trimestre.alcohol === "si" ? "seleccionado" : ""
-                          }`}
+                          className={`opcion ${trimestre.alcohol === "si" ? "seleccionado" : ""
+                            }`}
                           onClick={() =>
                             handleTrimestreChange(index, "alcohol", "si")
                           }
@@ -485,9 +472,8 @@ const SecondModule = () => {
                           <div className="circulo"></div> Sí
                         </div>
                         <div
-                          className={`opcion ${
-                            trimestre.alcohol === "no" ? "seleccionado" : ""
-                          }`}
+                          className={`opcion ${trimestre.alcohol === "no" ? "seleccionado" : ""
+                            }`}
                           onClick={() =>
                             handleTrimestreChange(index, "alcohol", "no")
                           }
@@ -498,9 +484,8 @@ const SecondModule = () => {
                       <div className="data-item">
                         <label>Violencia</label>
                         <div
-                          className={`opcion ${
-                            trimestre.violencia === "si" ? "seleccionado" : ""
-                          }`}
+                          className={`opcion ${trimestre.violencia === "si" ? "seleccionado" : ""
+                            }`}
                           onClick={() =>
                             handleTrimestreChange(index, "violencia", "si")
                           }
@@ -508,9 +493,8 @@ const SecondModule = () => {
                           <div className="circulo"></div> Sí
                         </div>
                         <div
-                          className={`opcion ${
-                            trimestre.violencia === "no" ? "seleccionado" : ""
-                          }`}
+                          className={`opcion ${trimestre.violencia === "no" ? "seleccionado" : ""
+                            }`}
                           onClick={() =>
                             handleTrimestreChange(index, "violencia", "no")
                           }
@@ -533,9 +517,8 @@ const SecondModule = () => {
                     <div className="data-item">
                       <label>Previa</label>
                       <div
-                        className={`opcion ${
-                          item.previa === "previa" ? "seleccionado" : ""
-                        }`}
+                        className={`opcion ${item.previa === "previa" ? "seleccionado" : ""
+                          }`}
                         onClick={() =>
                           handleAntirubeola(index, "previa", "previa")
                         }
@@ -545,9 +528,8 @@ const SecondModule = () => {
 
                       <label>Embarazo</label>
                       <div
-                        className={`opcion ${
-                          item.embarazo === "embarazo" ? "seleccionado" : ""
-                        }`}
+                        className={`opcion ${item.embarazo === "embarazo" ? "seleccionado" : ""
+                          }`}
                         onClick={() =>
                           handleAntirubeola(index, "embarazo", "embarazo")
                         }
@@ -558,9 +540,8 @@ const SecondModule = () => {
                     <div className="data-item">
                       <label>No sabe</label>
                       <div
-                        className={`opcion ${
-                          item.noSabe === "noSabe" ? "seleccionado" : ""
-                        }`}
+                        className={`opcion ${item.noSabe === "noSabe" ? "seleccionado" : ""
+                          }`}
                         onClick={() =>
                           handleAntirubeola(index, "noSabe", "noSabe")
                         }
@@ -570,9 +551,8 @@ const SecondModule = () => {
 
                       <label>No</label>
                       <div
-                        className={`opcion ${
-                          item.no === "no" ? "seleccionado" : ""
-                        }`}
+                        className={`opcion ${item.no === "no" ? "seleccionado" : ""
+                          }`}
                         onClick={() => handleAntirubeola(index, "no", "no")}
                       >
                         <div className="circulo"></div>
@@ -644,7 +624,7 @@ const SecondModule = () => {
             {/* Esta tabla es para EXNORMAL */}
 
             <div className="table-container">
-             
+
               {ExNormal.map((item, index) => (
                 <div className="table-row" key={index}>
                   <div className="trimestre-cell">ExNormal</div>
@@ -652,17 +632,15 @@ const SecondModule = () => {
                     <div className="data-item">
                       <label>ODONT</label>
                       <div
-                        className={`opcion ${
-                          item.Odont === "si" ? "seleccionado" : ""
-                        }`}
+                        className={`opcion ${item.Odont === "si" ? "seleccionado" : ""
+                          }`}
                         onClick={() => handleExNormal(index, "Odont", "si")}
                       >
                         <div className="circulo"></div> Sí
                       </div>
                       <div
-                        className={`opcion ${
-                          item.Odont === "no" ? "seleccionado" : ""
-                        }`}
+                        className={`opcion ${item.Odont === "no" ? "seleccionado" : ""
+                          }`}
                         onClick={() => handleExNormal(index, "Odont", "no")}
                       >
                         <div className="circulo"></div> No
@@ -672,17 +650,15 @@ const SecondModule = () => {
                     <div className="data-item">
                       <label>MAMAS</label>
                       <div
-                        className={`opcion ${
-                          item.Mamas === "si" ? "seleccionado" : ""
-                        }`}
+                        className={`opcion ${item.Mamas === "si" ? "seleccionado" : ""
+                          }`}
                         onClick={() => handleExNormal(index, "Mamas", "si")}
                       >
                         <div className="circulo"></div> Sí
                       </div>
                       <div
-                        className={`opcion ${
-                          item.Mamas === "no" ? "seleccionado" : ""
-                        }`}
+                        className={`opcion ${item.Mamas === "no" ? "seleccionado" : ""
+                          }`}
                         onClick={() => handleExNormal(index, "Mamas", "no")}
                       >
                         <div className="circulo"></div> No
@@ -706,11 +682,10 @@ const SecondModule = () => {
                   <div className="data-cell">
                     <div className="data-item">
                       <div
-                        className={`opcion ${
-                          Cervix[index].normal === "normal"
-                            ? "seleccionado"
-                            : ""
-                        }`}
+                        className={`opcion ${Cervix[index].normal === "normal"
+                          ? "seleccionado"
+                          : ""
+                          }`}
                         onClick={() => handleCervix(index, "normal", "normal")}
                       >
                         <div className="circulo"></div> Normal
@@ -718,11 +693,10 @@ const SecondModule = () => {
                     </div>
                     <div className="data-item">
                       <div
-                        className={`opcion ${
-                          Cervix[index].anormal === "anormal"
-                            ? "seleccionado"
-                            : ""
-                        }`}
+                        className={`opcion ${Cervix[index].anormal === "anormal"
+                          ? "seleccionado"
+                          : ""
+                          }`}
                         onClick={() =>
                           handleCervix(index, "anormal", "anormal")
                         }
@@ -732,11 +706,10 @@ const SecondModule = () => {
                     </div>
                     <div className="data-item">
                       <div
-                        className={`opcion ${
-                          Cervix[index].noSeHizo === "noSeHizo"
-                            ? "seleccionado"
-                            : ""
-                        }`}
+                        className={`opcion ${Cervix[index].noSeHizo === "noSeHizo"
+                          ? "seleccionado"
+                          : ""
+                          }`}
                         onClick={() =>
                           handleCervix(index, "noSeHizo", "noSeHizo")
                         }
@@ -747,7 +720,7 @@ const SecondModule = () => {
                   </div>
                 </div>
               ))}
-              
+
             </div>
 
             <button
@@ -763,4 +736,4 @@ const SecondModule = () => {
   );
 };
 
-export default SecondModule;
+export default SecondModuleScreen;

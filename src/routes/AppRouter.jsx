@@ -4,10 +4,10 @@ import SplashScreen from "../pages/SplashScreen";
 import LoginScreen from "../pages/LoginScreen";
 import HomeScreen from "../pages/HomeScreen";
 import AdminScreen from "../pages/AdminScreen";
-import FirstModule from "../pages/FirstModuleScreen";
+import FirstModuleScreen from "../pages/FirstModuleScreen";
 import { auth, db } from "../services/FirebaseServices";
-import SecondModule from "../pages/SecondModule";
-import ThirdModule from "../pages/ThirdModule";
+import SecondModuleScreen from "../pages/SecondModuleScreen";
+import ThirdModuleScreen from "../pages/ThirdModuleScreen";
 import FourthModule from "../pages/FourthModule";
 
 const AppRouter = () => {
@@ -56,9 +56,9 @@ const AppRouter = () => {
       <Route path="/admin">
         {role === "admin" && isLoggedIn ? <AdminScreen onSignOut={handleSignOut} /> : <LoginScreen />}
       </Route>
-      <Route path="/firstmodule" component={FirstModule} />
-      <Route path="/secondmodule" component={SecondModule} />
-      <Route path="/thirdmodule" component={ThirdModule} />
+      <Route path="/firstmodule" component={FirstModuleScreen} />
+      <Route path="/secondmodule" component={SecondModuleScreen} />
+      <Route path="/thirdmodule" component={ThirdModuleScreen} />
       <Route path="/fourthmodule" component={FourthModule} />
 
     </Switch>

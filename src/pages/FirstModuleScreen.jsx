@@ -1,6 +1,6 @@
 import NavBarComponent from "../components/NavbarComponent";
 
-const FirstModule = () => {
+const FirstModuleScreen = () => {
     return (
         <div>
             <NavBarComponent />
@@ -9,4 +9,4 @@ const FirstModule = () => {
     )
 }
 
-export default FirstModule;
+export default FirstModuleScreen;

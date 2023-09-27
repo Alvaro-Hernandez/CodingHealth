@@ -1,10 +1,9 @@
 import NavBarComponent from "../components/NavbarComponent";
-
-import React, { useState } from "react";
+import { useState } from "react";
 import { db } from '../services/FirebaseServices';
-import '../styles/SecondModule.css'
+import '../styles/thirdModuleStyle.css';
 
-const SecondModule = () => {
+const ThirdModuleScreen = () => {
     const [parto, setParto] = useState("");
     const [message, setMessage] = useState("");
     const [loader, setLoader] = useState(false);
@@ -143,7 +142,6 @@ const SecondModule = () => {
                 Hemorragias: Hemorragias,
                 EnfermedadesData: EnfermedadesData,
                 DetallesPartoGrama: DetallesPartoGrama,
-                DetallesPartoGrama: DetallesPartoGrama,
                 DiasHospitalizado: DiasHospitalizado,
                 mostrarCamposAdicionales: mostrarCamposAdicionales,
                 Hospitalizado_en_Enbarazo: Hospitalizado_en_Enbarazo,
@@ -280,7 +278,7 @@ const SecondModule = () => {
             <section>
                 <div className="form-container"> <h1 className="nombre">Modulo Madre 🤳</h1>
                     <form className="form" onSubmit={handleSubmit}>
-                    <div className="table-container">
+                        <div className="table-container">
                             <div className="row-container">
                                 <div className="column">
                                     <label>Parto o Aborto</label>
@@ -1163,7 +1161,7 @@ const SecondModule = () => {
                             </table>
                         </div>
 
-                   {/* estas son de prueba */}
+                        {/* estas son de prueba */}
                         <div className="table-container">
                             {Posicion_Parto.map((detalle, index) => (
                                 <div className="row-container" key={index}>
@@ -1226,4 +1224,4 @@ const SecondModule = () => {
     )
 }
 
-export default SecondModule;
+export default ThirdModuleScreen;
