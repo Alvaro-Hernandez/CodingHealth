@@ -1,0 +1,174 @@
+
+  /* Estos son estilos de el componente madre*/
+  .form {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    margin-top: 20px;
+  }
+  
+  
+  select,
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .submit-button {
+    background-color: rgb(2, 2, 110);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button.loading {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  .custom-select {
+    width: 200px;
+    height: 40px;
+  }
+  
+ 
+  
+  .contenedor-carti{
+    width: 150px;
+    height: 30px;
+  }
+  /* estoas son estilos para la tabla */
+  .table-container{
+    margin-bottom: 15px;
+    overflow-x: auto;
+    color: black;
+  }
+  
+  table{
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  
+  }
+  
+  td{
+    padding: 15px;
+    /* border: 1px solid #ccc; */
+    text-align: center;
+  
+  }
+  table td:first-child{
+    text-align: left;
+  }
+  input[type="number"],
+  input[type="text"],
+  input[type="date"],
+  textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box; /* Incluye el padding en el ancho total */
+  }
+  
+  textarea {
+    width: 100%;
+    max-width: 100%; /* Asegura que el textarea no se desborde */
+    min-width: 100%; /* Asegura que el textarea tenga un ancho mínimo del 100% */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box; /* Incluye el padding en el ancho total */
+    resize: vertical; /* Permite la redimensión vertical */
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: black;
+  }
+  /* esto es de la tabla de enfermedades */
+  .circulo {
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    border: 2px solid #000;
+    border-radius: 50%;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+    color: black;
+  }
+  
+  /* Estilo para el círculo seleccionado */
+  .opcion.seleccionado .circulo {
+    background-color: yellow; /* Cambia el color de fondo del círculo al seleccionar */
+  }
+  
+  .table-row {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #ccc;
+    padding: 8px 12px;
+  }
+  
+  .trimestre-cell {
+    flex: 1;
+    text-align: left;
+    padding: 6px;
+    font-weight: bold;
+    color: black;
+  }
+  
+  .data-cell {
+    display: flex;
+    flex: 3;
+    justify-content: space-between;
+    color: black;
+  }
+  
+  .data-item {
+    flex: 1;
+    text-align: left;
+    padding: 6px;
+    color: black;
+  }
+  .EstiloEnfer-medades{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+
+
+  .column {
+    flex: 1; /* Cada columna se expandirá para ocupar el espacio disponible */
+    max-width: calc(30% - 10px); /* Ancho máximo de cada columna (20% del ancho total - espacio entre columnas) */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espacio entre elementos en la columna */
+    padding: 15px;
+  }
+  .row-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Espacio entre las filas y las columnas */
+    text-align: center;
+    padding: 15px;
+  }
+  
+  
+ 
+ 
