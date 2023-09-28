@@ -8,7 +8,7 @@ import FirstModuleScreen from "../pages/FirstModuleScreen";
 import { auth, db } from "../services/FirebaseServices";
 import SecondModuleScreen from "../pages/SecondModuleScreen";
 import ThirdModuleScreen from "../pages/ThirdModuleScreen";
-import FourthModule from "../pages/FourthModule";
+import FourthModuleScreen from "../pages/FourthModuleScreen";
 
 const AppRouter = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -34,10 +34,16 @@ const AppRouter = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleSignOut = () => {
-    setLoggedIn(false);
-    setRole("");
-    // Aquí también puedes agregar lógica para cerrar sesión en Firebase si lo deseas
+  const handleSignOut = async () => {
+    try {
+      await auth.signOut();
+      setLoggedIn(false);
+      setRole("");
+
+    } catch (error) {
+
+      console.error("Error al cerrar sesión:", error);
+    }
   }
 
   if (!initialCheckDone) {
@@ -56,10 +62,18 @@ const AppRouter = () => {
       <Route path="/admin">
         {role === "admin" && isLoggedIn ? <AdminScreen onSignOut={handleSignOut} /> : <LoginScreen />}
       </Route>
-      <Route path="/firstmodule" component={FirstModuleScreen} />
-      <Route path="/secondmodule" component={SecondModuleScreen} />
-      <Route path="/thirdmodule" component={ThirdModuleScreen} />
-      <Route path="/fourthmodule" component={FourthModule} />
+      <Route path="/firstmodule">
+        <FirstModuleScreen onSignOut={handleSignOut} />
+      </Route>
+      <Route path="/secondmodule">
+        <SecondModuleScreen onSignOut={handleSignOut} />
+      </Route>
+      <Route path="/thirdmodule">
+        <ThirdModuleScreen onSignOut={handleSignOut} />
+      </Route>
+      <Route path="/fourthmodule">
+        <FourthModuleScreen onSignOut={handleSignOut} />
+      </Route>
 
     </Switch>
   );

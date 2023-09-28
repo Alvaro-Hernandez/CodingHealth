@@ -1,9 +1,14 @@
-import NavBarComponent from "../components/NavbarComponent";
+import PropTypes from "prop-types"
+import { useLocation } from "wouter";
 import { useState } from "react";
+import NavBarComponent from "../components/NavbarComponent";
 import { db } from '../services/FirebaseServices';
 import '../styles/thirdModuleStyle.css';
 
-const ThirdModuleScreen = () => {
+const ThirdModuleScreen = ({ onSignOut }) => {
+
+    const [, setLocation] = useLocation();
+
     const [parto, setParto] = useState("");
     const [message, setMessage] = useState("");
     const [loader, setLoader] = useState(false);
@@ -267,11 +272,15 @@ const ThirdModuleScreen = () => {
     };
 
 
+    const handleLogout = () => {
+        onSignOut();
+        setLocation("/login");
+    }
 
     return (
         <div>
 
-            <NavBarComponent />
+            <NavBarComponent onSignOut={handleLogout} />
 
 
 
@@ -1222,6 +1231,10 @@ const ThirdModuleScreen = () => {
             </section>
         </div>
     )
+}
+
+ThirdModuleScreen.propTypes = {
+    onSignOut: PropTypes.func.isRequired,
 }
 
 export default ThirdModuleScreen;

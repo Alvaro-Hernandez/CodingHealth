@@ -1,12 +1,15 @@
-import NavBarComponent from "../components/NavbarComponent";
+import PropTypes from "prop-types";
+import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
+import NavBarComponent from "../components/NavbarComponent";
 import { db } from "../services/FirebaseServices";
 import "../styles/secondModuleStyle.css";
 
-const SecondModuleScreen = () => {
+const SecondModuleScreen = ({ onSignOut }) => {
   const [pesoAnterior, setPesoAnterior] = useState("");
   const [talla, setTalla] = useState("");
   const [imc, setIMC] = useState("");
+  const [, setLocation] = useLocation();
   //Fechas de FUM Y FPP
   const [DateFUM, setDateFUM] = useState("");
   const [DateFPP, setDateFPP] = useState("");
@@ -250,9 +253,14 @@ const SecondModuleScreen = () => {
     ]);
   };
 
+  const handleLogout = () => {
+    onSignOut();
+    setLocation("/login");
+  }
+
   return (
     <div>
-      <NavBarComponent />
+      <NavBarComponent onSignOut={handleLogout} />
 
       <section>
         <div className="form-container">
@@ -735,5 +743,9 @@ const SecondModuleScreen = () => {
     </div>
   );
 };
+
+SecondModuleScreen.propTypes = {
+  onSignOut: PropTypes.func.isRequired,
+}
 
 export default SecondModuleScreen;

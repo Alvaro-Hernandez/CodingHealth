@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useLocation } from "wouter";
 import NavBarComponent from "../components/NavbarComponent";
 
-const FirstModuleScreen = ({ onSignOut }) => {
+const FourthModuleScreen = ({ onSignOut }) => {
 
     const [, setLocation] = useLocation();
 
@@ -14,14 +14,13 @@ const FirstModuleScreen = ({ onSignOut }) => {
     return (
         <div>
             <NavBarComponent onSignOut={handleLogout} />
-            <h1>Hola Test</h1>
+            <h1>Cuarto Modulo</h1>
         </div>
     )
 }
 
-FirstModuleScreen.propTypes = {
+FourthModuleScreen.propTypes = {
     onSignOut: PropTypes.func.isRequired,
 };
 
-
-export default FirstModuleScreen;
+export default FourthModuleScreen;
