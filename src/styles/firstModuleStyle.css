@@ -1,0 +1,23 @@
+.firstModuleScreenContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: var(--global-height);
+  background: linear-gradient(160deg, #3db9fb 50%, #fff 50%);
+}
+
+.navContainer {
+  width: 100%;
+}
+
+.formControl {
+  display: flex;
+  justify-content: center;
+}
+.sectionForm {
+  background-color: #fff;
+  width: 80%;
+  height: 550px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
