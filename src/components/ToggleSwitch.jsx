@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import "../styles/toggleSwitch.css"; // Asegúrate de vincular el archivo CSS adecuado
+import { useState } from "react";
+import PropTypes from "prop-types";
+import "../styles/toggleSwitchStyle.css"
 
 const ToggleSwitch = ({ isChecked, onChange }) => {
   const [checked, setChecked] = useState(isChecked);
@@ -18,6 +19,11 @@ const ToggleSwitch = ({ isChecked, onChange }) => {
       </span>
     </label>
   );
+};
+
+ToggleSwitch.propTypes = {
+  isChecked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default ToggleSwitch;
