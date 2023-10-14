@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import NavBarComponent from "../components/NavbarComponent";
-import CardFunction from "../components/CardfunctionComponent";
+import CardFunction from "../components/CardFunctionComponent";
 import imgStatistics from "../assets/estadisticas.png";
 import imgPrimur from "../assets/cartillaPerinatal.png";
 import imgWebHearth from "../assets/webMinsa.png";

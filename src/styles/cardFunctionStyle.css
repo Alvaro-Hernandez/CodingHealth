@@ -1,0 +1,29 @@
+.transparent-card {
+  width: 435px;
+  height: 450px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.transparent-card-image {
+  width: 320px;
+  height: 320px;
+  display: block;
+  margin: 0 auto;
+}
+
+.transparent-card-text {
+  margin-top: 20px;
+  text-align: center;
+  overflow: hidden;
+  word-wrap: break-word;
+  font-size: 32px;
+  font-family: "Outfit", sans-serif;
+  font-weight: 600;
+}
