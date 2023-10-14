@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import '../styles/cardModuleStyle.css';
 import { useLocation } from "wouter";
+import '../styles/cardModuleStyle.css';
 
 const CardModule = ({ imageSrc, text, route }) => {
     const [, setLocation] = useLocation();
