@@ -1,6 +1,5 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-// import { auth } from "../services/FirebaseServices";
 import ErrorModal from "./MessageErrorModal";
 import '../styles/navStyle.css';
 import logo from "../assets/logo.png";
