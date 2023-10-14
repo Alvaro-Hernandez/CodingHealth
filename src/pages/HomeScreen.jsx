@@ -1,10 +1,9 @@
 import PropTypes from "prop-types";
 import NavBarComponent from "../components/NavbarComponent";
-import CardModule from "../components/CardModuleComponent";
-import imgFirstModule from "../assets/atencion-medica.png";
-import imgSecondModule from "../assets/embarazada.png";
-import imgThirdModule from "../assets/ultrasonido.png";
-import imgFourthModule from "../assets/cadera.png";
+import CardFunction from "../components/CardfunctionComponent";
+import imgStatistics from "../assets/estadisticas.png";
+import imgPrimur from "../assets/cartillaPerinatal.png";
+import imgWebHearth from "../assets/webMinsa.png";
 import '../styles/homeStyle.css';
 
 const HomeScreen = ({ onSignOut }) => {
@@ -14,27 +13,22 @@ const HomeScreen = ({ onSignOut }) => {
                 <NavBarComponent onSignOut={onSignOut} />
             </div>
 
-            <div className="itemContainer">
-                <div className="cardsContainer">
-                    <CardModule
-                        imageSrc={imgFirstModule}
-                        text="Datos de Filiación y Antecedentes"
-                        route="/firstmodule"
+            <div className="homeItemContainer">
+                <div className="homeCardsContainer">
+                    <CardFunction
+                        imageSrc={imgStatistics}
+                        text="Estadísticas"
+                        route="/statistics"
                     />
-                    <CardModule
-                        imageSrc={imgSecondModule}
-                        text="Gestación actual"
-                        route="/secondmodule"
+                    <CardFunction
+                        imageSrc={imgPrimur}
+                        text="Cartilla Perinatal"
+                        route="/modules"
                     />
-                    <CardModule
-                        imageSrc={imgThirdModule}
-                        text="Parto o Aborto"
-                        route="/thirdmodule"
-                    />
-                    <CardModule
-                        imageSrc={imgFourthModule}
-                        text="Puerperio"
-                        route="/fourthmodule"
+                    <CardFunction
+                        imageSrc={imgWebHearth}
+                        text="Web Minsa"
+                        route="/webminsa"
                     />
                 </div>
             </div>
