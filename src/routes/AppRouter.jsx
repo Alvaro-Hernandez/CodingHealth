@@ -9,6 +9,9 @@ import { auth, db } from "../services/FirebaseServices";
 import SecondModuleScreen from "../pages/SecondModuleScreen";
 import ThirdModuleScreen from "../pages/ThirdModuleScreen";
 import FourthModuleScreen from "../pages/FourthModuleScreen";
+import ModuleScreen from "../pages/ModuleScreen";
+import WebMinsaScreen from "../pages/WebMinsaScreen";
+import StatisticsScreen from "../pages/StatisticsScreen";
 
 const AppRouter = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -61,6 +64,15 @@ const AppRouter = () => {
       </Route>
       <Route path="/admin">
         {role === "admin" && isLoggedIn ? <AdminScreen onSignOut={handleSignOut} /> : <LoginScreen />}
+      </Route>
+      <Route path="/modules">
+        {role === "minsa" && isLoggedIn ? <ModuleScreen onSignOut={handleSignOut} /> : <LoginScreen />}
+      </Route>
+      <Route path="/statistics">
+        <StatisticsScreen onSignOut={handleSignOut} />
+      </Route>
+      <Route path="/webminsa">
+        <WebMinsaScreen onSignOut={handleSignOut} />
       </Route>
       <Route path="/firstmodule">
         <FirstModuleScreen onSignOut={handleSignOut} />
