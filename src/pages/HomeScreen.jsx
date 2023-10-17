@@ -23,7 +23,7 @@ const HomeScreen = ({ onSignOut }) => {
                     <CardFunction
                         imageSrc={imgPrimur}
                         text="Cartilla Perinatal"
-                        route="/modules"
+                        route="/search"
                     />
                     <CardFunction
                         imageSrc={imgWebHearth}
