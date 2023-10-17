@@ -1,189 +1,371 @@
-.form {
-    max-width: 90%; /* El elemento no superará el 100% del ancho de su contenedor */
-    margin: 0 auto;
-    padding: 2%; /* Utilizamos un porcentaje para el padding */
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #fff;
-    margin-top: 2%; /* Utilizamos un porcentaje para el margen superior */
-  }
-  
-select,
-input[type="text"],
-input[type="number"],
-input[type="date"],
-textarea {
+/* Estilo para el contenedor principal */
+.secondModuleScreenContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: var(--global-height);
+  background: linear-gradient(160deg, #3db9fb 50%, #fff 50%);
+}
+
+/* Estilo para el contenedor de navegación */
+.navContainer {
+  width: 100%;
+}
+/* Estilos para la leyenda */
+legend {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 0px;
+  margin: 20px;
+}
+
+/* Estilo para el formulario */
+.formControl {
+  display: flex;
+  justify-content: center;
+}
+.sectionForm {
+  background-color: #fff;
+  width: 95%;
+  height: 2000px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+
+/* Estilo para los campos de entrada */
+.input-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin: 12px;
+}
+
+.inputNumber {
+  width: 100%;
+  height: 15px; 
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  max-width: 100%;
+}
+.inputDate{
+  width: 100%;
+  height: 15px; 
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  max-width: 100%;
+}
+
+/* Estilo para cada campo de entrada */
+.input-field {
+  flex: 1;
+  margin-right: 30px;
+  font-weight: bold;
+  font-size: 15px;
+  align-items: center;
+}
+.input-togger{
+  margin-right: 25px; /* Espacio entre los campos */
+}
+
+/* Estilo para el botón */
+.ButtonEnviar {
   padding: 5px;
-  margin-bottom: 16px;
-  border: 1px solid #3DB9FB;
-  border-radius: 4px;
-}
-
-.submit-button {
-  background-color: rgb(70, 209, 255);
+  background-color: #3db9fb;
   color: white;
-  padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 30px;
+  font-family: "Outfit", sans-serif;
+  font-weight: 600;
+  width: 20%;
+  background-position: center;
+}
+.button-container{
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
-.submit-button.loading {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-.custom-select {
-  width: 200px;
-  height: 40px;
-}
 
-.opcion input[type="radio"] {
-  display: none; /* Oculta el input radio nativo */
-}
+/* Estilo para el contenedor de trimestres */
 
-.circulo {
-  width: 10px;
-  height: 10px;
-  background-color: transparent;
-  border: 2px solid #000;
-  border-radius: 50%;
-  margin-right: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+.input-container-trimestre {
+  display: flex;
+  margin-top: 10px;
+  flex-direction: column;
+  width: 55%;
+  font-size: 16px;
+  margin-right: 5px; /* Espacio entre los campos */
+ 
+ 
 }
 
-/* Estilo para el círculo seleccionado */
-.opcion.seleccionado .circulo {
-  background-color: yellow; /* Cambia el color de fondo del círculo al seleccionar */
+.trimestre-cell {
+  flex: 1;
+  text-align: left;
+  /* padding: 6px; */
+  font-weight: bold;
+  color: black;
+  
 }
 
-  /* Estilos para filas */
-  .row-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; /* Espacio entre las filas y las columnas */
-    
-  }
-  
-  /* Estilos para cada columna */
-  .column {
-    flex: 1; /* Cada columna se expandirá para ocupar el espacio disponible */
-    max-width: calc(30% - 10px); /* Ancho máximo de cada columna (20% del ancho total - espacio entre columnas) */
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Espacio entre elementos en la columna */
-  }
-  
-  /* Estilos para los elementos en las columnas */
-  .peso-anterior-container,
-  .talla,
-  .pesoIMC {
-    width: 100%; /* Ocupa todo el ancho disponible en la columna */
-  }
-  
-  .opcion input[type="radio"] {
-    display: none; /* Oculta el input radio nativo */
-  }
-  
+.data-cell {
+  display: flex;
+  justify-content: space-between;
+  /* flex: 5; */
+  align-items: center;
+  color: black;
+  /* padding: 6px 50; */
+}
+
+.input-togger-trimestre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 55%;
+  text-align: center;
+  color: black;
+  /* margin: 4px 30; */
+}
+
+.input-container-trimestre label {
+  margin-bottom: 10px;
+   margin-right: 10px;
+}
 
 
-  .trimestre-container{
-    transform: translate(0, -250px);
-   
-  }
-  
-  .containerTrimestre {
-    display: flex;
-    justify-content: space-between; /* Distribuir los trimestres horizontalmente */
-    gap: 10px; /* Espacio entre los trimestres */
-    padding: 0px;
-    color:black;
-  }
-  .col {
-    text-align: right;
-    margin: 0;
-  }
-  
-  
-  /* Reduce el tamaño de los nombres de los trimestres */
-  .trimestreTitulo {
-    font-size: 14px; /* Ajusta el tamaño de fuente según tus preferencias */
-  }
-   
-  
-  /* Estilos para la tabla y sus elementos */
-  .table-container {
-    margin-bottom: 15px;
-    overflow-x: auto; /* Agrega desplazamiento horizontal si es necesario */
-  }
-  .tableAntirubeola{
-    margin-bottom: 5px;
-    overflow-x: auto; /* Agrega desplazamiento horizontal si es necesario */
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed; /* Fuerza que el ancho de la tabla sea fijo */
-  }
-  
-  td {
-    padding: 10px;
-    border: 1px solid #ccc;
-    white-space: nowrap; /* Evita que el contenido de las celdas se rompa */
-    text-align: center; /* Centra el texto horizontalmente en las celdas */
-  }
-  
-  table td:first-child {
-    text-align: left; /* Alinea el texto a la izquierda en la primera columna */
-  }
 
-  textarea {
-    width: 100%;
-    max-width: 100%; /* Asegura que el textarea no se desborde */
-    min-width: 100%; /* Asegura que el textarea tenga un ancho mínimo del 100% */
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box; /* Incluye el padding en el ancho total */
-    resize: vertical; /* Permite la redimensión vertical */
-  }
-  .table-row {
-    display: flex;
-    align-items: center;
-    border-top: 1px solid #ccc;
-    padding: 8px 12px;
-  }
-  
-  .trimestre-cell {
-    flex: 1;
-    text-align: left;
-    padding: 6px;
-    font-weight: bold;
-    color: black;
-  }
-  
-  .data-cell {
-    display: flex;
-    flex: 3;
-    justify-content: space-between;
-    color: black;
-  }
-  
-  .data-item {
-    flex: 1;
-    text-align: left;
-    padding: 6px;
-    color: black;
-  }
-  
+/* ************************* */
 
-  /* Agrega estos estilos a tu hoja de estilo CSS */
-.opcion {
+.input-field-antirubeola {
+  display: flex;
+  flex-direction: row; /* Cambia la dirección de flexión a fila */
+  justify-content: space-between; /* Distribuye los elementos en la fila */
+  align-items: center;
+}
+.input-container-antirubeola{
+  margin-top: 20px; 
+}
+
+.input-field-antirubeola .data-item-antirubeola {
+  flex-basis: 20%; /* Establece el ancho de cada columna en aproximadamente 23% para crear cuatro columnas */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #fff;
+  text-align: center; /* Alinea el contenido al centro de cada columna */
+}
+
+.input-field-antirubeola label {
+  margin-bottom: 10px;
+   margin-right: 10px;
+}
+
+/* EXNORMAL */
+
+.input-field-exNormal {
   display: flex;
   align-items: center;
-  cursor: pointer;
 }
 
+.exNormal {
+  margin-right: 20px; /* Ajusta el margen derecho según tus preferencias */
+}
+
+.row-container {
+  display: flex;
+  align-items: center;
+}
+
+.row-item {
+  display: flex;
+  align-items: center;
+  margin-right: 20px; /* Espacio entre los elementos */
+}
+
+.input-togger-exNormal {
+  margin-right: 20px; /* Espacio entre los "toggler" */
+}
+
+
+/*ANTITECTANICA*/
+
+.input-container-antitectanica{
+  width: 100%;
+  margin-top: 20px; 
+}
+.input-field-antitectanica {
+  width: 100%;
+  
+}
+
+
+.inputDosis{
+  width: 30%;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.inputSelect {
+  width: 60%;
+  height: 40px; /* Ajusta la altura según tus preferencias */
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+
+/* CERVIX */
+.cervix-cell {
+  width: 20px; /* Ancho de separación entre columnas */
+  height: 1px; /* Altura de la separación */
+  background-color: #ccc; /* Color de la separación */
+  margin: 0 10px; /* Espacio entre la línea de separación y las columnas */
+}
+.table-container-cervix {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* ATENCIONES PRENATALES */
+.table-container-citas {
+  margin-bottom: 15px;
+  
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Fuerza que el ancho de la tabla sea fijo */
+
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center; /* Centra el texto horizontalmente en las celdas */
+}
+
+th {
+  background-color: #3db9fb; /* Color de fondo para las celdas del encabezado */
+  color: #000000; /* Color de texto para las celdas del encabezado */
+}
+
+textarea {
+  width: 100%;
+  max-width: 100%; /* Asegura que el textarea no se desborde */
+  min-width: 100%; /* Asegura que el textarea tenga un ancho mínimo del 100% */
+  padding: 5px;
+  font-size: 16px;
+  box-sizing: border-box; /* Incluye el padding en el ancho total */
+  resize: vertical; /* Permite la redimensión vertical */
+}
+/* Aplica estilos personalizados a los inputs dentro de la tabla */
+table input[type="text"],
+table input[type="number"],
+table input[type="date"],
+table input[type="text"] {
+  width: 100%;
+  padding: 4px;
+  font-size: 16px;
+  outline: none;
+  height: 25px;
+   border:none;
+}
+
+
+
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .input-field-antirubeola .data-item-antirubeola {
+    flex-basis: 48%; /* En pantallas más pequeñas, cambia el ancho de las columnas para que haya dos columnas por fila */
+  }
+}
+
+/* Add more responsive styles as needed */
+
+
+/* Media Query para ajustar el diseño en pantallas más pequeñas */
+@media (max-width: 768px) {
+  .table-row {
+    width: 100%; /* Ocupa todo el ancho en pantallas más pequeñas */
+  }
+  .input-togger-trimestre {
+    width: 20%; /* Cambia a tres columnas en pantallas pequeñas */
+   
+  }
+  .input-container-trimestre {
+    display: flex;
+    flex-direction: column; /* Cambia a una columna en pantallas pequeñas */
+    width: 95%;
+    max-width: 100%; /* Establece un ancho máximo */
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  .data-cell {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas más pequeñas */
+   
+  }
+}
+
+.input-togger-cervix {
+  /* Estilos generales para todos los "togglers" */
+  margin: 10px;
+ margin-left: 10px;
+ margin-right: 12px;
+}
+
+/* Estilos para pantallas más pequeñas (menos de 768px) */
+@media (max-width: 768px) {
+  .sectionForm {
+    width: 95%;
+  }
+  .inputNumber {
+    width: 100%;
+    
+  }
+  .inputDate{
+    width: 100%;
+    
+  }
+  .input-container {
+    justify-content: flex-start; /* Cambiar de 'space-between' a 'flex-start' */
+  }
+ 
+  
+}
+
+@media screen and (max-width: 576px) {
+  .sectionForm {
+    width: 95%;
+  }
+  .inputNumber {
+    width: 100%;
+   
+  }
+  .inputDate{
+    width: 100%;
+    
+  }
+  .input-container {
+    flex-direction: column; /* Cambia la disposición a una sola columna */
+  }
+  .input-field {
+    padding: 5px; /* Espacio alrededor de los campos */
+    width: 90%;
+  }
+
+}

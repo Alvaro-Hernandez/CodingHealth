@@ -6,18 +6,16 @@ import { db } from "../services/FirebaseServices";
 import "../styles/secondModuleStyle.css";
 
 const SecondModuleScreen = ({ onSignOut }) => {
+  const [, setLocation] = useLocation();
   const [pesoAnterior, setPesoAnterior] = useState("");
   const [talla, setTalla] = useState("");
   const [imc, setIMC] = useState("");
-  const [, setLocation] = useLocation();
-  //Fechas de FUM Y FPP
   const [DateFUM, setDateFUM] = useState("");
   const [DateFPP, setDateFPP] = useState("");
-
-  const [selectedOptionFUM, setSelectedOptionFUM] = useState(""); // Estado para la opción seleccionada
-  const [selectedOptionECO, setSelectedOptionECO] = useState(""); // Estado para la opción seleccionada
-
-  const [loader, setLoader] = useState(false); //Recargar boton guardar
+  const [selectedOptionFUM, setSelectedOptionFUM] = useState("");
+  const [selectedOptionECO, setSelectedOptionECO] = useState("");
+  const [loader, setLoader] = useState(false);
+  const cachedId = localStorage.getItem('cachedId');
 
   const [trimestresData, setTrimestresData] = useState([
     {
@@ -93,6 +91,23 @@ const SecondModuleScreen = ({ onSignOut }) => {
     },
   ]);
 
+  const [AtencionesPrenatales, setAtencionesPrenatales] = useState([
+    {
+      fecha: "",
+      edadGestacional: "",
+      peso: "",
+      PA: "",
+      alturaUterina: "",
+      presentacion: "",
+      FCF_IPM: "",
+      movimientosFetales: "",
+      proteinuna: "",
+      signosExamenesTratamiento: "",
+      inicialesPersonalSalud: "",
+      proximaCita: "",
+    },
+  ]);
+
   const handleCervix = (index, field, value) => {
     const updatedCervix = [...Cervix];
     updatedCervix[index][field] = value;
@@ -122,7 +137,12 @@ const SecondModuleScreen = ({ onSignOut }) => {
     setTrimestresData(updatedTrimestresData);
   };
 
-  //Funcion para calcular el IMC automatico
+  const handleAtencionesPrenatales = (index, field, value) => {
+    const updatedAtencionesPrenatales = [...AtencionesPrenatales];
+    updatedAtencionesPrenatales[index][field] = value;
+    setAtencionesPrenatales(updatedAtencionesPrenatales);
+  };
+
   useEffect(() => {
     calcularIMC();
   }, [pesoAnterior, talla]);
@@ -137,615 +157,735 @@ const SecondModuleScreen = ({ onSignOut }) => {
     setIMC(IMCResultado);
   };
 
-  // Boton submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validación de campos
     setLoader(true);
 
-    //Añade la colecciones de datos a la coleccion Gestacion
-    db.collection("GestacionActualizado")
-      .add({
-        pesoAnterior: pesoAnterior,
-        talla: talla,
-        imc: imc,
-        DateFUM: DateFUM,
-        DateFPP: DateFPP,
-        selectedOptionFUM: selectedOptionFUM, // Agregar la opción seleccionada
-        selectedOptionECO: selectedOptionECO, // Agregar la opción seleccionada
+    if (cachedId) {
+      try {
+        const docRef = db.collection("cartilla").doc(cachedId);
+        const doc = await docRef.get();
 
-        trimestresData: trimestresData,
-        Antirubeola: Antirubeola,
-        Antitetanica: Antitetanica,
-        ExNormal: ExNormal,
-        Cervix: Cervix,
-      })
-      .then(() => {
-        setLoader(false);
-        alert("ENVIADO CORRECTAMENTE👍");
-      })
-      .catch((error) => {
-        alert(error.message);
-        setLoader(false);
-      });
+        if (doc.exists) {
+          // obten los datos actuales del documento
+          const data = doc.data();
+          data.ModuloGestacionActual = {
+            pesoAnterior: pesoAnterior,
+            talla: talla,
+            imc: imc,
+            DateFUM: DateFUM,
+            DateFPP: DateFPP,
+            selectedOptionFUM: selectedOptionFUM,
+            selectedOptionECO: selectedOptionECO,
 
-    setPesoAnterior("");
-    setTalla("");
-    setIMC("");
-    setDateFUM("");
-    setDateFPP("");
-    setSelectedOptionFUM("");
-    setSelectedOptionECO("");
+            trimestresData: trimestresData,
+            Antirubeola: Antirubeola,
+            Antitetanica: Antitetanica,
+            ExNormal: ExNormal,
+            Cervix: Cervix,
+            AtencionesPrenatales: AtencionesPrenatales,
+          };
 
-    setAntirubeola([
-      {
-        previa: "",
-        noSabe: "",
-        embarazo: "",
-        no: "",
-      },
-    ]);
+          await docRef.set(data);
 
-    setAntitetanica([
-      {
-        Id: "id",
-        vigente: "",
-        Dosis1: "",
-        Dosis2: "",
-      },
-    ]);
+          Alert("Datos enviados con exito");
 
-    setExNormal([
-      {
-        Id: "id",
-        Odont: "",
-        Mamas: "",
-      },
-    ]);
+          setPesoAnterior("");
+          setTalla("");
+          setIMC("");
+          setDateFUM("");
+          setDateFPP("");
+          setSelectedOptionFUM("");
+          setSelectedOptionECO("");
 
-    setCervix([
-      {
-        InspVisual: "InspVisual",
-        normal: "",
-        anormal: "",
-        noSeHizo: "",
-      },
-      {
-        PAP: "PAP",
-        normal: "",
-        anormal: "",
-        noSeHizo: "",
-      },
-      {
-        COLP: "COLP",
-        normal: "",
-        anormal: "",
-        noSeHizo: "",
-      },
-    ]);
+          setAntirubeola([
+            {
+              previa: "",
+              noSabe: "",
+              embarazo: "",
+              no: "",
+            },
+          ]);
 
-    setTrimestresData([
-      {
-        trimestre: "Primer Trimestre",
-        fumaPas: "",
-        fumaAct: "",
-        droga: "",
-        alcohol: "",
-        violencia: "",
-      },
-      {
-        trimestre: "Segundo Trimestre",
-        fumaPas: "",
-        fumaAct: "",
-        droga: "",
-        alcohol: "",
-        violencia: "",
-      },
-      {
-        trimestre: "Tercer Trimestre",
-        fumaPas: "",
-        fumaAct: "",
-        droga: "",
-        alcohol: "",
-        violencia: "",
-      },
-    ]);
+          setAntitetanica([
+            {
+              Id: "id",
+              vigente: "",
+              Dosis1: "",
+              Dosis2: "",
+            },
+          ]);
+
+          setExNormal([
+            {
+              Id: "id",
+              Odont: "",
+              Mamas: "",
+            },
+          ]);
+
+          setCervix([
+            {
+              InspVisual: "InspVisual",
+              normal: "",
+              anormal: "",
+              noSeHizo: "",
+            },
+            {
+              PAP: "PAP",
+              normal: "",
+              anormal: "",
+              noSeHizo: "",
+            },
+            {
+              COLP: "COLP",
+              normal: "",
+              anormal: "",
+              noSeHizo: "",
+            },
+          ]);
+
+          setTrimestresData([
+            {
+              trimestre: "Primer Trimestre",
+              fumaPas: "",
+              fumaAct: "",
+              droga: "",
+              alcohol: "",
+              violencia: "",
+            },
+            {
+              trimestre: "Segundo Trimestre",
+              fumaPas: "",
+              fumaAct: "",
+              droga: "",
+              alcohol: "",
+              violencia: "",
+            },
+            {
+              trimestre: "Tercer Trimestre",
+              fumaPas: "",
+              fumaAct: "",
+              droga: "",
+              alcohol: "",
+              violencia: "",
+            },
+          ]);
+        } else {
+          console.error("El documento no existe");
+        }
+      } catch (error) {
+        console.log("Error al actualizar datos en firebase", error);
+      }
+    } else {
+      alert("No se pudo encontrar un Id válido en localStorage");
+    }
   };
 
   const handleLogout = () => {
     onSignOut();
     setLocation("/login");
-  }
+  };
 
   return (
-    <div>
-      <NavBarComponent onSignOut={handleLogout} />
+    <div className="secondModuleScreenContainer">
+      <div className="navContainer">
+        <NavBarComponent onSignOut={handleLogout} />
+      </div>
+      <div className="formControl">
+        <section className="sectionForm">
+          <form onSubmit={handleSubmit}>
+            <legend>Gestación Actual</legend>
 
-      <section>
-        <div className="form-container">
-          <h1 className="nombre">Modulo Gestación Actual 🤳</h1>
-
-          {/* Comienzo del Formulario */}
-          <form className="form" onSubmit={handleSubmit}>
-            <div className="containerPrincipal">
-              <div className="row-container">
-                <div className="column">
-                  <div className="peso-anterior-container">
-                    <label>PesoAnterior</label>
-                    <input
-                      type="number"
-                      step="0.1"
-                      value={pesoAnterior}
-                      onChange={(e) => setPesoAnterior(e.target.value)}
-                      placeholder="(Kg)"
-                    />
-                  </div>
+            <div className="input-container">
+              <div className="input-field">
+                <label>Peso</label>
+                <input
+                  className="inputNumber"
+                  type="number"
+                  step="0.1"
+                  value={pesoAnterior}
+                  onChange={(e) => setPesoAnterior(e.target.value)}
+                  placeholder="(Kg)"
+                />
+              </div>
+              <div className="input-field">
+                <label>Talla</label>
+                <input
+                  className="inputNumber"
+                  type="number"
+                  step="0.01"
+                  value={talla}
+                  onChange={(e) => setTalla(e.target.value)}
+                  placeholder="(m)"
+                />
+              </div>
+              <div className="input-field">
+                <label htmlFor="multi-last-name">IMC:</label>
+                <input
+                  className="inputNumber"
+                  type="number"
+                  step="0.01"
+                  required
+                  value={imc}
+                  readOnly
+                />
+              </div>
+              <div className="input-field">
+                <label htmlFor="multi-last-name">FUM</label>
+                <input
+                  className="inputDate"
+                  type="date"
+                  value={DateFUM}
+                  onChange={(e) => setDateFUM(e.target.value)}
+                />
+              </div>
+              <div className="input-field">
+                <label htmlFor="multi-last-name">FPP</label>
+                <input
+                  className="inputDate"
+                  type="date"
+                  value={DateFPP}
+                  onChange={(e) => setDateFPP(e.target.value)}
+                />
+              </div>
+              <div className="input-togger">
+                <div className="opcion">
+                  <label htmlFor="multi-last-Eco">ECOmenor20s</label>
+                  <ToggleSwitch
+                    className="pure-u-23-24"
+                    checked={selectedOptionECO === "si"}
+                    onChange={(newValue) =>
+                      setSelectedOptionECO(newValue ? "si" : "no")
+                    }
+                  />
                 </div>
-                <div className="column">
-                  <div className="talla">
-                    <label>Talla (m):</label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      value={talla}
-                      onChange={(e) => setTalla(e.target.value)}
-                    />
-                  </div>
+              </div>
+              <div className="input-togger">
+                <div className="opcion">
+                  <label htmlFor="multi-last-name">FUM</label>
+                  <ToggleSwitch
+                    className="pure-u-23-24"
+                    checked={selectedOptionFUM === "si"}
+                    onChange={(newValue) =>
+                      setSelectedOptionFUM(newValue ? "si" : "no")
+                    }
+                  />
                 </div>
-                <div className="column">
-                  <div className="pesoIMC">
-                    <label>IMC:</label>
-                    <input type="number" step="0.01" value={imc} readOnly />
-                  </div>
-                </div>
-                <div className="column">
-                  <div className="fechaFUM">
-                    <label>Fecha FUM:</label>
-                    <input
-                      type="date"
-                      value={DateFUM}
-                      onChange={(e) => setDateFUM(e.target.value)}
-                    />
-                    <div className="fechaFPP">
-                      <label>Fecha FPP:</label>
-                      <input
-                        type="date"
-                        value={DateFPP}
-                        onChange={(e) => setDateFPP(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="column">
-                  <div className="fechaFPP">
-                    <label htmlFor="radioSiECO">ECO menos 20 s</label>
-                    <label
-                      className={`opcion ${selectedOptionECO === "si" ? "seleccionado" : ""
-                        }`}
-                      onClick={() => setSelectedOptionECO("si")}
-                    >
-                      <input
-                        type="radio"
-                        id="radioSiECO"
-                        name="opcionECO"
-                        value="si"
-                        checked={selectedOptionECO === "si"}
-                        onChange={() => { }}
-                      />
-                      <div className="circulo"></div>{" "}
-                      {/* Agregar un div para el círculo */}
-                      Sí
-                    </label>
-                    <label
-                      htmlFor="radioNoECO"
-                      className={`opcion ${selectedOptionECO === "no" ? "seleccionado" : ""
-                        }`}
-                      onClick={() => setSelectedOptionECO("no")}
-                    >
-                      <input
-                        type="radio"
-                        id="radioNoECO"
-                        name="opcionECO"
-                        value="no"
-                        checked={selectedOptionECO === "no"}
-                        onChange={() => { }}
-                      />
-                      <div className="circulo"></div>{" "}
-                      {/* Agregar un div para el círculo */}
-                      No
-                    </label>
-                  </div>
-                </div>
-                <div className="column">
-                  <div className="fechaFPP">
-                    <label>EG CONFIABLE por</label>
-                    <label>FUM</label>
-                    <label
-                      className={`opcion ${selectedOptionFUM === "si" ? "seleccionado" : ""
-                        }`}
-                      onClick={() => setSelectedOptionFUM("si")}
-                    >
-                      <input
-                        type="radio"
-                        name="opcionEG"
-                        value="si"
-                        checked={selectedOptionFUM === "si"}
-                        onChange={() => { }}
-                      />
-                      <div className="circulo"></div>{" "}
-                      {/* Agregar un div para el círculo */}
-                      Sí
-                    </label>
-                    <label
-                      className={`opcion ${selectedOptionFUM === "no" ? "seleccionado" : ""
-                        }`}
-                      onClick={() => setSelectedOptionFUM("no")}
-                    >
-                      <input
-                        type="radio"
-                        name="opcionEG"
-                        value="no"
-                        checked={selectedOptionFUM === "no"}
-                        onChange={() => { }}
-                      />
-                      <div className="circulo"></div>{" "}
-                      {/* Agregar un div para el círculo */}
-                      No
-                    </label>
-                  </div>
-                </div>
-
               </div>
 
-              <div className="table-container">
+              <div className="input-container-trimestre">
                 {trimestresData.map((trimestre, index) => (
                   <div className="table-row" key={index}>
-                    <div className="trimestre-cell">{`Trimestre ${index + 1
-                      }`}</div>
+                    <div className="trimestre-cell">{`Trimestre ${
+                      index + 1
+                    }`}</div>
                     <div className="data-cell">
-                      <div className="data-item">
-                        <label>Fuma PAS</label>
-                        <div
-                          className={`opcion ${trimestre.fumaPas === "si" ? "seleccionado" : ""
-                            }`}
-                          onClick={() =>
-                            handleTrimestreChange(index, "fumaPas", "si")
+                      <div className="input-togger-trimestre">
+                        <label htmlFor={`fumaPas${index}`}>Fuma PAS</label>
+                        <ToggleSwitch
+                          id={`fumaPas${index}`}
+                          checked={trimestre.fumaPas === "si"}
+                          onChange={(newValue) =>
+                            handleTrimestreChange(index, "fumaPas", newValue)
                           }
-                        >
-                          <div className="circulo"></div> Sí
-                        </div>
-                        <div
-                          className={`opcion ${trimestre.fumaPas === "no" ? "seleccionado" : ""
-                            }`}
-                          onClick={() =>
-                            handleTrimestreChange(index, "fumaPas", "no")
-                          }
-                        >
-                          <div className="circulo"></div> No
-                        </div>
+                        />
                       </div>
-                      <div className="data-item">
-                        <label>Fuma ACT</label>
-                        <div
-                          className={`opcion ${trimestre.fumaAct === "si" ? "seleccionado" : ""
-                            }`}
-                          onClick={() =>
-                            handleTrimestreChange(index, "fumaAct", "si")
+                      <div className="input-togger-trimestre">
+                        <label htmlFor={`fumaAct${index}`}>Fuma ACT</label>
+                        <ToggleSwitch
+                          id={`fumaAct${index}`}
+                          checked={trimestre.fumaAct === "si"}
+                          onChange={(newValue) =>
+                            handleTrimestreChange(index, "fumaAct", newValue)
                           }
-                        >
-                          <div className="circulo"></div> Sí
-                        </div>
-                        <div
-                          className={`opcion ${trimestre.fumaAct === "no" ? "seleccionado" : ""
-                            }`}
-                          onClick={() =>
-                            handleTrimestreChange(index, "fumaAct", "no")
-                          }
-                        >
-                          <div className="circulo"></div> No
-                        </div>
+                        />
                       </div>
-                      <div className="data-item">
-                        <label>Droga</label>
-                        <div
-                          className={`opcion ${trimestre.droga === "si" ? "seleccionado" : ""
-                            }`}
-                          onClick={() =>
-                            handleTrimestreChange(index, "droga", "si")
+                      <div className="input-togger-trimestre">
+                        <label htmlFor={`droga${index}`}>DROGA</label>
+                        <ToggleSwitch
+                          id={`droga${index}`}
+                          checked={trimestre.droga === "si"}
+                          onChange={(newValue) =>
+                            handleTrimestreChange(index, "droga", newValue)
                           }
-                        >
-                          <div className="circulo"></div> Sí
-                        </div>
-                        <div
-                          className={`opcion ${trimestre.droga === "no" ? "seleccionado" : ""
-                            }`}
-                          onClick={() =>
-                            handleTrimestreChange(index, "droga", "no")
-                          }
-                        >
-                          <div className="circulo"></div> No
-                        </div>
+                        />
                       </div>
-                      <div className="data-item">
-                        <label>Alcohol</label>
-                        <div
-                          className={`opcion ${trimestre.alcohol === "si" ? "seleccionado" : ""
-                            }`}
-                          onClick={() =>
-                            handleTrimestreChange(index, "alcohol", "si")
+                      <div className="input-togger-trimestre">
+                        <label htmlFor={`alcohol${index}`}>ALCOHOL</label>
+                        <ToggleSwitch
+                          id={`alcohol${index}`}
+                          checked={trimestre.alcohol === "si"}
+                          onChange={(newValue) =>
+                            handleTrimestreChange(index, "alcohol", newValue)
                           }
-                        >
-                          <div className="circulo"></div> Sí
-                        </div>
-                        <div
-                          className={`opcion ${trimestre.alcohol === "no" ? "seleccionado" : ""
-                            }`}
-                          onClick={() =>
-                            handleTrimestreChange(index, "alcohol", "no")
-                          }
-                        >
-                          <div className="circulo"></div> No
-                        </div>
+                        />
                       </div>
-                      <div className="data-item">
-                        <label>Violencia</label>
-                        <div
-                          className={`opcion ${trimestre.violencia === "si" ? "seleccionado" : ""
-                            }`}
-                          onClick={() =>
-                            handleTrimestreChange(index, "violencia", "si")
+                      <div className="input-togger-trimestre">
+                        <label htmlFor={`violencia${index}`}>VIOLENCIA</label>
+                        <ToggleSwitch
+                          id={`violencia${index}`}
+                          checked={trimestre.violencia === "si"}
+                          onChange={(newValue) =>
+                            handleTrimestreChange(index, "violencia", newValue)
                           }
-                        >
-                          <div className="circulo"></div> Sí
-                        </div>
-                        <div
-                          className={`opcion ${trimestre.violencia === "no" ? "seleccionado" : ""
-                            }`}
-                          onClick={() =>
-                            handleTrimestreChange(index, "violencia", "no")
-                          }
-                        >
-                          <div className="circulo"></div> No
-                        </div>
+                        />
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
-            {/* Esto es para ANTIRUBEOLA */}
-
-            <div className="column">
-              <div>ANTIRUBEOLA</div>
-              {Antirubeola.map((item, index) => (
-                <div className="table-row" key={index}>
-                  <div className="data-cell">
-                    <div className="data-item">
-                      <label>Previa</label>
-                      <div
-                        className={`opcion ${item.previa === "previa" ? "seleccionado" : ""
-                          }`}
-                        onClick={() =>
-                          handleAntirubeola(index, "previa", "previa")
-                        }
-                      >
-                        <div className="circulo"></div>
+              <div className="input-container-antirubeola">
+                <label>ANTIRUBEOLA</label>
+                <div className="row-container">
+                  {Antirubeola.map((item, index) => (
+                    <div className="column" key={index}>
+                      <div className="data-item-antirubeola">
+                        <div className="input-field-antirubeola">
+                          <label htmlFor="multi-last-name">Previa</label>
+                          <ToggleSwitch
+                            checked={item.previa === "previa"}
+                            onChange={(newValue) =>
+                              handleAntirubeola(
+                                index,
+                                "previa",
+                                newValue ? "previa" : ""
+                              )
+                            }
+                          />
+                          <label htmlFor="multi-last-name">Embarazo</label>
+                          <ToggleSwitch
+                            checked={item.embarazo === "embarazo"}
+                            onChange={(newValue) =>
+                              handleAntirubeola(
+                                index,
+                                "embarazo",
+                                newValue ? "embarazo" : ""
+                              )
+                            }
+                          />
+                          <label htmlFor="multi-last-name">No sabe</label>
+                          <ToggleSwitch
+                            checked={item.noSabe === "noSabe"}
+                            onChange={(newValue) =>
+                              handleAntirubeola(
+                                index,
+                                "noSabe",
+                                newValue ? "noSabe" : ""
+                              )
+                            }
+                          />
+                          <label htmlFor="multi-last-name">No</label>
+                          <ToggleSwitch
+                            checked={item.no === "no"}
+                            onChange={(newValue) =>
+                              handleAntirubeola(
+                                index,
+                                "no",
+                                newValue ? "no" : ""
+                              )
+                            }
+                          />
+                        </div>
                       </div>
 
-                      <label>Embarazo</label>
-                      <div
-                        className={`opcion ${item.embarazo === "embarazo" ? "seleccionado" : ""
-                          }`}
-                        onClick={() =>
-                          handleAntirubeola(index, "embarazo", "embarazo")
-                        }
-                      >
-                        <div className="circulo"></div>
-                      </div>
-                    </div>
-                    <div className="data-item">
-                      <label>No sabe</label>
-                      <div
-                        className={`opcion ${item.noSabe === "noSabe" ? "seleccionado" : ""
-                          }`}
-                        onClick={() =>
-                          handleAntirubeola(index, "noSabe", "noSabe")
-                        }
-                      >
-                        <div className="circulo"></div>
-                      </div>
-
-                      <label>No</label>
-                      <div
-                        className={`opcion ${item.no === "no" ? "seleccionado" : ""
-                          }`}
-                        onClick={() => handleAntirubeola(index, "no", "no")}
-                      >
-                        <div className="circulo"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Esta es la tabla de Antitetanica */}
-            <div className="table-container">
-              <div className="EstiloEnfer-medades">Antitectanica</div>
-              <table>
-                <tbody>
-                  {Antitetanica.map((detalle, index) => (
-                    <tr key={index}>
-                      <td>
-                        <label>Vigente</label>
-                        <select
-                          value={detalle.vigente}
-                          onChange={(e) =>
-                            handleAntitetanica(index, "vigente", e.target.value)
-                          }
-                        >
-                          <option value="">Vigente</option>
-                          <option value="Si">Si</option>
-                          <option value="No">No</option>
-                        </select>
-                      </td>
-                      {detalle.vigente === "Si" && (
-                        <tr>
-                          <td>
-                            <label>Dosis 1</label>
-                            <input
-                              type="text"
-                              name={`posicion_${index}`}
+                      <div className="input-container-antitectanica">
+                        <label> ANTITECTANICA </label>
+                        {Antitetanica.map((detalle, index) => (
+                          <div key={index}>
+                            <select
+                              className="inputSelect"
+                              value={detalle.vigente}
                               onChange={(e) =>
                                 handleAntitetanica(
                                   index,
-                                  "Dosis1",
+                                  "vigente",
                                   e.target.value
                                 )
                               }
-                            />
-                          </td>
-                          <td>
-                            <label>Dosis 2</label>
-                            <input
-                              type="text"
-                              name={`posicion_${index}`}
-                              onChange={(e) =>
-                                handleAntitetanica(
-                                  index,
-                                  "Dosis2",
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </td>
-                        </tr>
-                      )}
-                    </tr>
+                            >
+                              <option value="">Vigente</option>
+                              <option value="Si">Si</option>
+                              <option value="No">No</option>
+                            </select>
+                            {detalle.vigente === "Si" && (
+                              <div className="input-field-antitectanica">
+                                <label> Dosis 1 </label>
+                                <input
+                                  className="inputDosis"
+                                  type="number"
+                                  name={`posicion_${index}`}
+                                  onChange={(e) =>
+                                    handleAntitetanica(
+                                      index,
+                                      "Dosis1",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                                <label> Dosis 2 </label>
+                                <input
+                                  className="inputDosis"
+                                  type="number"
+                                  name={`posicion_${index}`}
+                                  onChange={(e) =>
+                                    handleAntitetanica(
+                                      index,
+                                      "Dosis2",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   ))}
-                </tbody>
-              </table>
-            </div>
+                </div>
 
-            {/* Esta tabla es para EXNORMAL */}
-
-            <div className="table-container">
-
-              {ExNormal.map((item, index) => (
-                <div className="table-row" key={index}>
-                  <div className="trimestre-cell">ExNormal</div>
-                  <div className="data-cell">
-                    <div className="data-item">
-                      <label>ODONT</label>
-                      <div
-                        className={`opcion ${item.Odont === "si" ? "seleccionado" : ""
-                          }`}
-                        onClick={() => handleExNormal(index, "Odont", "si")}
-                      >
-                        <div className="circulo"></div> Sí
+                <div className="input-field-exNormal">
+                  <label className="exNormal">EX NORMAL</label>
+                  <div className="row-container">
+                    {ExNormal.map((item, index) => (
+                      <div className="row-item" key={index}>
+                        <div className="input-togger-exNormal">
+                          <label htmlFor={`Odont${item}`}>ODONT</label>
+                          <ToggleSwitch
+                            id={`Odont${item}`}
+                            checked={ExNormal.Odont === "si"}
+                            onChange={(newValue) =>
+                              handleExNormal(index, "Odont", newValue)
+                            }
+                          />
+                        </div>
+                        <div className="input-togger">
+                          <label htmlFor={`Mamas${item}`}>MAMÁS</label>
+                          <ToggleSwitch
+                            id={`Mamas${item}`}
+                            checked={ExNormal.Mamas === "si"}
+                            onChange={(newValue) =>
+                              handleExNormal(index, "Mamas", newValue)
+                            }
+                          />
+                        </div>
                       </div>
-                      <div
-                        className={`opcion ${item.Odont === "no" ? "seleccionado" : ""
-                          }`}
-                        onClick={() => handleExNormal(index, "Odont", "no")}
-                      >
-                        <div className="circulo"></div> No
-                      </div>
-                    </div>
-
-                    <div className="data-item">
-                      <label>MAMAS</label>
-                      <div
-                        className={`opcion ${item.Mamas === "si" ? "seleccionado" : ""
-                          }`}
-                        onClick={() => handleExNormal(index, "Mamas", "si")}
-                      >
-                        <div className="circulo"></div> Sí
-                      </div>
-                      <div
-                        className={`opcion ${item.Mamas === "no" ? "seleccionado" : ""
-                          }`}
-                        onClick={() => handleExNormal(index, "Mamas", "no")}
-                      >
-                        <div className="circulo"></div> No
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
-
-            <div className="table-container">
-              {Cervix.map((item, index) => (
-                <div className="table-row" key={index}>
-                  <div className="data-item">
-                    <label>
-                      {item[item.InspVisual || item.PAP || item.COLP]}
-                    </label>
-                  </div>
-                  <div className="trimestre-cell"></div>
-
-                  <div className="data-cell">
+              </div>
+              {/* CERVIX */}
+              <div className="table-container-cervix">
+                {Cervix.map((item, index) => (
+                  <div className="table-row" key={index}>
                     <div className="data-item">
-                      <div
-                        className={`opcion ${Cervix[index].normal === "normal"
-                          ? "seleccionado"
-                          : ""
-                          }`}
-                        onClick={() => handleCervix(index, "normal", "normal")}
-                      >
-                        <div className="circulo"></div> Normal
-                      </div>
+                      <label>
+                        {item[item.InspVisual || item.PAP || item.COLP]}
+                      </label>
                     </div>
-                    <div className="data-item">
-                      <div
-                        className={`opcion ${Cervix[index].anormal === "anormal"
-                          ? "seleccionado"
-                          : ""
-                          }`}
-                        onClick={() =>
-                          handleCervix(index, "anormal", "anormal")
-                        }
-                      >
-                        <div className="circulo"></div> Anormal
+                    <div className="cervix-cell"></div>
+                    <div className="data-cell">
+                      <div className="input-togger-cervix">
+                        <label htmlFor={`normal${index}`}>Normal</label>
+                        <ToggleSwitch
+                          id={`normal${index}`}
+                          checked={item.normal === "normal"}
+                          onChange={() =>
+                            handleCervix(index, "normal", "normal")
+                          }
+                        />
                       </div>
-                    </div>
-                    <div className="data-item">
-                      <div
-                        className={`opcion ${Cervix[index].noSeHizo === "noSeHizo"
-                          ? "seleccionado"
-                          : ""
-                          }`}
-                        onClick={() =>
-                          handleCervix(index, "noSeHizo", "noSeHizo")
-                        }
-                      >
-                        <div className="circulo"></div> No se hizo
+                      <div className="input-togger-cervix">
+                        <label htmlFor={`anormal${index}`}>Anormal</label>
+                        <ToggleSwitch
+                          id={`anormal${index}`}
+                          checked={item.anormal === "anormal"}
+                          onChange={() =>
+                            handleCervix(index, "anormal", "anormal")
+                          }
+                        />
+                      </div>
+                      <div className="input-togger-cervix">
+                        <label htmlFor={`noSeHizo${index}`}>No se hizo</label>
+                        <ToggleSwitch
+                          id={`noSeHizo${index}`}
+                          checked={item.noSeHizo === "noSeHizo"}
+                          onChange={() =>
+                            handleCervix(index, "noSeHizo", "noSeHizo")
+                          }
+                        />
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
 
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Fecha</th>
+                      <th>Edad Gestacional</th>
+                      <th>Peso</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {AtencionesPrenatales.map((atencion, index) => (
+                      <tr key={index}>
+                        <td>
+                          <input
+                            type="date"
+                            value={atencion.fecha}
+                            onChange={(e) =>
+                              handleAtencionesPrenatales(
+                                index,
+                                "fecha",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="number"
+                            value={atencion.edadGestacional}
+                            onChange={(e) =>
+                              handleAtencionesPrenatales(
+                                index,
+                                "edadGestacional",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="number"
+                            value={atencion.peso}
+                            onChange={(e) =>
+                              handleAtencionesPrenatales(
+                                index,
+                                "peso",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th>PA</th>
+                      <th>Altura Uterina</th>
+                      <th>Presentación</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {AtencionesPrenatales.map((atencion, index) => (
+                      <tr key={index}>
+                        <td>
+                          <input
+                            type="text"
+                            value={atencion.PA}
+                            onChange={(e) =>
+                              handleAtencionesPrenatales(
+                                index,
+                                "PA",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            value={atencion.alturaUterina}
+                            onChange={(e) =>
+                              handleAtencionesPrenatales(
+                                index,
+                                "alturaUterina",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            value={atencion.presentacion}
+                            onChange={(e) =>
+                              handleAtencionesPrenatales(
+                                index,
+                                "presentación",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th>FCF/IPM</th>
+                      <th>Movimientos Fetales</th>
+                      <th>Proteinuria</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {AtencionesPrenatales.map((atencion, index) => (
+                      <tr key={index}>
+                        <td>
+                          <input
+                            type="text"
+                            value={atencion.FCF_IPM}
+                            onChange={(e) =>
+                              handleAtencionesPrenatales(
+                                index,
+                                "FCF_IPM",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="number"
+                            value={atencion.movimientosFetales}
+                            onChange={(e) =>
+                              handleAtencionesPrenatales(
+                                index,
+                                "movimientosFetales",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            value={atencion.proteinuna}
+                            onChange={(e) =>
+                              handleAtencionesPrenatales(
+                                index,
+                                "proteinuria",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Signos, Exámenes, y Tratamiento</th>
+                      <th>Iniciales Personal de Salud</th>
+                      <th>Próxima Cita</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {AtencionesPrenatales.map((atencion, index) => (
+                      <tr key={index}>
+                        <td>
+                          <textarea
+                            value={atencion.signosExamenesTratamiento}
+                            onChange={(e) =>
+                              handleAtencionesPrenatales(
+                                index,
+                                "signosExamenesTratamiento",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            value={atencion.inicialesPersonalSalud}
+                            onChange={(e) =>
+                              handleAtencionesPrenatales(
+                                index,
+                                "inicialesPersonalSalud",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="date"
+                            value={atencion.proximaCita}
+                            onChange={(e) =>
+                              handleAtencionesPrenatales(
+                                index,
+                                "proximaCita",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-            <button
-              type="submit"
-              style={{ background: loader ? "#ccc" : "rgb(2, 2, 110)" }}
-            >
-              Enviar
-            </button>
+            <div className="button-container">
+              <button type="submit" className="ButtonEnviar">
+                Enviar
+              </button>
+            </div>
           </form>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 };
 
+    const ToggleSwitch = ({ initialChecked = false, onChange }) => {
+      const [isChecked, setIsChecked] = useState(initialChecked);
+
+      const handleToggle = () => {
+        const newCheckedState = !isChecked;
+        setIsChecked(newCheckedState);
+        onChange(newCheckedState); // Informar al componente padre del nuevo estado
+      };
+
+      return (
+        <label className={`switch ${isChecked ? "checked" : ""}`}>
+          <input type="checkbox" checked={isChecked} onChange={handleToggle} />
+          <span className="slider"></span>
+          <span className={`switch-text ${isChecked ? "checked" : ""}`}>
+            {isChecked ? "Sí" : "No"}
+          </span>
+        </label>
+      );
+    };
+
+    ToggleSwitch.propTypes = {
+      initialChecked: PropTypes.bool,
+      onChange: PropTypes.func.isRequired,
+    };
+
+    ToggleSwitch.defaultProps = {
+      initialChecked: false,
+    };
+
 SecondModuleScreen.propTypes = {
   onSignOut: PropTypes.func.isRequired,
-}
+};
 
 export default SecondModuleScreen;
