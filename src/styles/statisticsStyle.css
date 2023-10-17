@@ -9,3 +9,41 @@
 .navContainer {
   width: 100%;
 }
+
+
+.formControl {
+  display: flex;
+  justify-content: center;
+}
+
+.sectionContainerId {
+  margin-top:  50px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  width: 95%;
+  height: auto;
+  margin-bottom: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+}
+@media (max-width:768px){
+  .sectionContainerId{
+    width: 100%;
+
+
+  }
+  .formControl{
+    width: 100px;
+  }
+  .statisticsScreenContainer {
+   padding: 10px;
+  }
+  .navContainer{
+    width: 100px;
+  }
+}
+
+
+
