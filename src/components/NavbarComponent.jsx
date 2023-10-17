@@ -11,7 +11,12 @@ const NavBarComponent = ({ onSignOut }) => {
 
     const handleSignOunt = () => {
         try {
-            onSignOut(); // Notifica al componente padre que el usuario ha "cerrado sesión"
+
+            //Limpia todo el localStorage
+            localStorage.clear();
+
+            // Notifica al componente padre que el usuario ha "cerrado sesión"
+            onSignOut();
         } catch (error) {
             setErrorMsg("Error al cerrar sesión.");
             setErrorModalOpen(true);
@@ -30,6 +35,7 @@ const NavBarComponent = ({ onSignOut }) => {
                 isOpen={isErrorModalOpen}
                 onRequestClose={() => setErrorModalOpen(false)}
                 errorMessage={errorMsg}
+                title="Error"
             />
         </nav>
     )
