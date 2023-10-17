@@ -12,6 +12,7 @@ import FourthModuleScreen from "../pages/FourthModuleScreen";
 import ModuleScreen from "../pages/ModuleScreen";
 import WebMinsaScreen from "../pages/WebMinsaScreen";
 import StatisticsScreen from "../pages/StatisticsScreen";
+import SearchScreen from "../pages/SearchScreen";
 
 const AppRouter = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -64,6 +65,9 @@ const AppRouter = () => {
       </Route>
       <Route path="/admin">
         {role === "admin" && isLoggedIn ? <AdminScreen onSignOut={handleSignOut} /> : <LoginScreen />}
+      </Route>
+      <Route path="/search">
+        {role === "minsa" && isLoggedIn ? <SearchScreen onSignOut={handleSignOut} /> : <LoginScreen />}
       </Route>
       <Route path="/modules">
         {role === "minsa" && isLoggedIn ? <ModuleScreen onSignOut={handleSignOut} /> : <LoginScreen />}
