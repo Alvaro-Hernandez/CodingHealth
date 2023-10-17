@@ -1,183 +1,195 @@
+import React, { useState } from 'react';
+import { db } from '../services/FirebaseServices';
 import PropTypes from "prop-types"
 import { useLocation } from "wouter";
-import { useState } from "react";
-import NavBarComponent from "../components/NavbarComponent";
-import { db } from '../services/FirebaseServices';
 import '../styles/thirdModuleStyle.css';
-
-const ThirdModuleScreen = ({ onSignOut }) => {
-
-    const [, setLocation] = useLocation();
-
-    const [parto, setParto] = useState("");
-    const [message, setMessage] = useState("");
-    const [loader, setLoader] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(new Date()); // Estado para la fecha
-    const [consulta, setConsulta] = useState("");
-    const [carnet, setCarnet] = useState(""); // Nuevo campo para el carné
-    const [lugardeparto, setLugardeparto] = useState(""); // Lugar de parto
-    const [Corticoides, setCorticoides] = useState(""); // Lugar de parto
-    const [inicio, setInicio] = useState([]); // Lugar de parto
-    const [edad, setedad] = useState([]); // Edad gestacional
-    const [edadgestacional, setedadgestacional] = useState([]); // Edad gestacional
-    const [diagestacional, setdiagestacional] = useState("");
-    const [porFUM, setporFUM] = useState("");
-    const [porECO, setporECO] = useState("");
-    const [PresentacioSituacion, setPresentacioSituacion] = useState([]);
-    const [TamañoFetalAcorde, setTamañoFetalAcorde] = useState("");
-    const [transversa, settransversa] = useState("");
-    const [acompañante, setacompañante] = useState("");
-    const [Hospitalizado_en_Enbarazo, setHospitalizado_en_Enbarazo] = useState([]);
-    const [mostrarCamposAdicionales, setMostrarCamposAdicionales] = useState(false);
-    const [DiasHospitalizado, setDiasHospitalizado] = useState("");
-    const [DetallesPartoGrama, setDetallesPartoGrama] = useState([
-        {
-            ID: "ID",
-            Fecha: "",
-            PosicionDelaMadre: "",
-            PA: "",
-            Pulso: "",
-            Control_10: "",
-            Dilatacion: "",
-            AlturaPresente: "",
-            VariedadPosic: "",
-            Meconio: "",
-            FCF_Dips: "",
-        }
-
-    ]);
-    const [EnfermedadesData, setEnfermedades] = useState([
-        {
-            Enfermedades: "Enfermedades",
-            HTAPrevia: "",
-            HTAInducidaEmbarazo: "",
-            PreeDampsia: "",
-            Eclampsia: "",
-            CardioPatia: "",
-            Nefropatia: "",
-            Diabetes: "",
-            InfecOvular: "",
-            InfeUrinaria: "",
-            AmenazaPartoPreter: "",
-            RCIU: "",
-            RoturaPremDeMembranas: "",
-            Anemia: "",
-            OtraCondicionGrave: "",
-
-        }
-
-    ]);
-
-    const [Hemorragias, setHemorragias] = useState([
-        {
-            Hemorragias: "Hemorragias",
-            PrimerTrimestre: "",
-            SegundoTrimestre: "",
-            TercerTrimestre: "",
-            PosParto: "",
-            InfeccionPuerperal: "",
-        }
-
-    ]);
-    const [Nacimiento, setNacimiento] = useState([
-        {
-            Id: "id",
-            Vivo: "",
-            Muerto: "",
-            AnteParto: "",
-            Parto: "",
-            IgnoraMomento: "",
-            Fecha: "",
-        }
-
-    ]);
-    const [Posicion_Parto, setPosicion_Parto] = useState([
-        {
-            Id: "id",
-            Solicitada_Por_Usuaria: "",
-            Sentada: "",
-            Acostada: "",
-            Cunclillas: "",
-
-        }
-
-    ]);
-    const handlePosicion_Parto = (index, field, value) => {
-        const updatedPosicion_Parto = [...Posicion_Parto];
-        updatedPosicion_Parto[index][field] = value;
-        setEnfermedades(updatedPosicion_Parto);
-    };
-    const handleNacimiento = (index, field, value) => {
-        const updatedNacimiento = [...Nacimiento];
-        updatedNacimiento[index][field] = value;
-        setEnfermedades(updatedNacimiento);
-    };
-
-    const handleEnfermedades = (index, field, value) => {
-        const updatedEnfermedades = [...EnfermedadesData];
-        updatedEnfermedades[index][field] = value;
-        setEnfermedades(updatedEnfermedades);
-    };
-
-
-    const handleHemorragias = (index, field, value) => {
-        const updatedHemorragias = [...Hemorragias];
-        updatedHemorragias[index][field] = value;
-        setHemorragias(updatedHemorragias);
-    };
-    const handleDetallesPartoGrama = (index, field, value) => {
-        const updatedDetallesPartoGrama = [...DetallesPartoGrama];
-        updatedDetallesPartoGrama[index][field] = value;
-        setDetallesPartoGrama(updatedDetallesPartoGrama);
-    };
+import NavBarComponent from "../components/NavbarComponent";
 
 
 
+const FormComponent = ({ onSignOut }) => {
+  const [, setLocation] = useLocation();
+  const cachedId = localStorage.getItem('cachedId');
+  const [campo1, setCampo1] = useState('');
+  const [campo2, setCampo2] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Validación de campos
 
-        setLoader(true);
+  
+  const [parto, setParto] = useState("");
+  const [message, setMessage] = useState("");
+  const [loader, setLoader] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date()); // Estado para la fecha
+  const [consulta, setConsulta] = useState("");
+  const [carnet, setCarnet] = useState(""); // Nuevo campo para el carné
+  const [lugardeparto, setLugardeparto] = useState(""); // Lugar de parto
+  const [Corticoides, setCorticoides] = useState(""); // Lugar de parto
+  const [inicio, setInicio] = useState([]); // Lugar de parto
+  const [edad, setedad] = useState([]); // Edad gestacional
+  const [edadgestacional, setedadgestacional] = useState([]); // Edad gestacional
+  const [diagestacional, setdiagestacional] = useState("");
+  const [porFUM, setporFUM] = useState("");
+  const [porECO, setporECO] = useState("");
+  const [PresentacioSituacion, setPresentacioSituacion] = useState([]);
+  const [TamañoFetalAcorde, setTamañoFetalAcorde] = useState("");
+  const [transversa, settransversa] = useState("");
+  const [acompañante, setacompañante] = useState("");
+  const [Hospitalizado_en_Enbarazo, setHospitalizado_en_Enbarazo] = useState([]);
+  const [mostrarCamposAdicionales, setMostrarCamposAdicionales] = useState(false);
+  const [DiasHospitalizado, setDiasHospitalizado] = useState("");
+  const [DetallesPartoGrama, setDetallesPartoGrama] = useState([
+      {
+          ID: "ID",
+          Fecha: "",
+          PosicionDelaMadre: "",
+          PA: "",
+          Pulso: "",
+          Control_10: "",
+          Dilatacion: "",
+          AlturaPresente: "",
+          VariedadPosic: "",
+          Meconio: "",
+          FCF_Dips: "",
+      }
 
-        db.collection("Modulo Mujer")
-            .add({
-                Posicion_Parto: Posicion_Parto,
-                Nacimiento: Nacimiento,
-                Hemorragias: Hemorragias,
-                EnfermedadesData: EnfermedadesData,
-                DetallesPartoGrama: DetallesPartoGrama,
-                DiasHospitalizado: DiasHospitalizado,
-                mostrarCamposAdicionales: mostrarCamposAdicionales,
-                Hospitalizado_en_Enbarazo: Hospitalizado_en_Enbarazo,
-                acompañante: acompañante,
-                transversa: transversa,
-                TamañoFetalAcorde: TamañoFetalAcorde,
-                PresentacioSituacion: PresentacioSituacion,
-                porFUM: porFUM,
-                porECO: porECO,
-                diagestacional: diagestacional,
-                parto: parto,
-                message: message,
-                date: selectedDate, // Agrega la fecha al objeto enviado a Firebase
-                consulta: consulta, //consulta
-                carnet: carnet, // Agregamos el valor del carné
-                lugardeparto: lugardeparto, //Lugar de parto
-                Corticoides: Corticoides,
-                inicio: inicio,
-                edad: edad,
-                edadgestacional: edadgestacional,
-            })
-            .then(() => {
-                setLoader(false);
-                alert("ENVIADO CORRECTAMENTE👍");
-            })
-            .catch((error) => {
-                alert(error.message);
-                setLoader(false);
-            });
+  ]);
+  const [EnfermedadesData, setEnfermedades] = useState([
+      {
+          Enfermedades: "Enfermedades",
+          HTAPrevia: "",
+          HTAInducidaEmbarazo: "",
+          PreeDampsia: "",
+          Eclampsia: "",
+          CardioPatia: "",
+          Nefropatia: "",
+          Diabetes: "",
+          InfecOvular: "",
+          InfeUrinaria: "",
+          AmenazaPartoPreter: "",
+          RCIU: "",
+          RoturaPremDeMembranas: "",
+          Anemia: "",
+          OtraCondicionGrave: "",
 
-        setParto("");
+      }
+
+  ]);
+
+  const [Hemorragias, setHemorragias] = useState([
+      {
+          Hemorragias: "Hemorragias",
+          PrimerTrimestre: "",
+          SegundoTrimestre: "",
+          TercerTrimestre: "",
+          PosParto: "",
+          InfeccionPuerperal: "",
+      }
+
+  ]);
+  const [Nacimiento, setNacimiento] = useState([
+      {
+          Id: "id",
+          Vivo: "",
+          Muerto: "",
+          AnteParto: "",
+          Parto: "",
+          IgnoraMomento: "",
+          Fecha: "",
+      }
+
+  ]);
+  const [Posicion_Parto, setPosicion_Parto] = useState([
+      {
+          Id: "id",
+          Solicitada_Por_Usuaria: "",
+          Sentada: "",
+          Acostada: "",
+          Cunclillas: "",
+
+      }
+
+  ]);
+  const handlePosicion_Parto = (index, field, value) => {
+      const updatedPosicion_Parto = [...Posicion_Parto];
+      updatedPosicion_Parto[index][field] = value;
+      setEnfermedades(updatedPosicion_Parto);
+  };
+  const handleNacimiento = (index, field, value) => {
+      const updatedNacimiento = [...Nacimiento];
+      updatedNacimiento[index][field] = value;
+      setEnfermedades(updatedNacimiento);
+  };
+
+  const handleEnfermedades = (index, field, value) => {
+      const updatedEnfermedades = [...EnfermedadesData];
+      updatedEnfermedades[index][field] = value;
+      setEnfermedades(updatedEnfermedades);
+  };
+
+
+  const handleHemorragias = (index, field, value) => {
+      const updatedHemorragias = [...Hemorragias];
+      updatedHemorragias[index][field] = value;
+      setHemorragias(updatedHemorragias);
+  };
+  const handleDetallesPartoGrama = (index, field, value) => {
+      const updatedDetallesPartoGrama = [...DetallesPartoGrama];
+      updatedDetallesPartoGrama[index][field] = value;
+      setDetallesPartoGrama(updatedDetallesPartoGrama);
+  };
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (cachedId) {
+      try {
+        const docRef = db.collection('cartilla').doc(cachedId);
+        const doc = await docRef.get();
+
+        if (doc.exists) {
+          
+          // Obtén los datos actuales del documento
+          const data = doc.data();
+
+          // Actualiza los campos que desees en el subdocumento "primer modulo"
+          data.parto_aborto = {
+            campo1: campo1,
+            campo2: campo2,
+            Posicion_Parto: Posicion_Parto,
+            Nacimiento: Nacimiento,
+            Hemorragias: Hemorragias,
+            EnfermedadesData: EnfermedadesData,
+            DetallesPartoGrama: DetallesPartoGrama,
+            DiasHospitalizado: DiasHospitalizado,
+            mostrarCamposAdicionales: mostrarCamposAdicionales,
+            Hospitalizado_en_Enbarazo: Hospitalizado_en_Enbarazo,
+            acompañante: acompañante,
+            transversa: transversa,
+            TamañoFetalAcorde: TamañoFetalAcorde,
+            PresentacioSituacion: PresentacioSituacion,
+            porFUM: porFUM,
+            porECO: porECO,
+            diagestacional: diagestacional,
+            parto: parto,
+            message: message,
+            date: selectedDate, // Agrega la fecha al objeto enviado a Firebase
+            consulta: consulta, //consulta
+            carnet: carnet, // Agregamos el valor del carné
+            lugardeparto: lugardeparto, //Lugar de parto
+            Corticoides: Corticoides,
+            inicio: inicio,
+            edad: edad,
+            edadgestacional: edadgestacional,
+          };
+
+          // Guarda los datos actualizados en el documento
+          await docRef.set(data);
+
+          console.log('Datos actualizados en Firebase con éxito.');
+          setCampo1('');
+          setCampo2('');
+          setParto("");
         setMessage("");
         setSelectedDate(new Date()); // Restablecer la fecha
         setConsulta("");
@@ -269,23 +281,27 @@ const ThirdModuleScreen = ({ onSignOut }) => {
 
         ]);
 
-    };
 
-
-    const handleLogout = () => {
-        onSignOut();
-        setLocation("/login");
+        } else {
+          console.error('El documento no existe.');
+        }
+      } catch (error) {
+        console.error('Error al actualizar datos en Firebase:', error);
+      }
+    } else {
+      console.error('No se pudo encontrar un ID válido en localStorage.');
     }
+  };
+  const handleLogout = () => {
+    onSignOut();
+    setLocation("/login");
+}
+  return (
+    <div>
+      
+      <NavBarComponent onSignOut={handleLogout} />
 
-    return (
-        <div>
-
-            <NavBarComponent onSignOut={handleLogout} />
-
-
-
-            <section>
-                <div className="form-container"> <h1 className="nombre">Modulo Madre 🤳</h1>
+      <div className="form-container"> <h1 className="nombre">Modulo Madre 🤳</h1>
                     <form className="form" onSubmit={handleSubmit}>
                         <div className="table-container">
                             <div className="row-container">
@@ -1228,13 +1244,12 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                         </button>
                     </form>
                 </div>
-            </section>
-        </div>
-    )
-}
 
-ThirdModuleScreen.propTypes = {
-    onSignOut: PropTypes.func.isRequired,
-}
+    </div>
+  );
+};
 
-export default ThirdModuleScreen;
+FormComponent.propTypes = {
+  onSignOut: PropTypes.func.isRequired,
+}
+export default FormComponent;
