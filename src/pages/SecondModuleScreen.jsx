@@ -289,19 +289,19 @@ const SecondModuleScreen = ({ onSignOut }) => {
 
   return (
     <div className="secondModuleScreenContainer">
-      <div className="navContainer">
+      <div className="navContainerSecond">
         <NavBarComponent onSignOut={handleLogout} />
       </div>
-      <div className="formControl">
-        <section className="sectionForm">
+      <div className="formControlSecond">
+        <section className="sectionFormSecond">
           <form onSubmit={handleSubmit}>
             <legend>Gestación Actual</legend>
 
-            <div className="input-container">
-              <div className="input-field">
+            <div className="inputContainerSecond">
+              <div className="inputFieldSecond">
                 <label>Peso</label>
                 <input
-                  className="inputNumber"
+                  className="inputNumberSecond"
                   type="number"
                   step="0.1"
                   value={pesoAnterior}
@@ -309,10 +309,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                   placeholder="(Kg)"
                 />
               </div>
-              <div className="input-field">
+              <div className="inputFieldSecond">
                 <label>Talla</label>
                 <input
-                  className="inputNumber"
+                  className="inputNumberSecond"
                   type="number"
                   step="0.01"
                   value={talla}
@@ -320,10 +320,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                   placeholder="(m)"
                 />
               </div>
-              <div className="input-field">
+              <div className="inputFieldSecond">
                 <label htmlFor="multi-last-name">IMC:</label>
                 <input
-                  className="inputNumber"
+                  className="inputNumberSecond"
                   type="number"
                   step="0.01"
                   required
@@ -331,25 +331,25 @@ const SecondModuleScreen = ({ onSignOut }) => {
                   readOnly
                 />
               </div>
-              <div className="input-field">
+              <div className="inputFieldSecond">
                 <label htmlFor="multi-last-name">FUM</label>
                 <input
-                  className="inputDate"
+                  className="inputDateSecond"
                   type="date"
                   value={DateFUM}
                   onChange={(e) => setDateFUM(e.target.value)}
                 />
               </div>
-              <div className="input-field">
+              <div className="inputFieldSecond">
                 <label htmlFor="multi-last-name">FPP</label>
                 <input
-                  className="inputDate"
+                  className="inputDateSecond"
                   type="date"
                   value={DateFPP}
                   onChange={(e) => setDateFPP(e.target.value)}
                 />
               </div>
-              <div className="input-togger">
+              <div className="inputToggerSecond">
                 <div className="opcion">
                   <label htmlFor="multi-last-Eco">ECOmenor20s</label>
                   <ToggleSwitch
@@ -361,7 +361,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                   />
                 </div>
               </div>
-              <div className="input-togger">
+              <div className="inputToggerSecond">
                 <div className="opcion">
                   <label htmlFor="multi-last-name">FUM</label>
                   <ToggleSwitch
@@ -382,7 +382,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                     }`}</div>
                     <div className="data-cell">
                       <div className="input-togger-trimestre">
-                        <label htmlFor={`fumaPas${index}`}>Fuma PAS</label>
+                        <label htmlFor={`fumaPas${index}`}>FumaPAS</label>
                         <ToggleSwitch
                           id={`fumaPas${index}`}
                           checked={trimestre.fumaPas === "si"}
@@ -392,7 +392,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                         />
                       </div>
                       <div className="input-togger-trimestre">
-                        <label htmlFor={`fumaAct${index}`}>Fuma ACT</label>
+                        <label htmlFor={`fumaAct${index}`}>FumaACT</label>
                         <ToggleSwitch
                           id={`fumaAct${index}`}
                           checked={trimestre.fumaAct === "si"}
@@ -434,6 +434,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                     </div>
                   </div>
                 ))}
+                
               </div>
               <div className="input-container-antirubeola">
                 <label>ANTIRUBEOLA</label>
@@ -578,14 +579,14 @@ const SecondModuleScreen = ({ onSignOut }) => {
               {/* CERVIX */}
               <div className="table-container-cervix">
                 {Cervix.map((item, index) => (
-                  <div className="table-row" key={index}>
-                    <div className="data-item">
+                  <div className="table-row-cervix" key={index}>
+                    <div className="data-item-cervix">
                       <label>
                         {item[item.InspVisual || item.PAP || item.COLP]}
                       </label>
                     </div>
                     <div className="cervix-cell"></div>
-                    <div className="data-cell">
+                    <div className="data-cell-cervix">
                       <div className="input-togger-cervix">
                         <label htmlFor={`normal${index}`}>Normal</label>
                         <ToggleSwitch
@@ -622,19 +623,19 @@ const SecondModuleScreen = ({ onSignOut }) => {
               </div>
 
               <div class="table-container">
-                <table>
+                <table className="tableAtenciones">
                   <thead>
-                    <tr>
-                      <th>Fecha</th>
-                      <th>Edad Gestacional</th>
-                      <th>Peso</th>
+                    <tr className="trAtenciones">
+                      <th className="thAtenciones">Fecha</th>
+                      <th className="thAtenciones">Edad Gestacional</th>
+                      <th className="thAtenciones">Peso</th>
                     </tr>
                   </thead>
                   <tbody>
                     {AtencionesPrenatales.map((atencion, index) => (
-                      <tr key={index}>
-                        <td>
-                          <input
+                      <tr className="trAtenciones" key={index}>
+                        <td className="tdAtenciones">
+                          <input className="inputTextAtenciones"
                             type="date"
                             value={atencion.fecha}
                             onChange={(e) =>
@@ -646,8 +647,8 @@ const SecondModuleScreen = ({ onSignOut }) => {
                             }
                           />
                         </td>
-                        <td>
-                          <input
+                        <td className="tdAtenciones">
+                          <input className="inputTextAtenciones"
                             type="number"
                             value={atencion.edadGestacional}
                             onChange={(e) =>
@@ -659,8 +660,8 @@ const SecondModuleScreen = ({ onSignOut }) => {
                             }
                           />
                         </td>
-                        <td>
-                          <input
+                        <td className="tdAtenciones">
+                          <input className="inputTextAtenciones"
                             type="number"
                             value={atencion.peso}
                             onChange={(e) =>
@@ -677,19 +678,19 @@ const SecondModuleScreen = ({ onSignOut }) => {
                   </tbody>
                 </table>
 
-                <table>
-                  <thead>
-                    <tr>
-                      <th>PA</th>
-                      <th>Altura Uterina</th>
-                      <th>Presentación</th>
+                <table className="tableAtenciones">
+                  <thead className="theadAtenciones">
+                    <tr className="trAtenciones">
+                      <th className="thAtenciones">PA</th>
+                      <th className="thAtenciones">Altura Uterina</th>
+                      <th className="thAtenciones">Presentación</th>
                     </tr>
                   </thead>
                   <tbody>
                     {AtencionesPrenatales.map((atencion, index) => (
-                      <tr key={index}>
-                        <td>
-                          <input
+                      <tr className="trAtenciones" key={index}>
+                        <td className="tdAtenciones">
+                          <input className="inputTextAtenciones"
                             type="text"
                             value={atencion.PA}
                             onChange={(e) =>
@@ -701,8 +702,8 @@ const SecondModuleScreen = ({ onSignOut }) => {
                             }
                           />
                         </td>
-                        <td>
-                          <input
+                        <td className="tdAtenciones">
+                          <input className="inputTextAtenciones"
                             type="text"
                             value={atencion.alturaUterina}
                             onChange={(e) =>
@@ -714,8 +715,8 @@ const SecondModuleScreen = ({ onSignOut }) => {
                             }
                           />
                         </td>
-                        <td>
-                          <input
+                        <td className="tdAtenciones">
+                          <input className="inputTextAtenciones"
                             type="text"
                             value={atencion.presentacion}
                             onChange={(e) =>
@@ -732,19 +733,19 @@ const SecondModuleScreen = ({ onSignOut }) => {
                   </tbody>
                 </table>
 
-                <table>
-                  <thead>
-                    <tr>
-                      <th>FCF/IPM</th>
-                      <th>Movimientos Fetales</th>
-                      <th>Proteinuria</th>
+                <table className="tableAtenciones">
+                  <thead className="theadAtenciones">
+                    <tr className="trAtenciones">
+                      <th className="thAtenciones">FCF/IPM</th>
+                      <th className="thAtenciones">Movimientos Fetales</th>
+                      <th className="thAtenciones">Proteinuria</th>
                     </tr>
                   </thead>
                   <tbody>
                     {AtencionesPrenatales.map((atencion, index) => (
-                      <tr key={index}>
-                        <td>
-                          <input
+                      <tr className="trAtenciones" key={index}>
+                        <td className="tdAtenciones">
+                          <input className="inputTextAtenciones"
                             type="text"
                             value={atencion.FCF_IPM}
                             onChange={(e) =>
@@ -756,8 +757,8 @@ const SecondModuleScreen = ({ onSignOut }) => {
                             }
                           />
                         </td>
-                        <td>
-                          <input
+                        <td className="tdAtenciones">
+                          <input className="inputTextAtenciones"
                             type="number"
                             value={atencion.movimientosFetales}
                             onChange={(e) =>
@@ -769,8 +770,8 @@ const SecondModuleScreen = ({ onSignOut }) => {
                             }
                           />
                         </td>
-                        <td>
-                          <input
+                        <td className="tdAtenciones">
+                          <input className="inputTextAtenciones"
                             type="text"
                             value={atencion.proteinuna}
                             onChange={(e) =>
@@ -787,19 +788,19 @@ const SecondModuleScreen = ({ onSignOut }) => {
                   </tbody>
                 </table>
 
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Signos, Exámenes, y Tratamiento</th>
-                      <th>Iniciales Personal de Salud</th>
-                      <th>Próxima Cita</th>
+                <table className="tableAtenciones">
+                  <thead className="theadAtenciones">
+                    <tr className="trAtenciones">
+                      <th className="thAtenciones">Signos, Exámenes, y Tratamiento</th>
+                      <th className="thAtenciones">Iniciales Personal de Salud</th>
+                      <th className="thAtenciones">Próxima Cita</th>
                     </tr>
                   </thead>
                   <tbody>
                     {AtencionesPrenatales.map((atencion, index) => (
-                      <tr key={index}>
-                        <td>
-                          <textarea
+                      <tr className="trAtenciones" key={index}>
+                        <td className="tdAtenciones">
+                          <textarea className="textAreaAtenciones"
                             value={atencion.signosExamenesTratamiento}
                             onChange={(e) =>
                               handleAtencionesPrenatales(
@@ -810,8 +811,8 @@ const SecondModuleScreen = ({ onSignOut }) => {
                             }
                           />
                         </td>
-                        <td>
-                          <input
+                        <td className="tdAtenciones">
+                          <input className="inputTextAtenciones"
                             type="text"
                             value={atencion.inicialesPersonalSalud}
                             onChange={(e) =>
@@ -823,8 +824,8 @@ const SecondModuleScreen = ({ onSignOut }) => {
                             }
                           />
                         </td>
-                        <td>
-                          <input
+                        <td className="tdAtenciones">
+                          <input className="inputTextAtenciones"
                             type="date"
                             value={atencion.proximaCita}
                             onChange={(e) =>
@@ -843,8 +844,8 @@ const SecondModuleScreen = ({ onSignOut }) => {
               </div>
             </div>
 
-            <div className="button-container">
-              <button type="submit" className="ButtonEnviar">
+            <div className="buttonContainerSecond">
+              <button type="submit" className="ButtonEnviarSecond">
                 Enviar
               </button>
             </div>

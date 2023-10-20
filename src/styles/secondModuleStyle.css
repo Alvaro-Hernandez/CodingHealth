@@ -8,7 +8,7 @@
 }
 
 /* Estilo para el contenedor de navegación */
-.navContainer {
+.navContainerSecond {
   width: 100%;
 }
 /* Estilos para la leyenda */
@@ -20,11 +20,11 @@ legend {
 }
 
 /* Estilo para el formulario */
-.formControl {
+.formControlSecond {
   display: flex;
   justify-content: center;
 }
-.sectionForm {
+.sectionFormSecond {
   background-color: #fff;
   width: 95%;
   height: 2000px;
@@ -34,26 +34,26 @@ legend {
 
 
 /* Estilo para los campos de entrada */
-.input-container {
+.inputContainerSecond {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 20px;
-  margin: 12px;
+  margin-top: 4%;
+  margin: 3%;
 }
 
-.inputNumber {
+.inputNumberSecond {
   width: 100%;
-  height: 15px; 
+  height: 20%; 
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 5px;
   font-size: 16px;
   max-width: 100%;
 }
-.inputDate{
+.inputDateSecond{
   width: 100%;
-  height: 15px; 
+  height: 20%; 
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 5px;
@@ -62,19 +62,19 @@ legend {
 }
 
 /* Estilo para cada campo de entrada */
-.input-field {
+.inputFieldSecond {
   flex: 1;
   margin-right: 30px;
   font-weight: bold;
   font-size: 15px;
   align-items: center;
 }
-.input-togger{
-  margin-right: 25px; /* Espacio entre los campos */
+.inputToggerSecond{
+  margin-right: 5%; /* Espacio entre los campos */
 }
 
 /* Estilo para el botón */
-.ButtonEnviar {
+.ButtonEnviarSecond {
   padding: 5px;
   background-color: #3db9fb;
   color: white;
@@ -87,24 +87,23 @@ legend {
   width: 20%;
   background-position: center;
 }
-.button-container{
+.buttonContainerSecond{
   align-items: center;
   display: flex;
   justify-content: center;
 }
 
-
+ 
 /* Estilo para el contenedor de trimestres */
 
 .input-container-trimestre {
   display: flex;
-  margin-top: 10px;
+  margin-top: 3%;
   flex-direction: column;
   width: 55%;
   font-size: 16px;
-  margin-right: 5px; /* Espacio entre los campos */
- 
- 
+  margin-right: 20%; /* Espacio entre los campos */
+
 }
 
 .trimestre-cell {
@@ -129,10 +128,9 @@ legend {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 55%;
+  width: 100%;
   text-align: center;
   color: black;
-  /* margin: 4px 30; */
 }
 
 .input-container-trimestre label {
@@ -151,7 +149,8 @@ legend {
   align-items: center;
 }
 .input-container-antirubeola{
-  margin-top: 20px; 
+  margin-top: 5%; 
+  
 }
 
 .input-field-antirubeola .data-item-antirubeola {
@@ -225,15 +224,22 @@ legend {
 
 /* CERVIX */
 .cervix-cell {
-  width: 20px; /* Ancho de separación entre columnas */
-  height: 1px; /* Altura de la separación */
-  background-color: #ccc; /* Color de la separación */
-  margin: 0 10px; /* Espacio entre la línea de separación y las columnas */
+  width: 100%; /* Ancho de separación entre columnas */
+  height: 15%; /* Altura de la separación */
+  
 }
 .table-container-cervix {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.data-cell-cervix {
+  display: flex;
+  justify-content: space-between;
+  /* flex: 5; */
+  align-items: center;
+  color: black;
+  /* padding: 6px 50; */
 }
 
 
@@ -243,25 +249,25 @@ legend {
   
 }
 
-table {
+.tableAtenciones {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed; /* Fuerza que el ancho de la tabla sea fijo */
 
 }
-
-th, td {
+.thAtenciones, 
+.tdAtenciones {
   padding: 10px;
-  border: 1px solid #ccc;
   text-align: center; /* Centra el texto horizontalmente en las celdas */
 }
 
-th {
+
+.thAtenciones {
   background-color: #3db9fb; /* Color de fondo para las celdas del encabezado */
   color: #000000; /* Color de texto para las celdas del encabezado */
 }
 
-textarea {
+.textAreaAtenciones {
   width: 100%;
   max-width: 100%; /* Asegura que el textarea no se desborde */
   min-width: 100%; /* Asegura que el textarea tenga un ancho mínimo del 100% */
@@ -270,11 +276,8 @@ textarea {
   box-sizing: border-box; /* Incluye el padding en el ancho total */
   resize: vertical; /* Permite la redimensión vertical */
 }
-/* Aplica estilos personalizados a los inputs dentro de la tabla */
-table input[type="text"],
-table input[type="number"],
-table input[type="date"],
-table input[type="text"] {
+
+.inputTextAtenciones{
   width: 100%;
   padding: 4px;
   font-size: 16px;
@@ -284,9 +287,6 @@ table input[type="text"] {
 }
 
 
-
-
-
 /* Responsive styles */
 @media (max-width: 768px) {
   .input-field-antirubeola .data-item-antirubeola {
@@ -294,31 +294,21 @@ table input[type="text"] {
   }
 }
 
-/* Add more responsive styles as needed */
 
-
-/* Media Query para ajustar el diseño en pantallas más pequeñas */
 @media (max-width: 768px) {
   .table-row {
     width: 100%; /* Ocupa todo el ancho en pantallas más pequeñas */
   }
-  .input-togger-trimestre {
-    width: 20%; /* Cambia a tres columnas en pantallas pequeñas */
-   
-  }
+ 
   .input-container-trimestre {
     display: flex;
-    flex-direction: column; /* Cambia a una columna en pantallas pequeñas */
-    width: 95%;
-    max-width: 100%; /* Establece un ancho máximo */
-    font-size: 14px;
-    margin-top: 10px;
+    margin-top: 3%;
+    flex-direction: column;
+    width: 90%;
+    max-width: 100%;
+    margin-right: 40%; /* Espacio entre los campos */
   }
-  .data-cell {
-    display: flex;
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas más pequeñas */
-   
-  }
+ 
 }
 
 .input-togger-cervix {
@@ -330,18 +320,18 @@ table input[type="text"] {
 
 /* Estilos para pantallas más pequeñas (menos de 768px) */
 @media (max-width: 768px) {
-  .sectionForm {
+  .sectionFormSecond {
     width: 95%;
   }
-  .inputNumber {
+  .inputNumberSecond {
     width: 100%;
     
   }
-  .inputDate{
+  .inputDateSecond{
     width: 100%;
     
   }
-  .input-container {
+  .inputContainerSecond {
     justify-content: flex-start; /* Cambiar de 'space-between' a 'flex-start' */
   }
  
@@ -349,21 +339,21 @@ table input[type="text"] {
 }
 
 @media screen and (max-width: 576px) {
-  .sectionForm {
+  .sectionFormSecond {
     width: 95%;
   }
-  .inputNumber {
+  .inputNumberSecond {
     width: 100%;
    
   }
-  .inputDate{
+  .inputDateSecond{
     width: 100%;
     
   }
-  .input-container {
+  .inputContainerSecond {
     flex-direction: column; /* Cambia la disposición a una sola columna */
   }
-  .input-field {
+  .inputFieldSecond {
     padding: 5px; /* Espacio alrededor de los campos */
     width: 90%;
   }
