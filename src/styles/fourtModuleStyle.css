@@ -1,0 +1,80 @@
+/* Estilo para fourthModuleStyle */
+
+.formFourthModule {
+  background-color: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  max-width: 95%;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 10px;
+  height: auto;
+}
+
+.recienNacidoSelect,
+.inputNumberFourth {
+  width: 100%;
+  padding: 10px;
+  height: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .centered-content {
+    width: 100%;
+  }
+  .formularioFourthModule {
+    width: 100%;
+  }
+  .recienNacidoSelect,
+  .inputNumberFourth {
+    width: 100%;
+    height: 100%;
+  }
+  @media (max-width: 768px) {
+    .formularioFourthModule {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}
+
+.formularioFourthModule {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 50px;
+  margin-bottom: 10px;
+}
+
+.formularioFourthChildren {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  padding: 10px;
+  justify-content: center;
+}
+.recienNacidoSelect,
+.inputNumberFourth {
+  width: 100%;
+  height: 100%;
+}
+.ButtonEnviarFourth {
+  padding: 1%;
+  background-color: #3db9fb;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  width: 20%;
+  background-position: center;
+}
+.containerButtonFourth {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
