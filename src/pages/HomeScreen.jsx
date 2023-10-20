@@ -27,7 +27,7 @@ const HomeScreen = ({ onSignOut }) => {
                     />
                     <CardFunction
                         imageSrc={imgWebHearth}
-                        text="Web Minsa"
+                        text="Informenes Minsa"
                         route="/webminsa"
                     />
                 </div>
