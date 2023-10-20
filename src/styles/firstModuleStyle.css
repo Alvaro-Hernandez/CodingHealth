@@ -75,7 +75,7 @@
 
 .sectionData label,
 .sectionData input {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.6;
 }
 
@@ -85,6 +85,8 @@
   color: #000000;
   border-radius: 10px;
   font-family: "Outfit", sans-serif;
+  height: 38px;
+  padding-left: 15px;
 }
 
 .customInput::placeholder {
@@ -93,9 +95,9 @@
 }
 
 /* Estilos para ToggleSwitch */
-.switch {
+.switchFirstModule {
   position: relative;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 60px;
@@ -103,13 +105,13 @@
   margin-bottom: 15px;
 }
 
-.switch input {
+.switchFirstModule input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.slider {
+.sliderFirstModule {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -121,7 +123,7 @@
   border-radius: 34px;
 }
 
-.slider:before {
+.sliderFirstModule:before {
   position: absolute;
   content: "";
   height: 15px;
@@ -133,16 +135,49 @@
   border-radius: 50%;
 }
 
-.switch input:checked + .slider {
+.switchFirstModule input:checked + .sliderFirstModule {
   background-color: #eff303;
 }
 
-.switch input:focus + .slider {
+.switchFirstModule input:focus + .sliderFirstModule {
   box-shadow: 0 0 1px #2196f3;
 }
 
-.switch input:checked + .slider:before {
+.switchFirstModule input:checked + .sliderFirstModule:before {
   transform: translateX(26px);
+}
+
+.antecedentesContainer {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.antecedentesTitle {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.antecedentesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.antecedentesTable,
+.antecedentesTable th,
+.antecedentesTable td {
+  border: 1px solid #ddd;
+}
+
+.antecedentesTable td {
+  text-align: center;
+  padding: 10px;
+  vertical-align: middle;
+}
+
+.antecedentesContainer input {
+  margin-top: 16px;
+  font-size: 18px;
+  line-height: 1.6;
 }
 
 /* Estilos para dispositivos móviles */
@@ -188,5 +223,34 @@
 
   .switch input:checked + .slider:before {
     transform: translateX(21px);
+  }
+}
+
+/* Estilos para tablets en modo paisaje */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sectionData {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .sectionData > * {
+    width: 48%;
+  }
+
+  .switch {
+    width: 55px;
+    height: 28px;
+  }
+
+  .slider:before {
+    height: 17px;
+    width: 17px;
+    left: 4px;
+    bottom: 4px;
+  }
+
+  .switch input:checked + .slider:before {
+    transform: translateX(24px);
   }
 }
