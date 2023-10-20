@@ -52,6 +52,7 @@ const SearchScreen = ({ onSignOut }) => {
             .then((doc) => {
                 if (doc.exists) {
                     setIdInput('');
+                    localStorage.setItem("cachedId", idInput);
                     setSuccessMessage("ID encontrado con éxito");
                     setSuccessModalOpen(true);
                     setShouldNavigate(true);
