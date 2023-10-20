@@ -76,3 +76,26 @@
   font-weight: 600;
   width: 48%;
 }
+
+@media only screen and (max-width: 768px) {
+  .loginImage {
+    display: none;
+  }
+
+  .loginContent {
+    flex: 100%;
+    padding: 10px;
+  }
+
+  .loginForm {
+    width: 80%;
+  }
+
+  .loginInput {
+    width: 100%;
+  }
+
+  .loginButton {
+    width: 100%;
+  }
+}
