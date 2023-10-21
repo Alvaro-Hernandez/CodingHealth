@@ -47,6 +47,10 @@
   color: #222;
   font-size: 18px;
 }
+.alertGroup {
+  display: flex;
+  align-items: center;
+}
 
 .alert {
   width: 20px;
@@ -55,202 +59,105 @@
   border-radius: 10px;
   margin-right: 10px;
 }
+/* Estilo para fourthModuleStyle */
 
-.alertGroup {
-  display: flex;
-  align-items: center;
-}
-
-.sectionData {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
-
-.sectionData > * {
-  margin: 6px;
-}
-
-.sectionData label,
-.sectionData input {
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-.customInput {
-  border: none;
-  background-color: #f0f0f0;
-  color: #000000;
+.formFourthModule {
+  background-color: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  max-width: 95%;
+  margin: 0 auto;
+  padding: 20px;
   border-radius: 10px;
-  font-family: "Outfit", sans-serif;
-  height: 38px;
-  padding-left: 15px;
+  margin-top: 10px;
+  height: auto;
 }
 
-.customInput::placeholder {
-  color: #000000;
-  font-family: "Outfit", sans-serif;
-}
-
-/* Estilos para ToggleSwitch */
-.switchFirstModule {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 30px;
-  margin-bottom: 15px;
-}
-
-.switchFirstModule input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.sliderFirstModule {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 34px;
-}
-
-.sliderFirstModule:before {
-  position: absolute;
-  content: "";
-  height: 15px;
-  width: 15px;
-  left: 4px;
-  bottom: 8px;
-  background-color: #484c52;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-.switchFirstModule input:checked + .sliderFirstModule {
-  background-color: #eff303;
-}
-
-.switchFirstModule input:focus + .sliderFirstModule {
-  box-shadow: 0 0 1px #2196f3;
-}
-
-.switchFirstModule input:checked + .sliderFirstModule:before {
-  transform: translateX(26px);
-}
-
-.antecedentesContainer {
-  margin-top: 20px;
+.recienNacidoSelect,
+.inputNumberFourth {
   width: 100%;
+  padding: 10px;
+  height: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-.antecedentesTitle {
-  text-align: center;
+@media (max-width: 768px) {
+  .centered-content {
+    width: 100%;
+  }
+  .formularioFourthModule {
+    width: 100%;
+  }
+  .recienNacidoSelect,
+  .inputNumberFourth {
+    width: 100%;
+    height: 100%;
+  }
+  @media (max-width: 768px) {
+    .formularioFourthModule {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}
+
+.formularioFourthModule {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 50px;
   margin-bottom: 10px;
 }
 
-.antecedentesTable {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.antecedentesTable,
-.antecedentesTable th,
-.antecedentesTable td {
-  border: 1px solid #ddd;
-}
-
-.antecedentesTable td {
-  text-align: center;
+.formularioFourthChildren {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
   padding: 10px;
-  vertical-align: middle;
+  justify-content: center;
+}
+.recienNacidoSelect,
+.inputNumberFourth {
+  width: 100%;
+  height: 100%;
 }
 
-.antecedentesContainer input {
-  margin-top: 16px;
-  font-size: 18px;
-  line-height: 1.6;
+.containerButtonFourth {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
-/* Estilos para dispositivos móviles */
-@media (max-width: 768px) {
-  .firstModuleScreenContainer {
-    padding: 10px;
-  }
-
-  .navContainer {
-    width: 100%;
-  }
-
-  .formControl {
-    width: 100%;
-  }
-
-  .sectionForm {
-    width: 100%;
-    padding: 10px;
-  }
-
-  .sectionData {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .sectionData > * {
-    width: 100%;
-    margin: 5px 0;
-  }
-
-  .switch {
-    width: 45px;
-    height: 25px;
-  }
-
-  .slider:before {
-    height: 16px;
-    width: 16px;
-    left: 3px;
-    bottom: 3px;
-  }
-
-  .switch input:checked + .slider:before {
-    transform: translateX(21px);
-  }
+.containerButtonFourth button {
+  margin-left: 15px;
 }
 
-/* Estilos para tablets en modo paisaje */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .sectionData {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
+.ButtonEnviarFourth {
+  padding: 1%;
+  background-color: #3db9fb;
+  color: white;
+  border: none;
+  font-family: "Outfit", sans-serif;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  width: 20%;
+  background-position: center;
+}
 
-  .sectionData > * {
-    width: 48%;
-  }
-
-  .switch {
-    width: 55px;
-    height: 28px;
-  }
-
-  .slider:before {
-    height: 17px;
-    width: 17px;
-    left: 4px;
-    bottom: 4px;
-  }
-
-  .switch input:checked + .slider:before {
-    transform: translateX(24px);
-  }
+.ButtonCancelFourth {
+  padding: 1%;
+  background-color: #fe2f2f;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-family: "Outfit", sans-serif;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  width: 20%;
+  background-position: center;
+  margin-left: 10px;
 }
