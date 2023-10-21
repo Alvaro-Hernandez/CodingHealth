@@ -116,6 +116,10 @@ const FourthModuleScreen = ({ onSignOut }) => {
         }
     };
 
+    const handleButtonClick = () => {
+        setLocation("/modules");
+    }
+
     return (
         <div>
             <NavBarComponent onSignOut={handleLogout} />
@@ -370,6 +374,9 @@ const FourthModuleScreen = ({ onSignOut }) => {
                 <div className="containerButtonFourth">
                     <button className="ButtonEnviarFourth" type="submit">
                         Guardar
+                    </button>
+                    <button className="ButtonCancelFourth" type="button" onClick={handleButtonClick}>
+                        Cancelar
                     </button>
                 </div>
             </form>
