@@ -23,7 +23,7 @@ function SuccessfulModal({ isOpen, onRequestClose, successfulMessage, title }) {
             <div className="successful-modal">
                 <h2>{title}</h2>
                 <p>{successfulMessage}</p>
-                <button onClick={onRequestClose}>Cerrar</button>
+                <button onClick={onRequestClose}>Aceptar</button>
             </div>
         </Modal>
     );

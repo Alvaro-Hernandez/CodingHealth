@@ -24,8 +24,8 @@ function ConfirmationModal({ isOpen, onRequestClose, onConfirm, message, title }
                 <h2>{title}</h2>
                 <p>{message}</p>
                 <div className="button-container">
+                    <button className="create-button" onClick={onConfirm}>Aceptar</button>
                     <button className="cancel-button" onClick={onRequestClose}>Cancelar</button>
-                    <button className="create-button" onClick={onConfirm}>Crear</button>
                 </div>
             </div>
         </Modal>
