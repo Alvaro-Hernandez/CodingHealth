@@ -5,6 +5,7 @@ import { useLocation } from "wouter";
 import NavBarComponent from "../components/NavbarComponent";
 import ErrorModal from "../components/MessageErrorModal";
 import SuccessfulModal from "../components/MessageSuccessfulModal";
+import ConfirmationModal from "../components/ConfirmationModal"; // Asegúrate de tener la ruta correcta
 import imgBuscar from "../assets/buscar.png";
 import "../styles/searchStyle.css";
 
@@ -12,6 +13,7 @@ const SearchScreen = ({ onSignOut }) => {
     const [idInput, setIdInput] = useState('');
     const [errorModalOpen, setErrorModalOpen] = useState(false);
     const [successModalOpen, setSuccessModalOpen] = useState(false);
+    const [confirmModalOpen, setConfirmModalOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [shouldNavigate, setShouldNavigate] = useState(false);
@@ -34,7 +36,6 @@ const SearchScreen = ({ onSignOut }) => {
 
     const closeErrorModal = () => {
         setErrorModalOpen(false);
-        setLocation("/search");
     };
 
     const closeSuccessModal = () => {
@@ -43,6 +44,28 @@ const SearchScreen = ({ onSignOut }) => {
             setLocation("/modules");
             setShouldNavigate(false);
         }
+    };
+
+    const closeConfirmModal = () => {
+        setConfirmModalOpen(false);
+    };
+
+    const handleConfirmCreation = () => {
+        closeConfirmModal();
+        db.collection('cartilla')
+            .doc(idInput)
+            .set({})
+            .then(() => {
+                setSuccessMessage("Nuevo ID creado con éxito. Serás redirigido.");
+                setSuccessModalOpen(true);
+                localStorage.setItem('cachedId', idInput);
+                setShouldNavigate(true);
+            })
+            .catch((error) => {
+                console.error('Error al guardar el documento: ', error);
+                setErrorMessage("Error al guardar el documento");
+                setErrorModalOpen(true);
+            });
     };
 
     const handleCheckId = () => {
@@ -57,20 +80,7 @@ const SearchScreen = ({ onSignOut }) => {
                     setSuccessModalOpen(true);
                     setShouldNavigate(true);
                 } else {
-                    db.collection('cartilla')
-                        .doc(idInput)
-                        .set({})
-                        .then(() => {
-                            setSuccessMessage("Nuevo ID creado con éxito. Serás redirigido.");
-                            setSuccessModalOpen(true);
-                            localStorage.setItem('cachedId', idInput);
-                            setShouldNavigate(true);
-                        })
-                        .catch((error) => {
-                            console.error('Error al guardar el documento: ', error);
-                            setErrorMessage("Error al guardar el documento");
-                            setErrorModalOpen(true);
-                        });
+                    setConfirmModalOpen(true);
                 }
             })
             .catch((error) => {
@@ -79,7 +89,6 @@ const SearchScreen = ({ onSignOut }) => {
                 setErrorModalOpen(true);
             });
     };
-
 
     return (
         <div className="searchScreenContainer">
@@ -115,6 +124,14 @@ const SearchScreen = ({ onSignOut }) => {
                 onRequestClose={closeSuccessModal}
                 successfulMessage={successMessage}
                 title="Éxito"
+            />
+
+            <ConfirmationModal
+                isOpen={confirmModalOpen}
+                onRequestClose={closeConfirmModal}
+                onConfirm={handleConfirmCreation}
+                message="UPS, no está registrada. ¿Confirmas su creación?"
+                title="Confirmación"
             />
         </div>
     )
