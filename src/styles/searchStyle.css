@@ -26,7 +26,6 @@
 .searchTitle {
   display: flex;
   align-items: center;
-  margin-left: 30px;
   width: 100%;
   justify-content: left;
   margin-top: 20px;
@@ -74,16 +73,44 @@
   font-size: 30px;
   font-family: "Outfit", sans-serif;
   font-weight: 600;
-  width: 15%;
+  width: 20%;
 }
 
-/* Para pantallas pequeñas */
+/* Estilos responsivos específicos para móviles */
 @media (max-width: 768px) {
   .customInputSearch {
     font-size: 18px;
+    padding-left: 5px;
   }
 
   .searchTitle h2 {
     font-size: 2rem;
+  }
+
+  .submitButton {
+    width: 100%;
+    font-size: 24px;
+    padding: 8px;
+  }
+
+  .inputContainer {
+    margin: 0 10px;
+  }
+}
+
+/* Estilos responsivos específicos para tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .customInputSearch,
+  .submitButton {
+    font-size: 24px;
+  }
+
+  .searchTitle h2 {
+    font-size: 2.5rem;
+  }
+
+  .submitButton {
+    width: 50%;
+    margin-top: 15px;
   }
 }

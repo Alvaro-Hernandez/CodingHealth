@@ -23,3 +23,19 @@
   flex-wrap: wrap;
   gap: 20px;
 }
+
+/* Estilos responsivos para tablets y teléfonos móviles */
+@media (max-width: 768px) {
+  .homeCardsContainer {
+    justify-content: space-around;
+    gap: 10px;
+  }
+}
+
+/* Estilos específicos para teléfonos móviles */
+@media (max-width: 480px) {
+  .homeCardsContainer {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
