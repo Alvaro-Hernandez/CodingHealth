@@ -296,6 +296,11 @@ const ThirdModuleScreen = ({ onSignOut }) => {
         onSignOut();
         setLocation("/login");
     }
+
+    const handleButtonClick = () => {
+        setLocation("/modules");
+    }
+
     return (
         <div>
 
@@ -1024,11 +1029,14 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                         </div>
                     ))}
 
-                    <button
-                        type="submit"
-                    >
-                        Enviar
-                    </button>
+                    <div className="containerButtonFourth">
+                        <button className="ButtonEnviarFourth" type="submit">
+                            Guardar
+                        </button>
+                        <button className="ButtonCancelFourth" type="button" onClick={handleButtonClick}>
+                            Cancelar
+                        </button>
+                    </div>
                 </form>
             </div>
 
