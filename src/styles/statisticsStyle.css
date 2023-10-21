@@ -10,14 +10,13 @@
   width: 100%;
 }
 
-
-.formControl {
+.formControlStadistic {
   display: flex;
   justify-content: center;
 }
 
 .sectionContainerId {
-  margin-top:  50px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -28,22 +27,17 @@
   border-radius: 10px;
   padding: 20px;
 }
-@media (max-width:768px){
-  .sectionContainerId{
+@media (max-width: 768px) {
+  .sectionContainerId {
     width: 100%;
-
-
   }
-  .formControl{
+  .formControlStadistic {
     width: 100px;
   }
   .statisticsScreenContainer {
-   padding: 10px;
+    padding: 10px;
   }
-  .navContainer{
+  .navContainer {
     width: 100px;
   }
 }
-
-
-
