@@ -1,0 +1,90 @@
+{
+  "parto_aborto": {
+    "Corticoides": "",
+    "DetallesPartoGrama": [
+      {
+        "AlturaPresente": "",
+        "Control_10": "",
+        "Dilatacion": "",
+        "FCF_Dips": "",
+        "Fecha": "",
+        "ID": "ID",
+        "Meconio": "",
+        "PA": "",
+        "PosicionDelaMadre": "",
+        "Pulso": "",
+        "VariedadPosic": "",
+        "DiasHospitalizado": ""
+      }
+    ],
+    "EnfermedadesData": [
+      {
+        "AmenazaPartoPreter": false,
+        "Anemia": false,
+        "CardioPatia": false,
+        "Diabetes": false,
+        "Eclampsia": false,
+        "Enfermedades": false,
+        "HTAInducidaEmbarazo": false,
+        "HTAPrevia": false,
+        "InfeUrinaria": false,
+        "InfecOvular": false,
+        "Nefropatia": false,
+        "OtraCondicionGrave": false,
+        "PreeDampsia": false,
+        "RCIU": false,
+        "RoturaPremDeMembranas": true
+      }
+    ],
+    "Hemorragias": [
+      {
+        "Hemorragias": "",
+        "InfeccionPuerperal": "",
+        "PosParto": "",
+        "PrimerTrimestre": "",
+        "SegundoTrimestre": "",
+        "TercerTrimestre": ""
+      }
+    ],
+    "Hospitalizado_en_Embarazo": [],
+    "Nacimiento": [
+      {
+        "AnteParto": "",
+        "Fecha": "",
+        "Id": "id",
+        "IgnoraMomento": "",
+        "Muerto": "",
+        "Parto": "",
+        "Vivo": ""
+      }
+    ],
+    "Posicion_Parto": [
+      {
+        "Acostada": "",
+        "Cunclillas": "",
+        "Id": "id",
+        "Sentada": "",
+        "Solicitada_Por_Usuaria": ""
+      }
+    ],
+    "PresentacioSituacion": [],
+    "TamañoFetalAcorde": "",
+    "acompañante": "",
+    "campo1": "",
+    "campo2": "",
+    "carnet": "",
+    "consulta": "",
+    "date": "Date",
+    "diagestacional": "",
+    "edad": [],
+    "edadgestacional": [],
+    "inicio": [],
+    "lugardeparto": "",
+    "message": "",
+    "mostrarCamposAdicionales": false,
+    "parto": "",
+    "porECO": "",
+    "porFUM": "",
+    "transversa": ""
+  }
+}

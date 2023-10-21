@@ -1,0 +1,14 @@
+{
+  "usuarios": {
+    "O8B4ltx1HcUKMBF6tRU5dA13EBl2": {
+      "email": "admincartilife@gmail.com",
+      "role": "admin",
+      "uid": "O8B4ltx1HcUKMBF6tRU5dA13EBl2"
+    },
+    "nN8Sg2SZkbOWHsDrAhsTQyQwA6N2": {
+      "email": "minsachontales@gmail.com",
+      "role": "minsa",
+      "uid": "nN8Sg2SZkbOWHsDrAhsTQyQwA6N2"
+    }
+  }
+}

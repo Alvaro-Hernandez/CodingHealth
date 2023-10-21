@@ -1,0 +1,96 @@
+{
+  "ModuloGestacionActual": {
+    "Antirubeola": {
+      "0": {
+        "embarazo": "",
+        "no": "",
+        "noSabe": "",
+        "previa": ""
+      }
+    },
+    "Antitetanica": {
+      "0": {
+        "Dosis1": "",
+        "Dosis2": "",
+        "Id": "id",
+        "vigente": ""
+      }
+    },
+    "AtencionesPrenatales": {
+      "0": {
+        "FCF_IPM": "",
+        "PA": "",
+        "alturaUterina": "",
+        "edadGestacional": "",
+        "fecha": "",
+        "inicialesPersonalSalud": "",
+        "movimientosFetales": "",
+        "peso": "",
+        "presentacion": "",
+        "proteinuna": "",
+        "proximaCita": "",
+        "signosExamenesTratamiento": ""
+      }
+    },
+    "Cervix": {
+      "0": {
+        "InspVisual": "InspVisual",
+        "anormal": "",
+        "noSeHizo": "",
+        "normal": ""
+      },
+      "1": {
+        "PAP": "PAP",
+        "anormal": "",
+        "noSeHizo": "",
+        "normal": ""
+      },
+      "2": {
+        "COLP": "COLP",
+        "anormal": "",
+        "noSeHizo": "",
+        "normal": ""
+      }
+    },
+    "DateFPP": "",
+    "DateFUM": "",
+    "ExNormal": {
+      "0": {
+        "Id": "id",
+        "Mamas": "",
+        "Odont": "",
+        "imc": "",
+        "pesoAnterior": "",
+        "selectedOptionECO": "",
+        "selectedOptionFUM": "",
+        "talla": ""
+      }
+    },
+    "trimestresData": {
+      "0": {
+        "alcohol": "",
+        "droga": "",
+        "fumaAct": "",
+        "fumaPas": "",
+        "trimestre": "Primer Trimestre",
+        "violencia": ""
+      },
+      "1": {
+        "alcohol": "",
+        "droga": "",
+        "fumaAct": "",
+        "fumaPas": "",
+        "trimestre": "Segundo Trimestre",
+        "violencia": ""
+      },
+      "2": {
+        "alcohol": "",
+        "droga": "",
+        "fumaAct": "",
+        "fumaPas": "",
+        "trimestre": "Tercer Trimestre",
+        "violencia": ""
+      }
+    }
+  }
+}

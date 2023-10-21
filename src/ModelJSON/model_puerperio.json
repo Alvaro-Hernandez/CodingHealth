@@ -1,0 +1,32 @@
+{
+  "ModuloPuerperio": {
+    "Reanimacion": {
+      "0": {
+        "aspiracion": "",
+        "estimulacion": "",
+        "fallece_lugar_De_Parto": "",
+        "masaje": "",
+        "mascara": "",
+        "otros": "",
+        "oxigeno": "",
+        "tubo": ""
+      }
+    },
+    "RecienNacido": {
+      "0": {
+        "Diagnosticada_Por": "",
+        "apego_precoz": "",
+        "dias_Gestacional": "",
+        "edad_Gestacional": "",
+        "longitud_cm": "",
+        "p_Cefalico_cm": "",
+        "pesoAlNacer": "",
+        "peso_EG": "",
+        "propfilasis_ocular": "",
+        "semanas_Gestacional": "",
+        "sexo": "",
+        "vitamina_K": ""
+      }
+    }
+  }
+}
