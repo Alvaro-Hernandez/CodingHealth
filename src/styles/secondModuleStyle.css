@@ -27,7 +27,7 @@ legend {
 .sectionFormSecond {
   background-color: #fff;
   width: 95%;
-  height: 2000px;
+  height: auto;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
 }
@@ -86,10 +86,30 @@ legend {
   width: 20%;
   background-position: center;
 }
+
+.ButtonCancelSecond {
+  padding: 1%;
+  background-color: #fe2f2f;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-family: "Outfit", sans-serif;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  width: 20%;
+  background-position: center;
+  margin-left: 10px;
+}
+
 .buttonContainerSecond {
   align-items: center;
   display: flex;
   justify-content: center;
+}
+
+.buttonContainerSecond button {
+  margin-left: 15px;
 }
 
 /* Estilo para el contenedor de trimestres */

@@ -289,6 +289,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
     setLocation("/login");
   };
 
+  const handleButtonClick = () => {
+    setLocation("/modules");
+  }
+
   return (
     <div className="secondModuleScreenContainer">
       <div className="navContainerSecond">
@@ -847,7 +851,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
 
             <div className="buttonContainerSecond">
               <button type="submit" className="ButtonEnviarSecond">
-                Enviar
+                Guardar
+              </button>
+              <button className="ButtonCancelSecond" type="button" onClick={handleButtonClick}>
+                Cancelar
               </button>
             </div>
           </form>
