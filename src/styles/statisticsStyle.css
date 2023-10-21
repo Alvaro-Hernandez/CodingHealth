@@ -46,6 +46,11 @@
   width: 550px;
   height: 400px;
 }
+
+.graficAborto {
+  margin-right: 150px;
+}
+
 /* Estilos para la barra de gráficos */
 #myPartoAbortoChart {
   max-width: 400px;

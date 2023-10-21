@@ -304,9 +304,10 @@ const ThirdModuleScreen = ({ onSignOut }) => {
     return (
         <div>
 
-            <NavBarComponent onSignOut={handleLogout} />
+            <NavBarComponent onSignOut={handleLogout} showCloseExpedienteButton={false} />
 
-            <div className="form-container"> <h1 className="nombre">Modulo Madre 🤳</h1>
+
+            <div className="form-container"> <h1 className="nombre">Modulo Parto - Aborto 🤳</h1>
                 <form className="form" onSubmit={handleSubmit}>
                     <h2>Agregar nueva cita</h2>
                     <div className="table-container">

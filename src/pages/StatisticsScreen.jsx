@@ -8,7 +8,7 @@ import '../styles/statisticsStyle.css';
 
 const StatisticsComponent = ({ onSignOut }) => {
   const [, setLocation] = useLocation();
-  const [selectedId, setSelectedId] = useState('');
+  const [selectedId, setSelectedId] = useState('todos');
   const [enfermedades, setEnfermedades] = useState([]);
   const [availableIds, setAvailableIds] = useState([]);
   const [globalPartoAborto, setGlobalPartoAborto] = useState({ parto: 0, aborto: 0 });
@@ -20,10 +20,10 @@ const StatisticsComponent = ({ onSignOut }) => {
   ];
 
   const colores = [
-    'rgba(255, 99, 132, 0.5)',
-    'rgba(54, 162, 235, 0.5)',
-    'rgba(255, 206, 86, 0.5)',
-    'rgba(75, 192, 192, 0.5)',
+    'rgba(255, 99, 132, 0.9)',
+    'rgba(54, 162, 235, 0.9)',
+    'rgba(255, 206, 86, 0.9)',
+    'rgba(75, 192, 192, 0.9)',
   ];
 
   useEffect(() => {
@@ -155,7 +155,7 @@ const StatisticsComponent = ({ onSignOut }) => {
         labels: ['Parto', 'Aborto'],
         datasets: [{
           data: [globalPartoAborto.parto, globalPartoAborto.aborto],
-          backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)'],
+          backgroundColor: ['rgba(255, 99, 132, 0.9)', 'rgba(54, 162, 235, 0.9)'],
           borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
           borderWidth: 1,
         }]
@@ -175,17 +175,18 @@ const StatisticsComponent = ({ onSignOut }) => {
   return (
     <div className="statisticsScreenContainer">
       <div className="navContainer">
-        <NavBarComponent onSignOut={handleLogout} />
+        <NavBarComponent onSignOut={handleLogout} showCloseExpedienteButton={false} />
+
       </div>
       <div className="formControlStadistic">
         <section className="sectionContainerId">
-          <label htmlFor="idInput">Selecciona un COD_EXPEDIENTE:</label>
+          <h2>Dashboard de Indicadores</h2>
           <select
             onChange={handleSelectChange}
             value={selectedId}
           >
-            <option value="">Selecciona un ID</option>
-            <option value="todos">Seleccionar Todos</option>
+            <option value="">Selecciona un COD_EXPEDIENTE:</option>
+            <option value="todos">Todos Los Pacientes</option>
             {availableIds.map(id => (
               <option key={id} value={id}>
                 {id}

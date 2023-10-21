@@ -9,3 +9,47 @@
 .navContainer {
   width: 100%;
 }
+
+.contentContainer {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin-top: 20px;
+}
+
+.pdfListContainer {
+  width: 200px;
+  max-height: 200px;
+  overflow-y: auto;
+  border-right: 1px solid #ccc;
+  padding-right: 20px;
+}
+
+.pdfListContainer ul {
+  list-style: none;
+  padding: 0;
+}
+
+.pdfListContainer li {
+  cursor: pointer;
+  padding: 10px;
+  margin-bottom: 5px;
+  transition: background 0.3s;
+  color: #fff;
+}
+
+.pdfListContainer li:hover {
+  background: #eb7c9c;
+  color: #fff;
+}
+
+.pdfIframeContainer {
+  flex: 1;
+}
+
+/* Puedes agregar estilos adicionales para el iframe si es necesario */
+.pdfIframeContainer iframe {
+  border: none;
+  width: 100%;
+  height: 550px;
+}

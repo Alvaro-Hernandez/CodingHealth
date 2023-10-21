@@ -296,7 +296,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
   return (
     <div className="secondModuleScreenContainer">
       <div className="navContainerSecond">
-        <NavBarComponent onSignOut={handleLogout} />
+        <NavBarComponent onSignOut={handleLogout} showCloseExpedienteButton={false} />
       </div>
       <div className="formControlSecond">
         <section className="sectionFormSecond">

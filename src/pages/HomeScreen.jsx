@@ -3,14 +3,15 @@ import NavBarComponent from "../components/NavbarComponent";
 import CardFunction from "../components/CardFunctionComponent";
 import imgStatistics from "../assets/estadisticas.png";
 import imgPrimur from "../assets/cartillaPerinatal.png";
-import imgWebHearth from "../assets/webMinsa.png";
+import imgInformenes from "../assets/ManualesPNG.png";
 import '../styles/homeStyle.css';
 
 const HomeScreen = ({ onSignOut }) => {
     return (
         <div className="homeScreenContainer">
             <div className="navContainer">
-                <NavBarComponent onSignOut={onSignOut} />
+                <NavBarComponent onSignOut={onSignOut} showCloseExpedienteButton={false} />
+
             </div>
 
             <div className="homeItemContainer">
@@ -26,8 +27,8 @@ const HomeScreen = ({ onSignOut }) => {
                         route="/search"
                     />
                     <CardFunction
-                        imageSrc={imgWebHearth}
-                        text="Informenes Minsa"
+                        imageSrc={imgInformenes}
+                        text="Informes"
                         route="/webminsa"
                     />
                 </div>

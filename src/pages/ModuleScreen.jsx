@@ -11,7 +11,7 @@ const ModuleScreen = ({ onSignOut }) => {
     return (
         <div className="moduleScreenContainer">
             <div className="navContainer">
-                <NavBarComponent onSignOut={onSignOut} />
+                <NavBarComponent onSignOut={onSignOut} showCloseExpedienteButton={true} />
             </div>
 
             <div className="itemContainer">

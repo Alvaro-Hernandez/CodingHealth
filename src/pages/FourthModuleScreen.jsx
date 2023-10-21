@@ -122,7 +122,8 @@ const FourthModuleScreen = ({ onSignOut }) => {
 
     return (
         <div>
-            <NavBarComponent onSignOut={handleLogout} />
+            <NavBarComponent onSignOut={handleLogout} showCloseExpedienteButton={false} />
+
 
             <form className="formFourthModule" onSubmit={handleSubmit}>
                 {RecienNacido.map((item, index) => (

@@ -4,7 +4,7 @@ import NavBarComponent from "../components/NavbarComponent";
 const AdminScreen = ({ onSignOut }) => {
     return (
         <div>
-            <NavBarComponent onSignOut={onSignOut} />
+            <NavBarComponent onSignOut={onSignOut} showCloseExpedienteButton={false} />
             <h1>Soy administrador.</h1>
         </div>
     )

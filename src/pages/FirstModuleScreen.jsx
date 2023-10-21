@@ -274,8 +274,7 @@ const FirstModuleScreen = ({ onSignOut }) => {
     return (
         <div className="firstModuleScreenContainer">
             <div className="navContainer">
-                <NavBarComponent onSignOut={handleLogout} />
-
+                <NavBarComponent onSignOut={handleLogout} showCloseExpedienteButton={false} />
 
                 <div className="sectionInformation">
                     <h2 className="title">
@@ -526,11 +525,13 @@ const FirstModuleScreen = ({ onSignOut }) => {
 
                                 </div>
                                 <div className="formularioFourthChildren">
-                                    <Select options={options} />
+                                    <label>Departamento</label>
+                                    <Select options={options1} />
 
                                 </div>
                                 <div className="formularioFourthChildren">
-                                    <Select options1={options1} />
+                                    <label>Municipio</label>
+                                    <Select options1={options} />
 
                                 </div>
 

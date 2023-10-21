@@ -56,7 +56,7 @@ const SearchScreen = ({ onSignOut }) => {
             .doc(idInput)
             .set({})
             .then(() => {
-                setSuccessMessage("Nuevo ID creado con éxito. Serás redirigido.");
+                setSuccessMessage("Nuevo Paciente creado con éxito. Serás redirigido.");
                 setSuccessModalOpen(true);
                 localStorage.setItem('cachedId', idInput);
                 setShouldNavigate(true);
@@ -76,7 +76,7 @@ const SearchScreen = ({ onSignOut }) => {
                 if (doc.exists) {
                     setIdInput('');
                     localStorage.setItem("cachedId", idInput);
-                    setSuccessMessage("ID encontrado con éxito");
+                    setSuccessMessage("Paciente encontrado con éxito");
                     setSuccessModalOpen(true);
                     setShouldNavigate(true);
                 } else {
@@ -93,7 +93,8 @@ const SearchScreen = ({ onSignOut }) => {
     return (
         <div className="searchScreenContainer">
             <div className="navContainer">
-                <NavBarComponent onSignOut={onSignOut} />
+                <NavBarComponent onSignOut={onSignOut} showCloseExpedienteButton={false} />
+
             </div>
             <div className="searchSection">
                 <div className="searchTitle">
@@ -123,14 +124,14 @@ const SearchScreen = ({ onSignOut }) => {
                 isOpen={successModalOpen}
                 onRequestClose={closeSuccessModal}
                 successfulMessage={successMessage}
-                title="Éxito"
+                title="Información"
             />
 
             <ConfirmationModal
                 isOpen={confirmModalOpen}
                 onRequestClose={closeConfirmModal}
                 onConfirm={handleConfirmCreation}
-                message="UPS, no está registrada. ¿Confirmas su creación?"
+                message="Paciente no está registrada ¿Confirma su creación?"
                 title="Confirmación"
             />
         </div>

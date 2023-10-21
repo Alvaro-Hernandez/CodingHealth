@@ -12,9 +12,11 @@ nav {
 
 .logo img {
   max-height: 50px;
+  cursor: pointer;
 }
 
-.signout-btn {
+.signout-btn,
+.closeExpedienteButton {
   background-color: #fff;
   color: #222;
   font-family: "Outfit", sans-serif;
@@ -30,8 +32,24 @@ nav {
   color: #fff;
 }
 
+.closeExpedienteButton {
+  margin-left: 20px;
+  background-color: #eb7c9c;
+  color: #fff;
+}
+
+.closeExpedienteButton:hover {
+  background-color: #ec0505;
+  color: #fff;
+}
+
 @media screen and (max-width: 768px) {
   .navbar {
     flex-direction: column;
+  }
+
+  .signout-btn,
+  .closeExpedienteButton {
+    margin-top: 10px;
   }
 }
