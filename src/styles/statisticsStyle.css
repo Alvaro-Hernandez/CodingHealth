@@ -1,3 +1,5 @@
+/* Estilos para StatisticsComponent */
+
 .statisticsScreenContainer {
   display: flex;
   flex-direction: column;
@@ -6,15 +8,18 @@
   background: linear-gradient(160deg, #3db9fb 50%, #fff 50%);
 }
 
+/* Contenedor de la barra de navegación */
 .navContainer {
   width: 100%;
 }
 
+/* Contenedor de control de estadísticas */
 .formControlStadistic {
   display: flex;
   justify-content: center;
 }
 
+/* Contenedor de la sección de ID y gráfico */
 .sectionContainerId {
   margin-top: 50px;
   display: flex;
@@ -27,17 +32,33 @@
   border-radius: 10px;
   padding: 20px;
 }
+
+/* Estilos para la barra de gráficos */
+#myBarChart {
+  height: 500px;
+  width: 800px;
+}
+
+/* Si deseas ajustar el tamaño de fuente, puedes agregar propiedades como estas: */
+.label {
+  font-size: 16px;
+}
+
+.title {
+  font-size: 24px;
+}
+
+/* Estilos responsivos para pantallas menores de 768px */
 @media (max-width: 768px) {
   .sectionContainerId {
     width: 100%;
+    padding: 10px 20px; /* Aumenta el padding lateral */
   }
-  .formControlStadistic {
-    width: 100px;
+  .formControlStadistic,
+  .navContainer {
+    width: 100%; /* No limitar a 100px */
   }
   .statisticsScreenContainer {
     padding: 10px;
-  }
-  .navContainer {
-    width: 100px;
   }
 }
