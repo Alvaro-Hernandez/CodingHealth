@@ -14,7 +14,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
   const [DateFPP, setDateFPP] = useState("");
   const [selectedOptionFUM, setSelectedOptionFUM] = useState("");
   const [selectedOptionECO, setSelectedOptionECO] = useState("");
-  const [loader, setLoader] = useState(false);
+  const [, setLoader] = useState(false);
   const cachedId = localStorage.getItem('cachedId');
 
   const [trimestresData, setTrimestresData] = useState([
@@ -145,6 +145,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
 
   useEffect(() => {
     calcularIMC();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pesoAnterior, talla]);
 
   const calcularIMC = () => {
@@ -162,6 +163,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
     setLoader(true);
 
     if (cachedId) {
+      console.log(cachedId);
       try {
         const docRef = db.collection("cartilla").doc(cachedId);
         const doc = await docRef.get();
@@ -188,7 +190,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
 
           await docRef.set(data);
 
-          Alert("Datos enviados con exito");
+          alert("Datos enviados con exito");
 
           setPesoAnterior("");
           setTalla("");
@@ -377,9 +379,8 @@ const SecondModuleScreen = ({ onSignOut }) => {
               <div className="input-container-trimestre">
                 {trimestresData.map((trimestre, index) => (
                   <div className="table-row" key={index}>
-                    <div className="trimestre-cell">{`Trimestre ${
-                      index + 1
-                    }`}</div>
+                    <div className="trimestre-cell">{`Trimestre ${index + 1
+                      }`}</div>
                     <div className="data-cell">
                       <div className="input-togger-trimestre">
                         <label htmlFor={`fumaPas${index}`}>FumaPAS</label>
@@ -434,7 +435,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                     </div>
                   </div>
                 ))}
-                
+
               </div>
               <div className="input-container-antirubeola">
                 <label>ANTIRUBEOLA</label>
@@ -622,7 +623,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 ))}
               </div>
 
-              <div class="table-container">
+              <div className="table-container">
                 <table className="tableAtenciones">
                   <thead>
                     <tr className="trAtenciones">
@@ -856,34 +857,35 @@ const SecondModuleScreen = ({ onSignOut }) => {
   );
 };
 
-    const ToggleSwitch = ({ initialChecked = false, onChange }) => {
-      const [isChecked, setIsChecked] = useState(initialChecked);
+const ToggleSwitch = ({ initialChecked = false, onChange }) => {
+  const [isChecked, setIsChecked] = useState(initialChecked);
 
-      const handleToggle = () => {
-        const newCheckedState = !isChecked;
-        setIsChecked(newCheckedState);
-        onChange(newCheckedState); // Informar al componente padre del nuevo estado
-      };
+  const handleToggle = () => {
+    const newCheckedState = !isChecked;
+    setIsChecked(newCheckedState);
+    // Informar al componente padre del nuevo estado
+    onChange(newCheckedState);
+  };
 
-      return (
-        <label className={`switch ${isChecked ? "checked" : ""}`}>
-          <input type="checkbox" checked={isChecked} onChange={handleToggle} />
-          <span className="slider"></span>
-          <span className={`switch-text ${isChecked ? "checked" : ""}`}>
-            {isChecked ? "Sí" : "No"}
-          </span>
-        </label>
-      );
-    };
+  return (
+    <label className={`switchFirstModule ${isChecked ? "checked" : ""}`}>
+      <input type="checkbox" checked={isChecked} onChange={handleToggle} />
+      <span className="sliderFirstModule"></span>
+      <span className={`switch-text ${isChecked ? "checked" : ""}`}>
+        {isChecked ? "Sí" : "No"}
+      </span>
+    </label>
+  );
+};
 
-    ToggleSwitch.propTypes = {
-      initialChecked: PropTypes.bool,
-      onChange: PropTypes.func.isRequired,
-    };
+ToggleSwitch.propTypes = {
+  initialChecked: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+};
 
-    ToggleSwitch.defaultProps = {
-      initialChecked: false,
-    };
+ToggleSwitch.defaultProps = {
+  initialChecked: false,
+};
 
 SecondModuleScreen.propTypes = {
   onSignOut: PropTypes.func.isRequired,

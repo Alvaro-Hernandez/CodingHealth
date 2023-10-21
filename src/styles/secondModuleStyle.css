@@ -1,4 +1,4 @@
-/* Estilo para el contenedor principal */
+/* Estilo para secondModuleStyle */
 .secondModuleScreenContainer {
   display: flex;
   flex-direction: column;
@@ -32,7 +32,6 @@ legend {
   border-radius: 10px;
 }
 
-
 /* Estilo para los campos de entrada */
 .inputContainerSecond {
   display: flex;
@@ -44,16 +43,16 @@ legend {
 
 .inputNumberSecond {
   width: 100%;
-  height: 20%; 
+  height: 20%;
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 5px;
   font-size: 16px;
   max-width: 100%;
 }
-.inputDateSecond{
+.inputDateSecond {
   width: 100%;
-  height: 20%; 
+  height: 20%;
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 5px;
@@ -69,7 +68,7 @@ legend {
   font-size: 15px;
   align-items: center;
 }
-.inputToggerSecond{
+.inputToggerSecond {
   margin-right: 5%; /* Espacio entre los campos */
 }
 
@@ -87,13 +86,12 @@ legend {
   width: 20%;
   background-position: center;
 }
-.buttonContainerSecond{
+.buttonContainerSecond {
   align-items: center;
   display: flex;
   justify-content: center;
 }
 
- 
 /* Estilo para el contenedor de trimestres */
 
 .input-container-trimestre {
@@ -103,7 +101,6 @@ legend {
   width: 55%;
   font-size: 16px;
   margin-right: 20%; /* Espacio entre los campos */
-
 }
 
 .trimestre-cell {
@@ -112,7 +109,6 @@ legend {
   /* padding: 6px; */
   font-weight: bold;
   color: black;
-  
 }
 
 .data-cell {
@@ -135,10 +131,8 @@ legend {
 
 .input-container-trimestre label {
   margin-bottom: 10px;
-   margin-right: 10px;
+  margin-right: 10px;
 }
-
-
 
 /* ************************* */
 
@@ -148,9 +142,8 @@ legend {
   justify-content: space-between; /* Distribuye los elementos en la fila */
   align-items: center;
 }
-.input-container-antirubeola{
-  margin-top: 5%; 
-  
+.input-container-antirubeola {
+  margin-top: 5%;
 }
 
 .input-field-antirubeola .data-item-antirubeola {
@@ -164,7 +157,7 @@ legend {
 
 .input-field-antirubeola label {
   margin-bottom: 10px;
-   margin-right: 10px;
+  margin-right: 10px;
 }
 
 /* EXNORMAL */
@@ -193,20 +186,17 @@ legend {
   margin-right: 20px; /* Espacio entre los "toggler" */
 }
 
-
 /*ANTITECTANICA*/
 
-.input-container-antitectanica{
+.input-container-antitectanica {
   width: 100%;
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 .input-field-antitectanica {
   width: 100%;
-  
 }
 
-
-.inputDosis{
+.inputDosis {
   width: 30%;
   height: 30px;
   border-radius: 5px;
@@ -221,12 +211,10 @@ legend {
   margin: 10px 0;
 }
 
-
 /* CERVIX */
 .cervix-cell {
   width: 100%; /* Ancho de separación entre columnas */
   height: 15%; /* Altura de la separación */
-  
 }
 .table-container-cervix {
   display: flex;
@@ -242,25 +230,21 @@ legend {
   /* padding: 6px 50; */
 }
 
-
 /* ATENCIONES PRENATALES */
 .table-container-citas {
   margin-bottom: 15px;
-  
 }
 
 .tableAtenciones {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed; /* Fuerza que el ancho de la tabla sea fijo */
-
 }
-.thAtenciones, 
+.thAtenciones,
 .tdAtenciones {
   padding: 10px;
   text-align: center; /* Centra el texto horizontalmente en las celdas */
 }
-
 
 .thAtenciones {
   background-color: #3db9fb; /* Color de fondo para las celdas del encabezado */
@@ -277,15 +261,14 @@ legend {
   resize: vertical; /* Permite la redimensión vertical */
 }
 
-.inputTextAtenciones{
+.inputTextAtenciones {
   width: 100%;
   padding: 4px;
   font-size: 16px;
   outline: none;
   height: 25px;
-   border:none;
+  border: none;
 }
-
 
 /* Responsive styles */
 @media (max-width: 768px) {
@@ -294,12 +277,11 @@ legend {
   }
 }
 
-
 @media (max-width: 768px) {
   .table-row {
     width: 100%; /* Ocupa todo el ancho en pantallas más pequeñas */
   }
- 
+
   .input-container-trimestre {
     display: flex;
     margin-top: 3%;
@@ -308,14 +290,13 @@ legend {
     max-width: 100%;
     margin-right: 40%; /* Espacio entre los campos */
   }
- 
 }
 
 .input-togger-cervix {
   /* Estilos generales para todos los "togglers" */
   margin: 10px;
- margin-left: 10px;
- margin-right: 12px;
+  margin-left: 10px;
+  margin-right: 12px;
 }
 
 /* Estilos para pantallas más pequeñas (menos de 768px) */
@@ -325,17 +306,13 @@ legend {
   }
   .inputNumberSecond {
     width: 100%;
-    
   }
-  .inputDateSecond{
+  .inputDateSecond {
     width: 100%;
-    
   }
   .inputContainerSecond {
     justify-content: flex-start; /* Cambiar de 'space-between' a 'flex-start' */
   }
- 
-  
 }
 
 @media screen and (max-width: 576px) {
@@ -344,11 +321,9 @@ legend {
   }
   .inputNumberSecond {
     width: 100%;
-   
   }
-  .inputDateSecond{
+  .inputDateSecond {
     width: 100%;
-    
   }
   .inputContainerSecond {
     flex-direction: column; /* Cambia la disposición a una sola columna */
@@ -357,5 +332,4 @@ legend {
     padding: 5px; /* Espacio alrededor de los campos */
     width: 90%;
   }
-
 }
