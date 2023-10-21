@@ -1,5 +1,4 @@
 /* Estilos para StatisticsComponent */
-
 .statisticsScreenContainer {
   display: flex;
   flex-direction: column;
@@ -17,6 +16,7 @@
 .formControlStadistic {
   display: flex;
   justify-content: center;
+  width: 95%;
 }
 
 /* Contenedor de la sección de ID y gráfico */
@@ -25,7 +25,7 @@
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  width: 95%;
+  width: 100%;
   height: auto;
   margin-bottom: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
@@ -33,13 +33,31 @@
   padding: 20px;
 }
 
-/* Estilos para la barra de gráficos */
-#myBarChart {
-  height: 500px;
-  width: 800px;
+/* Contenedor para los gráficos */
+.chartContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* permite que los elementos se envuelvan si no hay espacio suficiente */
+  gap: 20px; /* Espaciado entre gráficos */
 }
 
-/* Si deseas ajustar el tamaño de fuente, puedes agregar propiedades como estas: */
+.graficEnfermedades {
+  width: 550px;
+  height: 400px;
+}
+/* Estilos para la barra de gráficos */
+#myPartoAbortoChart {
+  max-width: 400px;
+  max-height: 400px;
+  margin: 10px; /* Margen alrededor de cada gráfico */
+}
+
+#myBarChart {
+  max-width: 550px;
+  max-height: 480px;
+}
+
 .label {
   font-size: 16px;
 }
@@ -52,11 +70,11 @@
 @media (max-width: 768px) {
   .sectionContainerId {
     width: 100%;
-    padding: 10px 20px; /* Aumenta el padding lateral */
+    padding: 10px 20px;
   }
   .formControlStadistic,
   .navContainer {
-    width: 100%; /* No limitar a 100px */
+    width: 100%;
   }
   .statisticsScreenContainer {
     padding: 10px;

@@ -11,6 +11,7 @@ const StatisticsComponent = ({ onSignOut }) => {
   const [selectedId, setSelectedId] = useState('');
   const [enfermedades, setEnfermedades] = useState([]);
   const [availableIds, setAvailableIds] = useState([]);
+  const [globalPartoAborto, setGlobalPartoAborto] = useState({ parto: 0, aborto: 0 });
 
   const etiquetas = [
     'HTAPrevia', 'HTAInducidaEmbarazo', 'PreeDampsia', 'Eclampsia', 'CardioPatia',
@@ -88,7 +89,6 @@ const StatisticsComponent = ({ onSignOut }) => {
 
       const dataValues = enfermedades;
 
-      // Utiliza los colores definidos para las etiquetas
       const barColors = colores.slice(0, etiquetas.length);
 
       new Chart(ctxBar, {
@@ -117,6 +117,52 @@ const StatisticsComponent = ({ onSignOut }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enfermedades]);
 
+  useEffect(() => {
+    const fetchGlobalPartoAborto = async () => {
+      let partoCount = 0;
+      let abortoCount = 0;
+
+      for (const id of availableIds) {
+        try {
+          const data = (await db.collection('cartilla').doc(id).get()).data();
+
+          if (data && data.ModuloPartoAborto && data.ModuloPartoAborto.parto) {
+            if (data.ModuloPartoAborto.parto === "Parto") partoCount++;
+            if (data.ModuloPartoAborto.parto === "Aborto") abortoCount++;
+          }
+        } catch (error) {
+          console.error('Error al obtener datos de parto y aborto:', error);
+        }
+      }
+
+      setGlobalPartoAborto({ parto: partoCount, aborto: abortoCount });
+    };
+
+    fetchGlobalPartoAborto();
+  }, [availableIds]);
+
+  useEffect(() => {
+    const ctxPie = document.getElementById('myPieChart').getContext('2d');
+
+    const existingPieChart = Chart.getChart(ctxPie);
+    if (existingPieChart) {
+      existingPieChart.destroy();
+    }
+
+    new Chart(ctxPie, {
+      type: 'doughnut',
+      data: {
+        labels: ['Parto', 'Aborto'],
+        datasets: [{
+          data: [globalPartoAborto.parto, globalPartoAborto.aborto],
+          backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)'],
+          borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+          borderWidth: 1,
+        }]
+      }
+    });
+  }, [globalPartoAborto]);
+
   const handleSelectChange = (e) => {
     setSelectedId(e.target.value);
   };
@@ -134,7 +180,6 @@ const StatisticsComponent = ({ onSignOut }) => {
       <div className="formControlStadistic">
         <section className="sectionContainerId">
           <label htmlFor="idInput">Selecciona un COD_EXPEDIENTE:</label>
-          <label htmlFor="idInput">Basado en las enfermedades</label>
           <select
             onChange={handleSelectChange}
             value={selectedId}
@@ -147,12 +192,20 @@ const StatisticsComponent = ({ onSignOut }) => {
               </option>
             ))}
           </select>
-          <div>
-            <canvas id="myBarChart"></canvas>
+          <div className="chartContainer">
+            <div>
+              <label className="label">Basado en las enfermedades</label>
+              <canvas id="myBarChart" className='graficEnfermedades'></canvas>
+            </div>
+            <div>
+              <label className="label">Parto vs Aborto</label>
+              <canvas id="myPieChart" className='graficAborto'></canvas>
+            </div>
           </div>
         </section>
       </div>
     </div>
+
   );
 };
 
