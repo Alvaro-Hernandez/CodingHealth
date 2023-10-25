@@ -161,3 +161,78 @@
   background-position: center;
   margin-left: 10px;
 }
+
+/* Toggle Switch CSS */
+.switchFirstModule {
+  position: relative;
+  display: inline-block;
+  width: 55px;
+  height: 25px;
+}
+
+/* Ajustar el tamaño para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .switchFirstModule {
+    width: 45px;
+    height: 25px;
+  }
+}
+
+.switchFirstModule input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.sliderFirstModule {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.sliderFirstModule:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #484c52;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* Ajustar el tamaño para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .sliderFirstModule:before {
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+  }
+}
+
+.switchFirstModule input:checked + .sliderFirstModule {
+  background-color: #eff303;
+}
+
+.switchFirstModule input:focus + .sliderFirstModule {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+.switchFirstModule input:checked + .sliderFirstModule:before {
+  transform: translateX(26px);
+}
+
+/* Ajustar el tamaño para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .switchFirstModule input:checked + .sliderFirstModule:before {
+    transform: translateX(21px);
+  }
+}
