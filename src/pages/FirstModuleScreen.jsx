@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useLocation } from "wouter";
 import NavBarComponent from "../components/NavbarComponent";
@@ -49,21 +49,7 @@ const FirstModuleScreen = ({ onSignOut }) => {
         setLocation("/login");
     };
 
-    // Funcion para añadir eventos
-    // const addEvent = (newEvent) => {
-    //     setEvents(prevEvents => [...prevEvents, newEvent]);
-    // }
-    // Funciones para el Togle Switch
-
-    // const handleToggleChange = (value) => {
-    //     console.log(value);
-    // };
-
-    // const handleInputChange = (e) => {
-    //     if (e.target.value.length > 8) {
-    //         e.target.value = e.target.value.slice(0, 8);
-    //     }
-    // };
+    
 
     const handleButtonClick = () => {
         setLocation("/modules");
@@ -73,6 +59,30 @@ const FirstModuleScreen = ({ onSignOut }) => {
         setSelectedDepartment(e.target.value);
         setMunicipalities(departmentsData[e.target.value] || []);
     }
+
+
+
+    // UseEffect para cargar los datos desde Firebase al montar el componente
+    useEffect(() => {
+        if (cachedId) {
+            try {
+                const docRef = db.collection("cartilla").doc(cachedId);
+                docRef.get().then((doc) => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        if (data.ModuloFiliacion) {
+                            const { DatosAfiliacion} = data.ModuloFiliacion;
+                            // Establecer los datos recuperados en el estado
+                            setDatosAfiliacion(DatosAfiliacion);
+                           
+                        }
+                    }
+                });
+            } catch (error) {
+                console.log("Error al cargar datos desde Firebase", error);
+            }
+        }
+    }, [cachedId]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -156,7 +166,7 @@ const FirstModuleScreen = ({ onSignOut }) => {
                                             type="text"
                                             placeholder="Nombre"
                                             className="inputNumberFourth"
-                                            value={item.Nombres}
+                                            value={DatosAfiliacion[index].Nombres}
                                             onChange={(e) =>
                                                 handleDatosAfiliacion(index, "Nombres", e.target.value)
                                             }
