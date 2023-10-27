@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { db } from '../services/FirebaseServices';
 import PropTypes from "prop-types"
 import { useLocation } from "wouter";
 import NavBarComponent from "../components/NavbarComponent";
 import '../styles/thirdModuleStyle.css';
-
+import Switch from 'react-switch';
 
 
 const ThirdModuleScreen = ({ onSignOut }) => {
@@ -119,16 +119,16 @@ const ThirdModuleScreen = ({ onSignOut }) => {
         setEnfermedades(updatedNacimiento);
     };
 
-    const handleEnfermedades = (index, field, value) => {
+    const handleEnfermedades = (index, field, newValue) => {
         const updatedEnfermedades = [...EnfermedadesData];
-        updatedEnfermedades[index][field] = value;
+        updatedEnfermedades[index][field] = newValue ? "si" : "no";
         setEnfermedades(updatedEnfermedades);
     };
 
 
-    const handleHemorragias = (index, field, value) => {
+    const handleHemorragias = (index, field, newValue) => {
         const updatedHemorragias = [...Hemorragias];
-        updatedHemorragias[index][field] = value;
+        updatedHemorragias[index][field] = newValue ? "si" : "no";
         setHemorragias(updatedHemorragias);
     };
     const handleDetallesPartoGrama = (index, field, value) => {
@@ -136,6 +136,50 @@ const ThirdModuleScreen = ({ onSignOut }) => {
         updatedDetallesPartoGrama[index][field] = value;
         setDetallesPartoGrama(updatedDetallesPartoGrama);
     };
+    // UseEffect para cargar los datos desde Firebase al montar el componente
+    useEffect(() => {
+        if (cachedId) {
+            try {
+                const docRef = db.collection("cartilla").doc(cachedId);
+                docRef.get().then((doc) => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        if (data.ModuloPartoAborto) {
+                            const { EnfermedadesData,Hemorragias
+                        ,Nacimiento,DetallesPartoGrama,parto,lugardeparto,Corticoides,carnet
+                        ,inicio,PresentacioSituacion,edad,edadgestacional,
+                        diagestacional, TamañoFetalAcorde,Hospitalizado_en_Enbarazo,
+                        DiasHospitalizado,acompañante,consulta} = data.ModuloPartoAborto;
+                            // Establecer los datos recuperados en el estado
+                            setEnfermedades(EnfermedadesData);
+                            setHemorragias(Hemorragias);
+                            setNacimiento(Nacimiento);
+                            setDetallesPartoGrama(DetallesPartoGrama);
+                            setCorticoides(Corticoides);
+                            setPresentacioSituacion(PresentacioSituacion);
+                            setedad(edad);
+                            setedadgestacional(edadgestacional);
+                            setdiagestacional(diagestacional);
+                            setInicio(inicio);
+                            setLugardeparto(lugardeparto);
+                            setParto(parto);
+                            setCarnet(carnet);
+                            setTamañoFetalAcorde(TamañoFetalAcorde);
+                            setHospitalizado_en_Enbarazo(Hospitalizado_en_Enbarazo);
+                            setDiasHospitalizado(DiasHospitalizado);
+                            setporECO(porECO);
+                            setacompañante(acompañante);
+                            setConsulta(consulta);
+                          
+                            
+                        }
+                    }
+                });
+            } catch (error) {
+                console.log("Error al cargar datos desde Firebase", error);
+            }
+        }
+    }, [cachedId]);
 
 
 
@@ -482,6 +526,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                         <div className="cita-form">
 
                             <div className="form-group">
+                                
                                 <label
                                     className={`opcion ${setporFUM === "Por FUM" ? "seleccionado" : ""}`}
                                     onClick={() => setporFUM("Por FUM")}
@@ -666,142 +711,171 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                             <div className="cita-form">
                                 <div className="form-group">
                                     <label>HTAPrevia</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`PrimerTrimestre${index}`}
-                                        checked={EnfermedadesData.HTAPrevia === "si"}
+                                        checked={EnfermedadesData[index].HTAPrevia === "si"}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "HTAPrevia", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
+                                    
                                 </div>
                                 <div className="form-group">
                                     <label>HTAInducidaEmbarazo</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`HTAInducidaEmbarazo${index}`}
-                                        checked={EnfermedadesData.HTAInducidaEmbarazo === "si"}
+                                        checked={EnfermedadesData[index].HTAInducidaEmbarazo === "si"}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "HTAInducidaEmbarazo", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>PreeDampsia</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`PreeDampsia${index}`}
-                                        checked={EnfermedadesData.PreeDampsia === "si"}
+                                        checked={EnfermedadesData[index].PreeDampsia === "si"}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "PreeDampsia", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>Eclampsia</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`Eclampsia${index}`}
-                                        checked={EnfermedadesData.Eclampsia === "si"}
+                                        checked={EnfermedadesData[index].Eclampsia === "si"}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "Eclampsia", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>CardioPatia</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`CardioPatia${index}`}
-                                        checked={EnfermedadesData.CardioPatia === "si"}
+                                        checked={EnfermedadesData[index].CardioPatia === "si"}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "CardioPatia", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>Nefropatia</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`Nefropatia${index}`}
-                                        checked={EnfermedadesData.Nefropatia === "si"}
+                                        checked={EnfermedadesData[index].Nefropatia === "si"}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "Nefropatia", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>Diabetes</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`Diabetes${index}`}
-                                        checked={EnfermedadesData.Diabetes === "si"}
+                                        checked={EnfermedadesData[index].Diabetes === "si"}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "Diabetes", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>InfecOvular</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`InfecOvular${index}`}
-                                        checked={EnfermedadesData.InfecOvular === "si"}
+                                        checked={EnfermedadesData[index].InfecOvular === "si"}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "InfecOvular", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>InfeUrinaria</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`InfeUrinaria${index}`}
-                                        checked={EnfermedadesData.InfeUrinaria === "si"}
+                                        checked={EnfermedadesData[index].InfeUrinaria === "si"}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "InfeUrinaria", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>AmenazaPartoPreter</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`AmenazaPartoPreter${index}`}
-                                        checked={EnfermedadesData.AmenazaPartoPreter === "si"}
+                                        checked={EnfermedadesData[index].AmenazaPartoPreter === "si"}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "AmenazaPartoPreter", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>RCIU</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`RCIU${index}`}
-                                        checked={EnfermedadesData.RCIU === "si"}
+                                        checked={EnfermedadesData[index].RCIU === "si"}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "RCIU", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>RoturaPremDeMembranas</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`RoturaPremDeMembranas${index}`}
-                                        checked={EnfermedadesData.RoturaPremDeMembranas === "si"}
+                                        checked={EnfermedadesData[index].RoturaPremDeMembranas === "si"}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "RoturaPremDeMembranas", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>Anemia</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`Anemia${index}`}
-                                        checked={EnfermedadesData.Anemia === "si"}
+                                        checked={EnfermedadesData[index].Anemia === "si"}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "Anemia", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>OtraCondicionGrave</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`OtraCondicionGrave${index}`}
-                                        checked={EnfermedadesData.OtraCondicionGrave === "si"}
+                                        checked={EnfermedadesData[index].OtraCondicionGrave === "si"}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "OtraCondicionGrave", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
 
@@ -820,52 +894,62 @@ const ThirdModuleScreen = ({ onSignOut }) => {
 
                                 <div className="form-group">
                                     <label>PrimerTrimestre</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`PrimerTrimestre${index}`}
-                                        checked={Hemorragias.PrimerTrimestre === "si"}
+                                        checked={Hemorragias[index].PrimerTrimestre === "si"}
                                         onChange={(newValue) =>
                                             handleHemorragias(index, "PrimerTrimestre", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>SegundoTrimestre</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`SegundoTrimestre${index}`}
-                                        checked={Hemorragias.SegundoTrimestre === "si"}
+                                        checked={Hemorragias[index].SegundoTrimestre === "si"}
                                         onChange={(newValue) =>
                                             handleHemorragias(index, "SegundoTrimestre", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>TercerTrimestre</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`TercerTrimestre${index}`}
-                                        checked={Hemorragias.TercerTrimestre === "si"}
+                                        checked={Hemorragias[index].TercerTrimestre === "si"}
                                         onChange={(newValue) =>
                                             handleHemorragias(index, "TercerTrimestre", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>PosParto</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`PosParto${index}`}
-                                        checked={Hemorragias.PosParto === "si"}
+                                        checked={Hemorragias[index].PosParto === "si"}
                                         onChange={(newValue) =>
                                             handleHemorragias(index, "PosParto", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>InfeccionPuerperal</label>
-                                    <ToggleSwitch
+                                    <Switch
                                         id={`InfeccionPuerperal${index}`}
-                                        checked={Hemorragias.InfeccionPuerperal === "si"}
+                                        checked={Hemorragias[index].InfeccionPuerperal === "si"}
                                         onChange={(newValue) =>
                                             handleHemorragias(index, "InfeccionPuerperal", newValue)
                                         }
+                                        onColor="#eff303" // Color cuando está en posición "Sí"
+                                        offColor="#888888" // Color cuando está en posición "No"
                                     />
                                 </div>
 
