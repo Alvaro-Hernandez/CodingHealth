@@ -21,27 +21,27 @@ const SecondModuleScreen = ({ onSignOut }) => {
   const [trimestresData, setTrimestresData] = useState([
     {
       trimestre: "Primer Trimestre",
-      fumaPas: "",
-      fumaAct: "",
-      droga: "",
-      alcohol: "",
-      violencia: "",
+      fumaPas: false,
+      fumaAct: false,
+      droga: false,
+      alcohol: false,
+      violencia: false,
     },
     {
       trimestre: "Segundo Trimestre",
-      fumaPas: "",
-      fumaAct: "",
-      droga: "",
-      alcohol: "",
-      violencia: "",
+      fumaPas: false,
+      fumaAct: false,
+      droga: false,
+      alcohol: false,
+      violencia: false,
     },
     {
       trimestre: "Tercer Trimestre",
-      fumaPas: "",
-      fumaAct: "",
-      droga: "",
-      alcohol: "",
-      violencia: "",
+      fumaPas: false,
+      fumaAct: false,
+      droga: false,
+      alcohol: false,
+      violencia: false,
     },
   ]);
 
@@ -128,7 +128,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
   };
   const handleTrimestreChange = (index, field, newValue) => {
     const updatedTrimestresData = [...trimestresData];
-    updatedTrimestresData[index][field] = newValue ? "si" : "no";
+    updatedTrimestresData[index][field] = newValue ? true : false;
     setTrimestresData(updatedTrimestresData);
   };
   
@@ -285,27 +285,27 @@ useEffect(() => {
           setTrimestresData([
             {
               trimestre: "Primer Trimestre",
-              fumaPas: "",
-              fumaAct: "",
-              droga: "",
-              alcohol: "",
-              violencia: "",
+              fumaPas: false,
+              fumaAct: false,
+              droga: false,
+              alcohol: false,
+              violencia: false,
             },
             {
               trimestre: "Segundo Trimestre",
-              fumaPas: "",
-              fumaAct: "",
-              droga: "",
-              alcohol: "",
-              violencia: "",
+              fumaPas: false,
+              fumaAct: false,
+              droga: false,
+              alcohol: false,
+              violencia: false,
             },
             {
               trimestre: "Tercer Trimestre",
-              fumaPas: "",
-              fumaAct: "",
-              droga: "",
-              alcohol: "",
-              violencia: "",
+              fumaPas: false,
+              fumaAct: false,
+              droga: false,
+              alcohol: false,
+              violencia: false,
             },
           ]);
         } else {
@@ -423,14 +423,17 @@ useEffect(() => {
             <h2>Controles por Trimestre</h2>
             {trimestresData.map((trimestre, index) => (
                             <div key={index}>
-                              <div >{`Trimestre ${index + 1
-                                }`}</div>
+                             
                                 <div className="formularioFourthModule">
+                                <div className="formularioFourthChildren"> 
+                                {`Trimestre ${index + 1
+                                }`}
+                                </div>
                                     <div className="formularioFourthChildren">
                                     <label htmlFor={`fumaPas${index}`}>FumaPAS</label>
                                       <Switch
                                         id={`fumaPas${index}`}
-                                        checked={trimestre.fumaPas === "si"}
+                                        checked={trimestre.fumaPas === true}
                                         onChange={(newValue) =>
                                           handleTrimestreChange(index, "fumaPas", newValue)
                                         }
@@ -444,7 +447,7 @@ useEffect(() => {
                                     <label htmlFor={`fumaAct${index}`}>FumaACT</label>
                                       <Switch
                                         id={`fumaAct${index}`}
-                                        checked={trimestre.fumaAct === "si"}
+                                        checked={trimestre.fumaAct === true}
                                         onChange={(newValue) =>
                                           handleTrimestreChange(index, "fumaAct", newValue)
                                         }
@@ -457,7 +460,7 @@ useEffect(() => {
                                     <label htmlFor={`droga${index}`}>DROGA</label>
                                       <Switch
                                         id={`droga${index}`}
-                                        checked={trimestre.droga === "si"}
+                                        checked={trimestre.droga === true}
                                         onChange={(newValue) =>
                                           handleTrimestreChange(index, "droga", newValue)
                                         }
@@ -470,7 +473,7 @@ useEffect(() => {
                                     <label htmlFor={`alcohol${index}`}>ALCOHOL</label>
                                       <Switch
                                         id={`alcohol${index}`}
-                                        checked={trimestre.alcohol === "si"}
+                                        checked={trimestre.alcohol === true}
                                         onChange={(newValue) =>
                                           handleTrimestreChange(index, "alcohol", newValue)
                                         }
@@ -482,7 +485,7 @@ useEffect(() => {
                                     <label htmlFor={`violencia${index}`}>VIOLENCIA</label>
                                       <Switch
                                         id={`violencia${index}`}
-                                        checked={trimestre.violencia === "si"}
+                                        checked={trimestre.violencia === true}
                                         onChange={(newValue) =>
                                           handleTrimestreChange(index, "violencia", newValue)
                                         }
