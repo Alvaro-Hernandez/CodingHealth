@@ -4,6 +4,7 @@ import { useEffect,useState } from "react";
 import NavBarComponent from "../components/NavbarComponent";
 import { db } from "../services/FirebaseServices";
 import "../styles/fourtModuleStyle.css";
+import Switch from 'react-switch';
 
 const FourthModuleScreen = ({ onSignOut }) => {
     const [, setLocation] = useLocation();
@@ -72,16 +73,16 @@ const FourthModuleScreen = ({ onSignOut }) => {
     }, [cachedId]);
 
     // Manejar cambios en los datos del recién nacido
-    const handleRecienNacido = (index, field, value) => {
+    const handleRecienNacido = (index, field, newValue) => {
         const updatedRecienNacido = [...RecienNacido];
-        updatedRecienNacido[index][field] = value;
+        updatedRecienNacido[index][field] = newValue ? "si" : "no";
         setRecienNacido(updatedRecienNacido);
     };
 
     // Manejar cambios en los datos de reanimación
-    const handleReanimacion = (index, field, value) => {
+    const handleReanimacion = (index, field, newValue) => {
         const updatedReanimacion = [...Reanimacion];
-        updatedReanimacion[index][field] = value;
+        updatedReanimacion[index][field] = newValue ? "si" : "no";
         setReanimacion(updatedReanimacion);
     };
 
@@ -158,7 +159,7 @@ const FourthModuleScreen = ({ onSignOut }) => {
             <form className="formFourthModule" onSubmit={handleSubmit}>
     {RecienNacido.map((item, index) => (
         <div key={index}>
-            <legend className="recienNacido"> Recien Nacido</legend>
+            <h2>Recien Nacido</h2>
             <div className="formularioFourthModule">
                 <div className="formularioFourthChildren">
                     <label>Sexo</label>
@@ -278,17 +279,21 @@ const FourthModuleScreen = ({ onSignOut }) => {
                 </div>
                 <div className="formularioFourthChildren">
                     <label>Vitamina K</label>
-                    <ToggleSwitch
+                    
+                    <Switch
                         id={`vitamina_K${index}`}
                         checked={RecienNacido[index].vitamina_K === "si"}
                         onChange={(newValue) =>
                             handleRecienNacido(index, "vitamina_K", newValue)
                         }
+                        onColor="#eff303" // Color cuando está en posición "Sí"
+                        offColor="#888888" // Color cuando está en posición "No"
                     />
                 </div>
                 <div className="formularioFourthChildren">
                     <label>Propfilasis Ocular</label>
-                    <ToggleSwitch
+
+                    <Switch
                         id={`propfilasis_ocular${index}`}
                         checked={RecienNacido[index].propfilasis_ocular === "si"}
                         onChange={(newValue) =>
@@ -298,104 +303,126 @@ const FourthModuleScreen = ({ onSignOut }) => {
                                 newValue
                             )
                         }
+                        onColor="#eff303" // Color cuando está en posición "Sí"
+                        offColor="#888888" // Color cuando está en posición "No"
                     />
                 </div>
                 <div className="formularioFourthChildren">
                     <label>Apego Precoz</label>
-                    <ToggleSwitch
+                    <Switch
                         id={`apego_precoz${index}`}
                         checked={RecienNacido[index].apego_precoz === "si"}
                         onChange={(newValue) =>
                             handleRecienNacido(index, "apego_precoz", newValue)
                         }
+                        onColor="#eff303" // Color cuando está en posición "Sí"
+                        offColor="#888888" // Color cuando está en posición "No"
                     />
                 </div>
             </div>
         </div>
     ))}
     {/* Reanimacion */}
-    <legend>Reanimacion</legend>
+   
+    <h2>Reanimación</h2>
     {Reanimacion.map((item, index) => (
         <div key={index}>
             <div className="formularioFourthModule">
                 <div className="formularioFourthChildren">
                     <label>Estimulacion</label>
-                    <ToggleSwitch
+                
+                    <Switch
                         id={`estimulacion${index}`}
                         checked={Reanimacion[index].estimulacion === "si"}
                         onChange={(newValue) =>
                             handleReanimacion(index, "estimulacion", newValue)
                         }
+                        onColor="#eff303" // Color cuando está en posición "Sí"
+                        offColor="#888888" // Color cuando está en posición "No"
                     />
                 </div>
                 <div className="formularioFourthChildren">
                     <label>Aspiracion</label>
-                    <ToggleSwitch
+                    <Switch
                         id={`aspiracion${index}`}
                         checked={Reanimacion[index].aspiracion === "si"}
                         onChange={(newValue) =>
                             handleReanimacion(index, "aspiracion", newValue)
                         }
+                        onColor="#eff303" // Color cuando está en posición "Sí"
+                        offColor="#888888" // Color cuando está en posición "No"
                 />
                 </div>
                 <div className="formularioFourthChildren">
                     <label>Mascara</label>
-                    <ToggleSwitch
+                    <Switch
                         id={`mascara${index}`}
                         checked={Reanimacion[index].mascara === "si"}
                         onChange={(newValue) =>
                             handleReanimacion(index, "mascara", newValue)
                         }
+                        onColor="#eff303" // Color cuando está en posición "Sí"
+                        offColor="#888888" // Color cuando está en posición "No"
                     />
                 </div>
                 <div className="formularioFourthChildren">
                     <label>Oxigeno</label>
-                    <ToggleSwitch
+                    <Switch
                         id={`oxigeno${index}`}
                         checked={Reanimacion[index].oxigeno === "si"}
                         onChange={(newValue) =>
                             handleReanimacion(index, "oxigeno", newValue)
                         }
+                        onColor="#eff303" // Color cuando está en posición "Sí"
+                        offColor="#888888" // Color cuando está en posición "No"
                     />
                 </div>
                 <div className="formularioFourthChildren">
                     <label>Masaje</label>
-                    <ToggleSwitch
+                    <Switch
                         id={`masaje${index}`}
                         checked={Reanimacion[index].masaje === "si"}
                         onChange={(newValue) =>
                             handleReanimacion(index, "masaje", newValue)
                         }
+                        onColor="#eff303" // Color cuando está en posición "Sí"
+                        offColor="#888888" // Color cuando está en posición "No"
                     />
                 </div>
                 <div className="formularioFourthChildren">
                     <label>Tubo</label>
-                    <ToggleSwitch
+                    <Switch
                         id={`tubo${index}`}
                         checked={Reanimacion[index].tubo === "si"}
                         onChange={(newValue) =>
                             handleReanimacion(index, "tubo", newValue)
                         }
+                        onColor="#eff303" // Color cuando está en posición "Sí"
+                        offColor="#888888" // Color cuando está en posición "No"
                     />
                 </div>
                 <div className="formularioFourthChildren">
                     <label>Otros</label>
-                    <ToggleSwitch
+                    <Switch
                         id={`otros${index}`}
                         checked={Reanimacion[index].otros === "si"}
                         onChange={(newValue) =>
                             handleReanimacion(index, "otros", newValue)
                         }
+                        onColor="#eff303" // Color cuando está en posición "Sí"
+                        offColor="#888888" // Color cuando está en posición "No"
                     />
                 </div>
                 <div className="formularioFourthChildren">
                     <label>Fallece lugar de parto:</label>
-                    <ToggleSwitch
+                    <Switch
                         id={`fallece_lugar_De_Parto${index}`}
                         checked={Reanimacion[index].fallece_lugar_De_Parto === "si"}
                         onChange={(newValue) =>
                             handleReanimacion(index, "fallece_lugar_De_Parto", newValue)
                         }
+                        onColor="#eff303" // Color cuando está en posición "Sí"
+                        offColor="#888888" // Color cuando está en posición "No"
                     />
                 </div>
             </div>
