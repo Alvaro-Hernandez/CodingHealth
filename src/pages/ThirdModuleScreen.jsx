@@ -7,6 +7,7 @@ import '../styles/thirdModuleStyle.css';
 import Switch from 'react-switch';
 
 
+
 const ThirdModuleScreen = ({ onSignOut }) => {
     const [, setLocation] = useLocation();
     const cachedId = localStorage.getItem('cachedId');
@@ -55,20 +56,20 @@ const ThirdModuleScreen = ({ onSignOut }) => {
     const [EnfermedadesData, setEnfermedades] = useState([
         {
             Enfermedades: "Enfermedades",
-            HTAPrevia: "",
-            HTAInducidaEmbarazo: "",
-            PreeDampsia: "",
-            Eclampsia: "",
-            CardioPatia: "",
-            Nefropatia: "",
-            Diabetes: "",
-            InfecOvular: "",
-            InfeUrinaria: "",
-            AmenazaPartoPreter: "",
-            RCIU: "",
-            RoturaPremDeMembranas: "",
-            Anemia: "",
-            OtraCondicionGrave: "",
+            HTAPrevia: false,
+            HTAInducidaEmbarazo: false,
+            PreeDampsia: false,
+            Eclampsia: false,
+            CardioPatia: false,
+            Nefropatia: false,
+            Diabetes: false,
+            InfecOvular: false,
+            InfeUrinaria: false,
+            AmenazaPartoPreter: false,
+            RCIU: false,
+            RoturaPremDeMembranas: false,
+            Anemia: false,
+            OtraCondicionGrave: false, 
 
         }
 
@@ -121,8 +122,8 @@ const ThirdModuleScreen = ({ onSignOut }) => {
 
     const handleEnfermedades = (index, field, newValue) => {
         const updatedEnfermedades = [...EnfermedadesData];
-        updatedEnfermedades[index][field] = newValue ? "si" : "no";
-        setEnfermedades(updatedEnfermedades);
+        updatedEnfermedades[index][field] = newValue ? true : false;
+        setEnfermedades(updatedEnfermedades); 
     };
 
 
@@ -272,20 +273,20 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                     setEnfermedades([
                         {
                             Enfermedades: "Enfermedades",
-                            HTAPrevia: "",
-                            HTAInducidaEmbarazo: "",
-                            PreeDampsia: "",
-                            Eclampsia: "",
-                            CardioPatia: "",
-                            Nefropatia: "",
-                            Diabetes: "",
-                            InfecOvular: "",
-                            InfeUrinaria: "",
-                            AmenazaPartoPreter: "",
-                            RCIU: "",
-                            RoturaPremDeMembranas: "",
-                            Anemia: "",
-                            OtraCondicionGrave: "",
+                            HTAPrevia: false,
+                            HTAInducidaEmbarazo: false,
+                            PreeDampsia: false,
+                            Eclampsia: false,
+                            CardioPatia: false,
+                            Nefropatia: false,
+                            Diabetes: false,
+                            InfecOvular: false,
+                            InfeUrinaria: false,
+                            AmenazaPartoPreter: false,
+                            RCIU: false,
+                            RoturaPremDeMembranas: false,
+                            Anemia: false,
+                            OtraCondicionGrave:false,
 
                         }
 
@@ -713,7 +714,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     <label>HTAPrevia</label>
                                     <Switch
                                         id={`PrimerTrimestre${index}`}
-                                        checked={EnfermedadesData[index].HTAPrevia === "si"}
+                                        checked={EnfermedadesData[index].HTAPrevia === true}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "HTAPrevia", newValue)
                                         }
@@ -726,7 +727,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     <label>HTAInducidaEmbarazo</label>
                                     <Switch
                                         id={`HTAInducidaEmbarazo${index}`}
-                                        checked={EnfermedadesData[index].HTAInducidaEmbarazo === "si"}
+                                        checked={EnfermedadesData[index].HTAInducidaEmbarazo === true}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "HTAInducidaEmbarazo", newValue)
                                         }
@@ -738,7 +739,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     <label>PreeDampsia</label>
                                     <Switch
                                         id={`PreeDampsia${index}`}
-                                        checked={EnfermedadesData[index].PreeDampsia === "si"}
+                                        checked={EnfermedadesData[index].PreeDampsia === true}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "PreeDampsia", newValue)
                                         }
@@ -750,7 +751,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     <label>Eclampsia</label>
                                     <Switch
                                         id={`Eclampsia${index}`}
-                                        checked={EnfermedadesData[index].Eclampsia === "si"}
+                                        checked={EnfermedadesData[index].Eclampsia === true}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "Eclampsia", newValue)
                                         }
@@ -762,7 +763,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     <label>CardioPatia</label>
                                     <Switch
                                         id={`CardioPatia${index}`}
-                                        checked={EnfermedadesData[index].CardioPatia === "si"}
+                                        checked={EnfermedadesData[index].CardioPatia === true}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "CardioPatia", newValue)
                                         }
@@ -774,7 +775,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     <label>Nefropatia</label>
                                     <Switch
                                         id={`Nefropatia${index}`}
-                                        checked={EnfermedadesData[index].Nefropatia === "si"}
+                                        checked={EnfermedadesData[index].Nefropatia === true}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "Nefropatia", newValue)
                                         }
@@ -786,7 +787,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     <label>Diabetes</label>
                                     <Switch
                                         id={`Diabetes${index}`}
-                                        checked={EnfermedadesData[index].Diabetes === "si"}
+                                        checked={EnfermedadesData[index].Diabetes === true}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "Diabetes", newValue)
                                         }
@@ -798,7 +799,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     <label>InfecOvular</label>
                                     <Switch
                                         id={`InfecOvular${index}`}
-                                        checked={EnfermedadesData[index].InfecOvular === "si"}
+                                        checked={EnfermedadesData[index].InfecOvular === true}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "InfecOvular", newValue)
                                         }
@@ -810,7 +811,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     <label>InfeUrinaria</label>
                                     <Switch
                                         id={`InfeUrinaria${index}`}
-                                        checked={EnfermedadesData[index].InfeUrinaria === "si"}
+                                        checked={EnfermedadesData[index].InfeUrinaria === true}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "InfeUrinaria", newValue)
                                         }
@@ -822,7 +823,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     <label>AmenazaPartoPreter</label>
                                     <Switch
                                         id={`AmenazaPartoPreter${index}`}
-                                        checked={EnfermedadesData[index].AmenazaPartoPreter === "si"}
+                                        checked={EnfermedadesData[index].AmenazaPartoPreter === true}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "AmenazaPartoPreter", newValue)
                                         }
@@ -834,7 +835,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     <label>RCIU</label>
                                     <Switch
                                         id={`RCIU${index}`}
-                                        checked={EnfermedadesData[index].RCIU === "si"}
+                                        checked={EnfermedadesData[index].RCIU === true}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "RCIU", newValue)
                                         }
@@ -846,7 +847,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     <label>RoturaPremDeMembranas</label>
                                     <Switch
                                         id={`RoturaPremDeMembranas${index}`}
-                                        checked={EnfermedadesData[index].RoturaPremDeMembranas === "si"}
+                                        checked={EnfermedadesData[index].RoturaPremDeMembranas === true}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "RoturaPremDeMembranas", newValue)
                                         }
@@ -858,7 +859,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     <label>Anemia</label>
                                     <Switch
                                         id={`Anemia${index}`}
-                                        checked={EnfermedadesData[index].Anemia === "si"}
+                                        checked={EnfermedadesData[index].Anemia === true}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "Anemia", newValue)
                                         }
@@ -870,7 +871,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     <label>OtraCondicionGrave</label>
                                     <Switch
                                         id={`OtraCondicionGrave${index}`}
-                                        checked={EnfermedadesData[index].OtraCondicionGrave === "si"}
+                                        checked={EnfermedadesData[index].OtraCondicionGrave === true}
                                         onChange={(newValue) =>
                                             handleEnfermedades(index, "OtraCondicionGrave", newValue)
                                         }
