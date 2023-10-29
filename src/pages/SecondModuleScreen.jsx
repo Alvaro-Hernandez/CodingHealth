@@ -7,16 +7,16 @@ import { db } from "../services/FirebaseServices";
 import Switch from "react-switch";
 
 const SecondModuleScreen = ({ onSignOut }) => {
+  const [, setLoader] = useState(false);
+  const cachedId = localStorage.getItem("cachedId");
   const [, setLocation] = useLocation();
   const [pesoAnterior, setPesoAnterior] = useState("");
   const [talla, setTalla] = useState("");
   const [imc, setIMC] = useState("");
   const [DateFUM, setDateFUM] = useState("");
   const [DateFPP, setDateFPP] = useState("");
-  const [selectedOptionFUM, setSelectedOptionFUM] = useState("");
   const [selectedOptionECO, setSelectedOptionECO] = useState("");
-  const [, setLoader] = useState(false);
-  const cachedId = localStorage.getItem("cachedId");
+  const [selectedOptionFUM, setSelectedOptionFUM] = useState("");
 
   const [trimestresData, setTrimestresData] = useState([
     {
@@ -47,80 +47,73 @@ const SecondModuleScreen = ({ onSignOut }) => {
 
   const [Antirubeola, setAntirubeola] = useState([
     {
-      previa: "",
-      noSabe: "",
-      embarazo: "",
-      no: "",
-    },
-  ]);
-
-  const [Antitetanica, setAntitetanica] = useState([
-    {
-      Id: "id",
-      vigente: "",
-      Dosis1: "",
-      Dosis2: "",
+      previa: false,
+      noSabe: false,
+      embarazo: false,
+      no: false,
     },
   ]);
 
   const [ExNormal, setExNormal] = useState([
     {
       Id: "id",
-      Odont: "",
-      Mamas: "",
-    },
-  ]);
-  const [GrupoA, setGrupoA] = useState([
-    {
-      RH: "RH",
-      imuniz: "",
-      yglobulina_anti_D: "",
-    },
-    {
-      RH: "RH",
-      imuniz: "",
-      yglobulina_anti_D: "",
-    },
-  ]);
-  const [Toxoplasnosis, setToxoplasnosis] = useState([
-    {
-      menor12Senanas_igG: "menor12Senanas_igG",
-      negativo: false,
-      positivo: false,
-      noSehizo: false,
-    },
-    {
-      mayorigual_12Senanas_igG: "mayorigual_12Senanas_igG",
-      negativo: false,
-      positivo: false,
-      noSehizo: false,
-    },
-    {
-      primera_consulta_igM: "primera_consulta_igM",
-      negativo: false,
-      positivo: false,
-      noSehizo: false,
+      Odont: false,
+      Mamas: false,
     },
   ]);
 
   const [Cervix, setCervix] = useState([
     {
       InspVisual: "InspVisual",
-      normal: "",
-      anormal: "",
-      noSeHizo: "",
+      normal: false,
+      anormal: false,
+      noSeHizo: false,
     },
     {
       PAP: "PAP",
-      normal: "",
-      anormal: "",
-      noSeHizo: "",
+      normal: false,
+      anormal: false,
+      noSeHizo: false,
     },
     {
       COLP: "COLP",
-      normal: "",
-      anormal: "",
-      noSeHizo: "",
+      normal: false,
+      anormal: false,
+      noSeHizo: false,
+    },
+  ]);
+
+  const [GrupoA, setGrupoA] = useState([
+    {
+      RH: "RH",
+      imuniz: false,
+      yglobulina_anti_D: "",
+    },
+    {
+      RH: "RH",
+      imuniz: false,
+      yglobulina_anti_D: "",
+    },
+  ]);
+
+  const [Toxoplasnosis, setToxoplasnosis] = useState([
+    {
+      menor12Semanas_igG: "Menor a 12 Semanas (IgM)",
+      negativo: false,
+      positivo: false,
+      noSehizo: false,
+    },
+    {
+      mayorigual_12Semanas_igG: "Mayor o Igual a 12 Semanas (IgM)",
+      negativo: false,
+      positivo: false,
+      noSehizo: false,
+    },
+    {
+      primera_consulta_igM: "Primera Consulta (IgM)",
+      negativo: false,
+      positivo: false,
+      noSehizo: false,
     },
   ]);
 
@@ -131,7 +124,106 @@ const SecondModuleScreen = ({ onSignOut }) => {
       folatos: false,
       multi_vitaminas: false,
     },
-  
+  ]);
+
+  const [Changas, setChangas] = useState([
+    {
+      changas: "",
+      paludismo_malaria: "",
+      bacteriuria: "",
+      glusemia_EnAyuna: "",
+      estreptococo: "",
+    },
+  ]);
+
+  const [Consejeria, setConsejeria] = useState([
+    {
+      PreparacionParto: false,
+      PlanificacionFamiliar: false,
+      LactanciaMaterna: false,
+      AmorPara_Chiquitos: false,
+    },
+  ]);
+
+  const [VIHPrimeraPrueba, setVIHPrimeraPrueba] = useState([
+    {
+      menor12Semanas: "Menor a 12 Semanas",
+      si: false,
+      no: false,
+      nc: false,
+      result: "",
+      tarv_enEmbarazo: "",
+    },
+    {
+      mayor12Semanas: "Mayor a 12 Semanas",
+      si: false,
+      no: false,
+      nc: false,
+      result: "",
+      tarv_enEmbarazo: "",
+    },
+  ]);
+
+  const [VIHSegundaPrueba, setVIHSegundaPrueba] = useState([
+    {
+      menor12Semanas: "Menor a 12 Semanas",
+      si: false,
+      no: false,
+      nc: false,
+      result: "",
+      tarv_enEmbarazo: "",
+    },
+    {
+      mayor12Semanas: "Mayor a 12 Semanas",
+      si: false,
+      no: false,
+      nc: false,
+      result: "",
+      tarv_enEmbarazo: "",
+    },
+  ]);
+
+  const [SifilisPrimeraPrueba, setSifilisPrimeraPrueba] = useState([
+    {
+      menor12Semanas: "Menor a 12 Semanas",
+      si: false,
+      no: false,
+      nc: false,
+      result: "",
+      tratamientoCon_Penisilina: "",
+      TtoDeLa_Pareja: false,
+    },
+    {
+      mayor12Semanas: "Mayor a 12 Semanas",
+      si: false,
+      no: false,
+      nc: false,
+      result: "",
+      tratamientoCon_Penisilina: "",
+      TtoDeLa_Pareja: false,
+    },
+  ]);
+
+  const [SifilisSegundaPrueba, setSifilisSegundaPrueba] = useState([
+    {
+      menor12Semanas: "Menor a 12 Semanas",
+      si: false,
+      no: false,
+      nc: false,
+      result: "",
+      tratamientoCon_Penisilina: "",
+      TtoDeLa_Pareja: false,
+    },
+    {
+      mayor12Semanas: "Mayor a 12 Semanas",
+      si: false,
+      no: false,
+      nc: false,
+      result: "",
+      tratamientoCon_Penisilina: "",
+      TtoDeLa_Pareja: false,
+      AnomaliasPrenatales: false,
+    },
   ]);
 
   const [AtencionesPrenatales, setAtencionesPrenatales] = useState([
@@ -151,110 +243,25 @@ const SecondModuleScreen = ({ onSignOut }) => {
     },
   ]);
 
-  const [Changas, setChangas] = useState([
-    {
-      changas: "",
-      paludismo_malaria: "",
-      bacteriuria: "",
-      glusemia_EnAyuna: "",
-      estreptococo: "",
-    },
-  
-  ]);
+ 
 
-  const [Consejeria, setConsejeria] = useState([
-    {
-      PreparacionParto: false,
-      PlanificacionFamiliar: false,
-      LactanciaMaterna: false,
-      AmorPara_Chiquitos: false,
-    },
-  ]);
+  const handleTrimestreChange = (index, field, newValue) => {
+    const updatedTrimestresData = [...trimestresData];
+    updatedTrimestresData[index][field] = newValue ? true : false;
+    setTrimestresData(updatedTrimestresData);
+  };
 
-  const [VIHPrimeraPrueba, setVIHPrimeraPrueba] = useState([
-    {
-      menor12Semanas: "menor12Semanas",
-      si: false,
-      no: false,
-      nc: false,
-      result: "",
-      tarv_enEmbarazo: "",
-    },
-    {
-      mayor12Semanas: "mayor12Semanas",
-      si: false,
-      no: false,
-      nc: false,
-      result: "",
-      tarv_enEmbarazo: "",
-    },
-  
-  ]);
+  const handleAntirubeola = (index, field, newValue) => {
+    const updatedAntirubeola = [...Antirubeola];
+    updatedAntirubeola[index][field] = newValue ? true : false;
+    setAntirubeola(updatedAntirubeola);
+  };
 
-  const [VIHSegundaPrueba, setVIHSegundaPrueba] = useState([
-    {
-      menor12Semanas: "menor12Semanas",
-      si: false,
-      no: false,
-      nc: false,
-      result: "",
-      tarv_enEmbarazo: "",
-    },
-    {
-      mayor12Semanas: "mayor12Semanas",
-      si: false,
-      no: false,
-      nc: false,
-      result: "",
-      tarv_enEmbarazo: "",
-    },
-  
-  ]);
-
-  const [SifilisPrimeraPrueba, setSifilisPrimeraPrueba] = useState([
-    {
-      menor12Semanas: "menor12Semanas",
-      si: false,
-      no: false,
-      nc: false,
-      result: "",
-      tratamientoCon_Penisilina: "",
-      TtoDeLa_Pareja: false,
-    },
-    {
-      mayor12Semanas: "mayor12Semanas",
-      si: false,
-      no: false,
-      nc: false,
-      result: "",
-      tratamientoCon_Penisilina: "",
-      TtoDeLa_Pareja: false,
-    },
-  
-  ]);
-
-  const [SifilisSegundaPrueba, setSifilisSegundaPrueba] = useState([
-    {
-      menor12Semanas: "menor12Semanas",
-      si: false,
-      no: false,
-      nc: false,
-      result: "",
-      tratamientoCon_Penisilina: "",
-      TtoDeLa_Pareja: false,
-    },
-    {
-      mayor12Semanas: "mayor12Semanas",
-      si: false,
-      no: false,
-      nc: false,
-      result: "",
-      tratamientoCon_Penisilina: "",
-      TtoDeLa_Pareja: false,
-      AnomaliasPrenatales: false,
-    },
-  
-  ]);
+  const handleExNormal = (index, field, newValue) => {
+    const updatedExNormal = [...ExNormal];
+    updatedExNormal[index][field] = newValue ? true : false;
+    setExNormal(updatedExNormal);
+  };
 
   const handleCervix = (index, field, newValue) => {
     const updatedCervix = [...Cervix];
@@ -262,37 +269,24 @@ const SecondModuleScreen = ({ onSignOut }) => {
     setCervix(updatedCervix);
   };
 
-  const handleExNormal = (index, field, newValue) => {
-    const updatedExNormal = [...ExNormal];
-    updatedExNormal[index][field] = newValue ? "si" : "no";
-    setExNormal(updatedExNormal);
-  };
   const handleGrupoA = (index, field, value) => {
     const updatedGrupoA = [...GrupoA];
     updatedGrupoA[index][field] = value;
     setGrupoA(updatedGrupoA);
   };
+
+  const handleToxoplasnosis = (index, field, newValue) => {
+    const updatedToxoplasnosis = [...Toxoplasnosis];
+    updatedToxoplasnosis[index][field] = newValue ? true : false;
+    setToxoplasnosis(updatedToxoplasnosis);
+  };
+
   const handleSuplementoInicial = (index, field, newValue) => {
     const updatedhandleSuplementoInicial = [...SuplementoIncial];
     updatedhandleSuplementoInicial[index][field] = newValue ? true : false;
     setSuplementoIncial(updatedhandleSuplementoInicial);
   };
 
-  const handleAntirubeola = (index, field, newValue) => {
-    const updatedAntirubeola = [...Antirubeola];
-    updatedAntirubeola[index][field] = newValue ? "si" : "no";
-    setAntirubeola(updatedAntirubeola);
-  };
-  const handleTrimestreChange = (index, field, newValue) => {
-    const updatedTrimestresData = [...trimestresData];
-    updatedTrimestresData[index][field] = newValue ? true : false;
-    setTrimestresData(updatedTrimestresData);
-  };
-  const handleToxoplasnosis = (index, field, newValue) => {
-    const updatedToxoplasnosis = [...Toxoplasnosis];
-    updatedToxoplasnosis[index][field] = newValue ? true : false;
-    setToxoplasnosis(updatedToxoplasnosis);
-  };
   const handleChangas = (index, field, value) => {
     const updatedChangas = [...Changas];
     updatedChangas[index][field] = value;
@@ -315,6 +309,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
     updatedVIHSegundaPrueba[index][field] = newValue;
     setVIHSegundaPrueba(updatedVIHSegundaPrueba);
   };
+
   const handleSifilisPrimeraPrueba = (index, field, newValue) => {
     const updatedSifilisPrimeraPrueba = [...SifilisPrimeraPrueba];
     updatedSifilisPrimeraPrueba[index][field] = newValue;
@@ -333,7 +328,6 @@ const SecondModuleScreen = ({ onSignOut }) => {
     setAtencionesPrenatales(updatedAtencionesPrenatales);
   };
 
-  // UseEffect para cargar los datos desde Firebase al montar el componente
   useEffect(() => {
     if (cachedId) {
       try {
@@ -348,13 +342,11 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 imc,
                 DateFUM,
                 DateFPP,
-                selectedOptionFUM,
                 selectedOptionECO,
+                selectedOptionFUM,
                 trimestresData,
                 Antirubeola,
-                Antitetanica,
                 ExNormal,
-                AtencionesPrenatales,
                 Cervix,
                 GrupoA,
                 Toxoplasnosis,
@@ -364,29 +356,31 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 VIHPrimeraPrueba,
                 VIHSegundaPrueba,
                 SifilisPrimeraPrueba,
+                SifilisSegundaPrueba,
+                AtencionesPrenatales,
               } = data.ModuloGestacionActual;
-              // Establecer los datos recuperados en el estado
+  
               setPesoAnterior(pesoAnterior);
               setTalla(talla);
               setIMC(imc);
               setDateFUM(DateFUM);
               setDateFPP(DateFPP);
-              setSelectedOptionFUM(selectedOptionFUM);
               setSelectedOptionECO(selectedOptionECO);
+              setSelectedOptionFUM(selectedOptionFUM);
               setTrimestresData(trimestresData);
               setAntirubeola(Antirubeola);
-              setAntitetanica(Antitetanica);
               setExNormal(ExNormal);
               setCervix(Cervix);
-              setAtencionesPrenatales(AtencionesPrenatales);
               setGrupoA(GrupoA);
               setToxoplasnosis(Toxoplasnosis);
               setSuplementoIncial(SuplementoIncial);
               setChangas(Changas);
               setConsejeria(Consejeria);
               setVIHPrimeraPrueba(VIHPrimeraPrueba);
-              setVIHSegundaPrueba(VIHSegundaPrueba)
-              setSifilisPrimeraPrueba(SifilisPrimeraPrueba)
+              setVIHSegundaPrueba(VIHSegundaPrueba);
+              setSifilisPrimeraPrueba(SifilisPrimeraPrueba);
+              setSifilisSegundaPrueba(SifilisSegundaPrueba);
+              setAtencionesPrenatales(AtencionesPrenatales);
             }
           }
         });
@@ -395,6 +389,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
       }
     }
   }, [cachedId]);
+  
 
   useEffect(() => {
     calcularIMC();
@@ -430,15 +425,12 @@ const SecondModuleScreen = ({ onSignOut }) => {
             imc: imc,
             DateFUM: DateFUM,
             DateFPP: DateFPP,
-            selectedOptionFUM: selectedOptionFUM,
             selectedOptionECO: selectedOptionECO,
-
+            selectedOptionFUM: selectedOptionFUM,
             trimestresData: trimestresData,
             Antirubeola: Antirubeola,
-            Antitetanica: Antitetanica,
             ExNormal: ExNormal,
             Cervix: Cervix,
-            AtencionesPrenatales: AtencionesPrenatales,
             GrupoA: GrupoA,
             Toxoplasnosis: Toxoplasnosis,
             SuplementoIncial: SuplementoIncial,
@@ -448,6 +440,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
             VIHSegundaPrueba: VIHSegundaPrueba,
             SifilisPrimeraPrueba: SifilisPrimeraPrueba,
             SifilisSegundaPrueba: SifilisSegundaPrueba,
+            AtencionesPrenatales: AtencionesPrenatales,
           };
 
           await docRef.set(data);
@@ -459,55 +452,8 @@ const SecondModuleScreen = ({ onSignOut }) => {
           setIMC("");
           setDateFUM("");
           setDateFPP("");
-          setSelectedOptionFUM("");
           setSelectedOptionECO("");
-
-          setAntirubeola([
-            {
-              previa: "",
-              noSabe: "",
-              embarazo: "",
-              no: "",
-            },
-          ]);
-
-          setAntitetanica([
-            {
-              Id: "id",
-              vigente: "",
-              Dosis1: "",
-              Dosis2: "",
-            },
-          ]);
-
-          setExNormal([
-            {
-              Id: "id",
-              Odont: "",
-              Mamas: "",
-            },
-          ]);
-
-          setCervix([
-            {
-              InspVisual: "InspVisual",
-              normal: "",
-              anormal: "",
-              noSeHizo: "",
-            },
-            {
-              PAP: "PAP",
-              normal: "",
-              anormal: "",
-              noSeHizo: "",
-            },
-            {
-              COLP: "COLP",
-              normal: "",
-              anormal: "",
-              noSeHizo: "",
-            },
-          ]);
+          setSelectedOptionFUM("");
 
           setTrimestresData([
             {
@@ -535,28 +481,68 @@ const SecondModuleScreen = ({ onSignOut }) => {
               violencia: false,
             },
           ]);
+
+          setAntirubeola([
+            {
+              previa: false,
+              noSabe: false,
+              embarazo: false,
+              no: false,
+            },
+          ]);
+
+          setExNormal([
+            {
+              Id: "id",
+              Odont: false,
+              Mamas: false,
+            },
+          ]);
+
+          setCervix([
+            {
+              InspVisual: "InspVisual",
+              normal: false,
+              anormal: false,
+              noSeHizo: false,
+            },
+            {
+              PAP: "PAP",
+              normal: false,
+              anormal: false,
+              noSeHizo: false,
+            },
+            {
+              COLP: "COLP",
+              normal: false,
+              anormal: false,
+              noSeHizo: false,
+            },
+          ]);
+
           setGrupoA([
             {
               RH: "",
-              imuniz: "",
+              imuniz: false,
               yglobulina_anti_D: "",
             },
           ]);
+
           setToxoplasnosis([
             {
-              menor12Senanas_igG: "menor12Senanas_igG",
+              menor12Semanas_igG: "Menor a 12 Semanas (IgM)",
               negativo: false,
               positivo: false,
               noSehizo: false,
             },
             {
-              mayorigual_12Senanas_igG: "mayorigual_12Senanas_igG",
+              mayorigual_12Semanas_igG: "Mayor o Igual a 12 Semanas (IgM)",
               negativo: false,
               positivo: false,
               noSehizo: false,
             },
             {
-              primera_consulta_igM: "primera_consulta_igM",
+              primera_consulta_igM: "Primera Consulta (IgM)",
               negativo: false,
               positivo: false,
               noSehizo: false,
@@ -570,9 +556,9 @@ const SecondModuleScreen = ({ onSignOut }) => {
               folatos: false,
               multi_vitaminas: false,
             },
-          
           ]);
-           setChangas([
+
+          setChangas([
             {
               changas: "",
               paludismo_malaria: "",
@@ -580,7 +566,6 @@ const SecondModuleScreen = ({ onSignOut }) => {
               glusemia_EnAyuna: "",
               estreptococo: "",
             },
-          
           ]);
 
           setConsejeria([
@@ -594,7 +579,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
 
           setVIHPrimeraPrueba([
             {
-              menor12Semanas: "menor12Semanas",
+              menor12Semanas: "Menor a 12 Semanas",
               si: false,
               no: false,
               nc: false,
@@ -602,20 +587,18 @@ const SecondModuleScreen = ({ onSignOut }) => {
               tarv_enEmbarazo: "",
             },
             {
-              mayor12Semanas: "mayor12Semanas",
+              mayor12Semanas: "Mayor a 12 Semanas",
               si: false,
               no: false,
               nc: false,
               result: "",
               tarv_enEmbarazo: "",
             },
-          
-          
           ]);
 
           setVIHSegundaPrueba([
             {
-              menor12Semanas: "menor12Semanas",
+              menor12Semanas: "Menor a 12 Semanas",
               si: false,
               no: false,
               nc: false,
@@ -623,19 +606,18 @@ const SecondModuleScreen = ({ onSignOut }) => {
               tarv_enEmbarazo: "",
             },
             {
-              mayor12Semanas: "mayor12Semanas",
+              mayor12Semanas: "Mayor a 12 Semanas",
               si: false,
               no: false,
               nc: false,
               result: "",
               tarv_enEmbarazo: "",
             },
-          
           ]);
 
           setSifilisPrimeraPrueba([
             {
-              menor12Semanas: "menor12Semanas",
+              menor12Semanas: "Menor a 12 Semanas",
               si: false,
               no: false,
               nc: false,
@@ -644,7 +626,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
               TtoDeLa_Pareja: false,
             },
             {
-              mayor12Semanas: "mayor12Semanas",
+              mayor12Semanas: "Mayor a 12 Semanas",
               si: false,
               no: false,
               nc: false,
@@ -652,12 +634,11 @@ const SecondModuleScreen = ({ onSignOut }) => {
               tratamientoCon_Penisilina: "",
               TtoDeLa_Pareja: false,
             },
-          
           ]);
 
           setSifilisSegundaPrueba([
             {
-              menor12Semanas: "menor12Semanas",
+              menor12Semanas: "Menor a 12 Semanas",
               si: false,
               no: false,
               nc: false,
@@ -666,7 +647,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
               TtoDeLa_Pareja: false,
             },
             {
-              mayor12Semanas: "mayor12Semanas",
+              mayor12Semanas: "Mayor a 12 Semanas",
               si: false,
               no: false,
               nc: false,
@@ -675,8 +656,25 @@ const SecondModuleScreen = ({ onSignOut }) => {
               TtoDeLa_Pareja: false,
               AnomaliasPrenatales: false,
             },
-          
           ]);
+
+          setAtencionesPrenatales([
+            {
+              fecha: "",
+              edadGestacional: "",
+              peso: "",
+              PA: "",
+              alturaUterina: "",
+              presentacion: "",
+              FCF_IPM: "",
+              movimientosFetales: "",
+              proteinuna: "",
+              signosExamenesTratamiento: "",
+              inicialesPersonalSalud: "",
+              proximaCita: "",
+            },
+          ]);
+
         } else {
           console.error("El documento no existe");
         }
@@ -866,7 +864,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
 
                 <Switch
                   id={`previa${index}`}
-                  checked={item.previa === "si"}
+                  checked={item.previa === true}
                   onChange={(newValue) =>
                     handleAntirubeola(index, "previa", newValue)
                   }
@@ -877,7 +875,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
               <div className="formularioFourthChildren">
                 <label htmlFor="multi-last-name">Embarazo</label>
                 <Switch
-                  checked={item.embarazo === "si"}
+                  checked={item.embarazo === true}
                   onChange={(newValue) =>
                     handleAntirubeola(index, "embarazo", newValue)
                   }
@@ -888,7 +886,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
               <div className="formularioFourthChildren">
                 <label htmlFor="multi-last-name">No sabe</label>
                 <Switch
-                  checked={item.noSabe === "si"}
+                  checked={item.noSabe === true}
                   onChange={(newValue) =>
                     handleAntirubeola(index, "noSabe", newValue)
                   }
@@ -899,7 +897,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
               <div className="formularioFourthChildren">
                 <label htmlFor="multi-last-name">No</label>
                 <Switch
-                  checked={item.no === "si"}
+                  checked={item.no === true}
                   onChange={(newValue) =>
                     handleAntirubeola(index, "no", newValue)
                   }
@@ -919,7 +917,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <label htmlFor={`Odont${item}`}>ODONT</label>
                 <Switch
                   id={`Odont${item}`}
-                  checked={item.Odont === "si"}
+                  checked={item.Odont === true}
                   onChange={(newValue) =>
                     handleExNormal(index, "Odont", newValue)
                   }
@@ -931,7 +929,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <label htmlFor={`Mamas${item}`}>MAMÁS</label>
                 <Switch
                   id={`Mamas${item}`}
-                  checked={item.Mamas === "si"}
+                  checked={item.Mamas === true}
                   onChange={(newValue) =>
                     handleExNormal(index, "Mamas", newValue)
                   }
@@ -1046,13 +1044,9 @@ const SecondModuleScreen = ({ onSignOut }) => {
             <div className="formularioFourthModule">
               <div className="formularioFourthChildren">
                 <label>
-                  {
-                    trimestre[
-                      trimestre.menor12Senanas_igG ||
-                        trimestre.mayorigual_12Senanas_igG ||
-                        trimestre.primera_consulta_igM
-                    ]
-                  }
+                  {trimestre.menor12Semanas_igG ||
+                    trimestre.mayorigual_12Semanas_igG ||
+                    trimestre.primera_consulta_igM}
                 </label>
               </div>
               <div className="formularioFourthChildren">
@@ -1125,7 +1119,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 />
               </div>
               <div className="formularioFourthChildren">
-                <label>MultiVitaminas</label>
+                <label>Multi Vitaminas</label>
                 <Switch
                   checked={item.multi_vitaminas === true}
                   onChange={(newValue) =>
@@ -1151,7 +1145,9 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <select
                   className="inputNumberFourth"
                   value={item.changas}
-                  onChange={(e) => handleChangas(index, "changas", e.target.value)}
+                  onChange={(e) =>
+                    handleChangas(index, "changas", e.target.value)
+                  }
                 >
                   <option>Opciones</option>
                   <option value="-">-</option>
@@ -1164,7 +1160,9 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <select
                   className="inputNumberFourth"
                   value={item.paludismo_malaria}
-                  onChange={(e) => handleChangas(index, "paludismo_malaria", e.target.value)}
+                  onChange={(e) =>
+                    handleChangas(index, "paludismo_malaria", e.target.value)
+                  }
                 >
                   <option>Opciones</option>
                   <option value="-">-</option>
@@ -1177,7 +1175,9 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <select
                   className="inputNumberFourth"
                   value={item.bacteriuria}
-                  onChange={(e) => handleChangas(index, "bacteriuria", e.target.value)}
+                  onChange={(e) =>
+                    handleChangas(index, "bacteriuria", e.target.value)
+                  }
                 >
                   <option>Opciones</option>
                   <option value="Normal">Normal</option>
@@ -1190,12 +1190,13 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <select
                   className="inputNumberFourth"
                   value={item.glusemia_EnAyuna}
-                  onChange={(e) => handleChangas(index, "glusemia_EnAyuna", e.target.value)}
+                  onChange={(e) =>
+                    handleChangas(index, "glusemia_EnAyuna", e.target.value)
+                  }
                 >
                   <option>Opciones</option>
                   <option value="Mayor a 20 semanas">Mayor a 20 semanas</option>
                   <option value="Menor a 20 semanas">Menor a 20 semanas</option>
-                
                 </select>
               </div>
 
@@ -1204,13 +1205,14 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <select
                   className="inputNumberFourth"
                   value={item.estreptococo}
-                  onChange={(e) => handleChangas(index, "estreptococo", e.target.value)}
+                  onChange={(e) =>
+                    handleChangas(index, "estreptococo", e.target.value)
+                  }
                 >
                   <option>Opciones</option>
                   <option value="-">-</option>
                   <option value="+">+</option>
                   <option value="No se hizo">No se hizo</option>
-                
                 </select>
               </div>
             </div>
@@ -1218,15 +1220,17 @@ const SecondModuleScreen = ({ onSignOut }) => {
         ))}
 
         {/* CONSEJETRIA */}
-       
+
         {Consejeria.map((item, index) => (
           <div key={index}>
             <div className="formularioFourthModule">
-            <div className="formularioFourthChildren">
-            <h3>CONSEJERIA</h3>
-            </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`PreparacionParto${item}`}>PreparacionParto</label>
+                <h3>CONSEJERIA</h3>
+              </div>
+              <div className="formularioFourthChildren">
+                <label htmlFor={`PreparacionParto${item}`}>
+                  PreparacionParto
+                </label>
                 <Switch
                   id={`PreparacionParto${item}`}
                   checked={item.PreparacionParto === true}
@@ -1238,7 +1242,9 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 />
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`PlanificacionFamiliar${item}`}>Planificacion Familiar</label>
+                <label htmlFor={`PlanificacionFamiliar${item}`}>
+                  Planificacion Familiar
+                </label>
                 <Switch
                   id={`PlanificacionFamiliar${item}`}
                   checked={item.PlanificacionFamiliar === true}
@@ -1251,7 +1257,9 @@ const SecondModuleScreen = ({ onSignOut }) => {
               </div>
 
               <div className="formularioFourthChildren">
-                <label htmlFor={`LactanciaMaterna${item}`}>Lactancia Materna</label>
+                <label htmlFor={`LactanciaMaterna${item}`}>
+                  Lactancia Materna
+                </label>
                 <Switch
                   id={`LactanciaMaterna${item}`}
                   checked={item.LactanciaMaterna === true}
@@ -1264,7 +1272,9 @@ const SecondModuleScreen = ({ onSignOut }) => {
               </div>
 
               <div className="formularioFourthChildren">
-                <label htmlFor={`AmorPara_Chiquitos${item}`}>Amor Para los mas Chiquitos</label>
+                <label htmlFor={`AmorPara_Chiquitos${item}`}>
+                  Amor Para los mas Chiquitos
+                </label>
                 <Switch
                   id={`AmorPara_Chiquitos${item}`}
                   checked={item.AmorPara_Chiquitos === true}
@@ -1289,15 +1299,14 @@ const SecondModuleScreen = ({ onSignOut }) => {
               <div className="formularioFourthChildren">
                 <label>
                   {
-                    trimestre[
-                      trimestre.menor12Semanas ||
-                        trimestre.mayor12Semanas
-                    ]
+                    
+                      trimestre.menor12Semanas || trimestre.mayor12Semanas
+                    
                   }
                 </label>
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`si${index}`}>si</label>
+                <label htmlFor={`si${index}`}>Si</label>
                 <Switch
                   id={`si${index}`}
                   checked={trimestre.si === true}
@@ -1309,7 +1318,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 />
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`no${index}`}>no</label>
+                <label htmlFor={`no${index}`}>No</label>
                 <Switch
                   id={`no${index}`}
                   checked={trimestre.no === true}
@@ -1321,7 +1330,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 />
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`nc${index}`}>n/c</label>
+                <label htmlFor={`nc${index}`}>N/C</label>
                 <Switch
                   id={`nc${index}`}
                   checked={trimestre.nc === true}
@@ -1337,14 +1346,15 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <select
                   className="inputNumberFourth"
                   value={trimestre.result}
-                  onChange={(e) => handleVIHPrimeraPrueba(index, "result", e.target.value)}
+                  onChange={(e) =>
+                    handleVIHPrimeraPrueba(index, "result", e.target.value)
+                  }
                 >
                   <option>Opciones</option>
                   <option value="+">+</option>
                   <option value="-">-</option>
-                  <option value="n/c">n/c</option>
-                  <option value="s/d">s/d</option>
-                
+                  <option value="N/C">N/C</option>
+                  <option value="S/D">S/D</option>
                 </select>
               </div>
 
@@ -1353,21 +1363,26 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <select
                   className="inputNumberFourth"
                   value={trimestre.tarv_enEmbarazo}
-                  onChange={(e) => handleVIHPrimeraPrueba(index, "tarv_enEmbarazo", e.target.value)}
+                  onChange={(e) =>
+                    handleVIHPrimeraPrueba(
+                      index,
+                      "tarv_enEmbarazo",
+                      e.target.value
+                    )
+                  }
                 >
                   <option>Opciones</option>
-                  <option value="si">Si</option>
-                  <option value="no">No</option>
-                  <option value="n/c">n/c</option>
-          
+                  <option value="Si">Si</option>
+                  <option value="No">No</option>
+                  <option value="N/C">N/C</option>
                 </select>
               </div>
             </div>
           </div>
         ))}
 
-         {/* VIH Segunda prueba solicitada */}
-         <div className="formularioFourthChildren">
+        {/* VIH Segunda prueba solicitada */}
+        <div className="formularioFourthChildren">
           <h2>VIH Segunda prueba solicitada</h2>
         </div>
         {VIHSegundaPrueba.map((trimestre, index) => (
@@ -1376,15 +1391,14 @@ const SecondModuleScreen = ({ onSignOut }) => {
               <div className="formularioFourthChildren">
                 <label>
                   {
-                    trimestre[
-                      trimestre.menor12Semanas ||
-                        trimestre.mayor12Semanas
-                    ]
+                    
+                      trimestre.menor12Semanas || trimestre.mayor12Semanas
+                    
                   }
                 </label>
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`si${index}`}>si</label>
+                <label htmlFor={`si${index}`}>Si</label>
                 <Switch
                   id={`si${index}`}
                   checked={trimestre.si === true}
@@ -1396,7 +1410,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 />
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`no${index}`}>no</label>
+                <label htmlFor={`no${index}`}>No</label>
                 <Switch
                   id={`no${index}`}
                   checked={trimestre.no === true}
@@ -1408,7 +1422,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 />
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`nc${index}`}>n/c</label>
+                <label htmlFor={`nc${index}`}>N/C</label>
                 <Switch
                   id={`nc${index}`}
                   checked={trimestre.nc === true}
@@ -1424,14 +1438,16 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <select
                   className="inputNumberFourth"
                   value={trimestre.result}
-                  onChange={(e) => handleVIHPSegundaPrueba(index, "result", e.target.value)}
+                  onChange={(e) =>
+                    handleVIHPSegundaPrueba(index, "result", e.target.value)
+                  }
                 >
+                 
                   <option>Opciones</option>
                   <option value="+">+</option>
                   <option value="-">-</option>
-                  <option value="n/c">n/c</option>
-                  <option value="s/d">s/d</option>
-                
+                  <option value="N/C">N/C</option>
+                  <option value="S/D">S/D</option>
                 </select>
               </div>
 
@@ -1440,13 +1456,18 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <select
                   className="inputNumberFourth"
                   value={trimestre.tarv_enEmbarazo}
-                  onChange={(e) => handleVIHPSegundaPrueba(index, "tarv_enEmbarazo", e.target.value)}
+                  onChange={(e) =>
+                    handleVIHPSegundaPrueba(
+                      index,
+                      "tarv_enEmbarazo",
+                      e.target.value
+                    )
+                  }
                 >
                   <option>Opciones</option>
-                  <option value="si">Si</option>
-                  <option value="no">No</option>
-                  <option value="n/c">n/c</option>
-          
+                  <option value="Si">Si</option>
+                  <option value="No">No</option>
+                  <option value="N/C">N/C</option>
                 </select>
               </div>
             </div>
@@ -1462,16 +1483,11 @@ const SecondModuleScreen = ({ onSignOut }) => {
             <div className="formularioFourthModule">
               <div className="formularioFourthChildren">
                 <label>
-                  {
-                    item[
-                      item.menor12Semanas ||
-                      item.mayor12Semanas
-                    ]
-                  }
+                  {item.menor12Semanas || item.mayor12Semanas}
                 </label>
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`si${index}`}>si</label>
+                <label htmlFor={`si${index}`}>Si</label>
                 <Switch
                   id={`si${index}`}
                   checked={item.si === true}
@@ -1483,7 +1499,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 />
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`no${index}`}>no</label>
+                <label htmlFor={`no${index}`}>No</label>
                 <Switch
                   id={`no${index}`}
                   checked={item.no === true}
@@ -1495,7 +1511,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 />
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`nc${index}`}>n/c</label>
+                <label htmlFor={`nc${index}`}>N/C</label>
                 <Switch
                   id={`nc${index}`}
                   checked={item.nc === true}
@@ -1511,14 +1527,15 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <select
                   className="inputNumberFourth"
                   value={item.result}
-                  onChange={(e) => handleSifilisPrimeraPrueba(index, "result", e.target.value)}
+                  onChange={(e) =>
+                    handleSifilisPrimeraPrueba(index, "result", e.target.value)
+                  }
                 >
                   <option>Opciones</option>
                   <option value="+">+</option>
                   <option value="-">-</option>
-                  <option value="n/c">n/c</option>
-                  <option value="s/d">s/d</option>
-                
+                  <option value="N/C">N/C</option>
+                  <option value="S/D">S/D</option>
                 </select>
               </div>
 
@@ -1527,22 +1544,33 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <select
                   className="inputNumberFourth"
                   value={item.tratamientoCon_Penisilina}
-                  onChange={(e) => handleSifilisPrimeraPrueba(index, "tratamientoCon_Penisilina", e.target.value)}
+                  onChange={(e) =>
+                    handleSifilisPrimeraPrueba(
+                      index,
+                      "tratamientoCon_Penisilina",
+                      e.target.value
+                    )
+                  }
                 >
                   <option>Opciones</option>
-                  <option value="si">Si</option>
-                  <option value="no">No</option>
-                  <option value="n/c">n/c</option>
-          
+                  <option value="Si">Si</option>
+                  <option value="No">No</option>
+                  <option value="N/C">N/C</option>
                 </select>
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`TtoDeLa_Pareja${index}`}>Tto De la Pareja</label>
+                <label htmlFor={`TtoDeLa_Pareja${index}`}>
+                  Tto De la Pareja
+                </label>
                 <Switch
                   id={`TtoDeLa_Pareja${index}`}
                   checked={item.TtoDeLa_Pareja === true}
                   onChange={(newValue) =>
-                    handleSifilisPrimeraPrueba(index, "TtoDeLa_Pareja", newValue)
+                    handleSifilisPrimeraPrueba(
+                      index,
+                      "TtoDeLa_Pareja",
+                      newValue
+                    )
                   }
                   onColor="#eff303" // Color cuando está en posición "Sí"
                   offColor="#888888" // Color cuando está en posición "No"
@@ -1561,16 +1589,11 @@ const SecondModuleScreen = ({ onSignOut }) => {
             <div className="formularioFourthModule">
               <div className="formularioFourthChildren">
                 <label>
-                  {
-                    item[
-                      item.menor12Semanas ||
-                      item.mayor12Semanas
-                    ]
-                  }
+                  {item.menor12Semanas || item.mayor12Semanas}
                 </label>
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`si${index}`}>si</label>
+                <label htmlFor={`si${index}`}>Si</label>
                 <Switch
                   id={`si${index}`}
                   checked={item.si === true}
@@ -1582,7 +1605,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 />
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`no${index}`}>no</label>
+                <label htmlFor={`no${index}`}>No</label>
                 <Switch
                   id={`no${index}`}
                   checked={item.no === true}
@@ -1594,7 +1617,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 />
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`nc${index}`}>n/c</label>
+                <label htmlFor={`nc${index}`}>N/C</label>
                 <Switch
                   id={`nc${index}`}
                   checked={item.nc === true}
@@ -1610,14 +1633,15 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <select
                   className="inputNumberFourth"
                   value={item.result}
-                  onChange={(e) => handleSifilisSegundaPrueba(index, "result", e.target.value)}
+                  onChange={(e) =>
+                    handleSifilisSegundaPrueba(index, "result", e.target.value)
+                  }
                 >
                   <option>Opciones</option>
                   <option value="+">+</option>
                   <option value="-">-</option>
-                  <option value="n/c">n/c</option>
-                  <option value="s/d">s/d</option>
-                
+                  <option value="N/C">N/C</option>
+                  <option value="S/D">S/D</option>
                 </select>
               </div>
 
@@ -1626,22 +1650,33 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 <select
                   className="inputNumberFourth"
                   value={item.tratamientoCon_Penisilina}
-                  onChange={(e) => handleSifilisSegundaPrueba(index, "tratamientoCon_Penisilina", e.target.value)}
+                  onChange={(e) =>
+                    handleSifilisSegundaPrueba(
+                      index,
+                      "tratamientoCon_Penisilina",
+                      e.target.value
+                    )
+                  }
                 >
                   <option>Opciones</option>
-                  <option value="si">Si</option>
-                  <option value="no">No</option>
-                  <option value="n/c">n/c</option>
-          
+                  <option value="Si">Si</option>
+                  <option value="No">No</option>
+                  <option value="N/C">N/C</option>
                 </select>
               </div>
               <div className="formularioFourthChildren">
-                <label htmlFor={`TtoDeLa_Pareja${index}`}>Tto De la Pareja</label>
+                <label htmlFor={`TtoDeLa_Pareja${index}`}>
+                  Tto De la Pareja
+                </label>
                 <Switch
                   id={`TtoDeLa_Pareja${index}`}
                   checked={item.TtoDeLa_Pareja === true}
                   onChange={(newValue) =>
-                    handleSifilisSegundaPrueba(index, "TtoDeLa_Pareja", newValue)
+                    handleSifilisSegundaPrueba(
+                      index,
+                      "TtoDeLa_Pareja",
+                      newValue
+                    )
                   }
                   onColor="#eff303" // Color cuando está en posición "Sí"
                   offColor="#888888" // Color cuando está en posición "No"
@@ -1649,12 +1684,18 @@ const SecondModuleScreen = ({ onSignOut }) => {
               </div>
 
               <div className="formularioFourthChildren">
-                <label htmlFor={`AnomaliasPrenatales${index}`}>Anomalias prenatales</label>
+                <label htmlFor={`AnomaliasPrenatales${index}`}>
+                  Anomalias prenatales
+                </label>
                 <Switch
                   id={`AnomaliasPrenatales${index}`}
                   checked={item.AnomaliasPrenatales === true}
                   onChange={(newValue) =>
-                    handleSifilisSegundaPrueba(index, "AnomaliasPrenatales", newValue)
+                    handleSifilisSegundaPrueba(
+                      index,
+                      "AnomaliasPrenatales",
+                      newValue
+                    )
                   }
                   onColor="#eff303" // Color cuando está en posición "Sí"
                   offColor="#888888" // Color cuando está en posición "No"
@@ -1664,8 +1705,6 @@ const SecondModuleScreen = ({ onSignOut }) => {
           </div>
         ))}
 
-
-        
         {/* Atenciones Prenatales */}
         <h2>Atenciones Prenatales</h2>
         {AtencionesPrenatales.map((atencion, index) => (
