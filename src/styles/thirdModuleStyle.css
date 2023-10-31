@@ -1,6 +1,6 @@
 /* Estos son estilos de el componente madre*/
 .form {
-  max-width: 1300px;
+  width: 95%;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -31,6 +31,14 @@
 .text,
 .textarea {
   width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  height: 30%;
+}
+.tipoNumber {
+  width: 93%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
