@@ -127,6 +127,7 @@ const FirstModuleScreen = ({ onSignOut }) => {
     setSelectedDepartment(e.target.value);
     setMunicipalities(departmentsData[e.target.value] || []);
   };
+  
 
   // UseEffect para cargar los datos desde Firebase al montar el componente
   useEffect(() => {
@@ -138,8 +139,12 @@ const FirstModuleScreen = ({ onSignOut }) => {
             const data = doc.data();
             if (data.ModuloFiliacion) {
               const { DatosAfiliacion, AntecedentesFamiliares,
-                AntecedentesPersonales, } = data.ModuloFiliacion;
+                AntecedentesPersonales,municipalities, selectedDepartment} = data.ModuloFiliacion;
+             
+           
               // Establecer los datos recuperados en el estado
+              setMunicipalities(municipalities);
+              setSelectedDepartment(selectedDepartment);
               setDatosAfiliacion(DatosAfiliacion);
               setAntecedenteFamiliares(AntecedentesFamiliares);
               setAntecedentePersonales(AntecedentesPersonales);
@@ -170,6 +175,8 @@ const FirstModuleScreen = ({ onSignOut }) => {
         if (doc.exists) {
           const data = doc.data();
           data.ModuloFiliacion = {
+            selectedDepartment:selectedDepartment,
+            municipalities:municipalities,
             DatosAfiliacion: DatosAfiliacion,
             AntecedentesFamiliares: AntecedentesFamiliares,
             AntecedentesPersonales: AntecedentesPersonales,
@@ -178,6 +185,8 @@ const FirstModuleScreen = ({ onSignOut }) => {
           await docRef.set(data);
 
           alert("Datos enviados con éxito");
+          setSelectedDepartment("");
+          setMunicipalities([]);
           setDatosAfiliacion([
             {
               Nombres: "",
