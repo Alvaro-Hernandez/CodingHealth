@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useLocation } from "wouter";
-import NavBarComponent from "../components/NavbarComponent";
 import { db } from "../services/FirebaseServices";
 import { departmentsData } from "../utils/departamentsData";
+import NavBarComponent from "../components/NavbarComponent";
+import ErrorModal from "../components/MessageErrorModal";
 import "../styles/firstModuleStyle.css";
 
 const FirstModuleScreen = ({ onSignOut }) => {
@@ -11,6 +12,8 @@ const FirstModuleScreen = ({ onSignOut }) => {
     const cachedId = localStorage.getItem("cachedId");
     const [selectedDepartment, setSelectedDepartment] = useState('');
     const [municipalities, setMunicipalities] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isModalOpen, setModalOpen] = useState(false);
 
 
     const [DatosAfiliacion, setDatosAfiliacion] = useState([
@@ -20,17 +23,18 @@ const FirstModuleScreen = ({ onSignOut }) => {
             Domicilio: "",
             Municipio_de_Residencia: "",
             Telefono: "",
-            Otra_condición_grave: "",
             Codigo_lugar_Apn: "",
             Nombre_de_Apn: "",
+            Codigo_lugar_Parto: "",
+            Nombre_US_Parto: "",
             Fecha_Nacimiento: "",
             Edad: "",
             Ednia: "",
-            Alfa_Beta: "",
+            // Alfa_Beta: "",
             Estudios: "",
             Estado_Civil: "",
             Numero_Expediente_Unico: "",
-            Numero_INS: "",
+            // Numero_INS: "",
             Numero_Identidad: "",
         },
     ]);
@@ -46,6 +50,30 @@ const FirstModuleScreen = ({ onSignOut }) => {
         setLocation("/login");
     };
 
+
+    //Funcion para validar los campos
+    const validateForm = () => {
+        const currentData = DatosAfiliacion[0]; // Como solo tienes un elemento en el array
+
+        // Validar campos no vacíos
+        for (let field in currentData) {
+            if (currentData[field] === "") {
+                return `El campo ${field} no puede estar vacío.`;
+            }
+        }
+
+        // Validar teléfono
+        if (currentData.Telefono.length !== 8) {
+            return "El número de teléfono debe tener exactamente 8 dígitos.";
+        }
+
+        // Validar edad
+        if (currentData.Edad < 13 || currentData.Edad > 60) {
+            return "La edad debe ser entre 13 y 60 años.";
+        }
+
+        return null; // No hay errores
+    };
 
 
     const handleButtonClick = () => {
@@ -84,6 +112,13 @@ const FirstModuleScreen = ({ onSignOut }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const error = validateForm();
+        if (error) {
+            setErrorMessage(error);
+            setModalOpen(true);
+
+            return;
+        }
         if (cachedId) {
             try {
                 const docRef = db.collection("cartilla").doc(cachedId);
@@ -105,17 +140,18 @@ const FirstModuleScreen = ({ onSignOut }) => {
                             Domicilio: "",
                             Municipio_de_Residencia: "",
                             Telefono: "",
-                            Otra_condición_grave: "",
                             Codigo_lugar_Apn: "",
                             Nombre_de_Apn: "",
+                            Codigo_lugar_Parto: "",
+                            Nombre_US_Parto: "",
                             Fecha_Nacimiento: "",
                             Edad: "",
                             Ednia: "",
-                            Alfa_Beta: "",
+                            // Alfa_Beta: "",
                             Estudios: "",
                             Estado_Civil: "",
                             Numero_Expediente_Unico: "",
-                            Numero_INS: "",
+                            // Numero_INS: "",
                             Numero_Identidad: "",
                         },
                     ]);
@@ -149,7 +185,7 @@ const FirstModuleScreen = ({ onSignOut }) => {
                         <div key={index}>
                             <div className="formularioFourthModule">
                                 <div className="formularioFourthChildren">
-                                    <label >Nonbre</label>
+                                    <label >Nombre</label>
                                     <input
                                         type="text"
                                         placeholder="Nombre"
@@ -206,10 +242,12 @@ const FirstModuleScreen = ({ onSignOut }) => {
                                 <div className="formularioFourthChildren">
                                     <label>Telefono</label>
                                     <input
-                                        type="number"
+                                        type="tel"
                                         placeholder="Telefono"
                                         className="inputNumberFourth"
                                         value={item.Telefono}
+                                        maxLength="8"
+                                        pattern="\d{1,8}"
                                         onChange={(e) =>
                                             handleDatosAfiliacion(index, "Telefono", e.target.value)
                                         }
@@ -235,6 +273,8 @@ const FirstModuleScreen = ({ onSignOut }) => {
                                     <label>Edad</label>
                                     <input
                                         type="number"
+                                        min="0"
+                                        max="99"
                                         placeholder="Edad"
                                         className="inputNumberFourth"
                                         value={item.Edad}
@@ -296,6 +336,7 @@ const FirstModuleScreen = ({ onSignOut }) => {
                                     <label>  N° Expediente Unico:</label>
                                     <input
                                         type="text"
+                                        maxLength="16"
                                         placeholder="Expediente Unico"
                                         className="inputNumberFourth"
                                         value={item.Numero_Expediente_Unico}
@@ -312,6 +353,7 @@ const FirstModuleScreen = ({ onSignOut }) => {
                                     <label> N° Identidad:</label>
                                     <input
                                         type="text"
+                                        maxLength="14"
                                         placeholder="Identidad"
                                         className="inputNumberFourth"
                                         value={item.Numero_Identidad}
@@ -348,11 +390,12 @@ const FirstModuleScreen = ({ onSignOut }) => {
                                     <label> Codigo Lugar Parto:</label>
                                     <input
                                         type="text"
+                                        maxLength="3"
                                         placeholder="Codigo lugar del Parto"
                                         className="inputNumberFourth"
-                                        value={item.Codigo_lugar_Apn}
+                                        value={item.Codigo_lugar_Parto}
                                         onChange={(e) =>
-                                            handleDatosAfiliacion(index, "Codigo_lugar_Apn", e.target.value)
+                                            handleDatosAfiliacion(index, "Codigo_lugar_Parto", e.target.value)
                                         }
                                     />
                                 </div>
@@ -362,9 +405,9 @@ const FirstModuleScreen = ({ onSignOut }) => {
                                         type="text"
                                         placeholder="Nombres U/S de Parto"
                                         className="inputNumberFourth"
-                                        value={item.Nombre_de_Apn}
+                                        value={item.Nombre_US_Parto}
                                         onChange={(e) =>
-                                            handleDatosAfiliacion(index, "Nombre_de_Apn", e.target.value)
+                                            handleDatosAfiliacion(index, "Nombre_US_Parto", e.target.value)
                                         }
                                     />
                                 </div>
@@ -400,37 +443,14 @@ const FirstModuleScreen = ({ onSignOut }) => {
                     </div>
                 </form>
             </div>
+            <ErrorModal
+                isOpen={isModalOpen}
+                onRequestClose={() => setModalOpen(false)}
+                errorMessage={errorMessage}
+                title="Error en el formulario"
+            />
         </div>
     );
-};
-
-const ToggleSwitch = ({ initialChecked = false, onChange }) => {
-    const [isChecked, setIsChecked] = useState(initialChecked);
-
-    const handleToggle = () => {
-        const newCheckedState = !isChecked;
-        setIsChecked(newCheckedState);
-        onChange(newCheckedState);
-    };
-
-    return (
-        <label className={`switchFirstModule ${isChecked ? "checked" : ""}`}>
-            <input type="checkbox" checked={isChecked} onChange={handleToggle} />
-            <span className="sliderFirstModule"></span>
-            <span className={`switch-text ${isChecked ? "checked" : ""}`}>
-                {isChecked ? "Sí" : "No"}
-            </span>
-        </label>
-    );
-};
-
-ToggleSwitch.propTypes = {
-    initialChecked: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
-};
-
-ToggleSwitch.defaultProps = {
-    initialChecked: false,
 };
 
 FirstModuleScreen.propTypes = {
