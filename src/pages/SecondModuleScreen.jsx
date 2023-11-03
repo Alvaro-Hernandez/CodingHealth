@@ -6,6 +6,7 @@ import { Timestamp } from 'firebase/firestore';
 import { db } from "../services/FirebaseServices";
 import NavBarComponent from "../components/NavbarComponent";
 import CalendarComponent from "../components/CalendarComponent";
+import "../styles/secondModuleStyle.css";
 
 const SecondModuleScreen = ({ onSignOut }) => {
   const [, setLoader] = useState(false);
@@ -234,6 +235,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
     },
   ]);
 
+  const [setCurrentIndex] = useState(0);
   const [AtencionesPrenatales, setAtencionesPrenatales] = useState([
     {
       fecha: "",
@@ -250,8 +252,30 @@ const SecondModuleScreen = ({ onSignOut }) => {
       proximaCita: "",
     },
   ]);
+  
+  const addNewAtencionPrenatal = () => {
+    if (AtencionesPrenatales.length < 8) {
+      const newAtencionPrenatal = {
+        fecha: "",
+        edadGestacional: "",
+        peso: "",
+        PA: "",
+        alturaUterina: "",
+        presentacion: "",
+        FCF_IPM: "",
+        movimientosFetales: "",
+        proteinuna: "",
+        signosExamenesTratamiento: "",
+        inicialesPersonalSalud: "",
+        proximaCita: "",
+      };
 
+      setAtencionesPrenatales([...AtencionesPrenatales, newAtencionPrenatal]);
 
+      // Actualiza el índice para mostrar la nueva atención agregada
+      setCurrentIndex(AtencionesPrenatales.length);
+    }
+  };
 
   const handleTrimestreChange = (index, field, newValue) => {
     const updatedTrimestresData = [...trimestresData];
@@ -335,6 +359,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
     updatedAtencionesPrenatales[index][field] = value;
     setAtencionesPrenatales(updatedAtencionesPrenatales);
   };
+
 
   useEffect(() => {
     if (cachedId) {
@@ -734,7 +759,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
           showCloseExpedienteButton={false}
         />
       </div>
-      <div className="formFourthModule">
+      <div className="formSecondModule">
         <div className="sectionInformation">
           <h2 className="title">
             Historia Clínica Perinatal - Gestacion Actual
@@ -751,11 +776,11 @@ const SecondModuleScreen = ({ onSignOut }) => {
           <CalendarComponent events={eventsWithDatesConverted} onEventClick={handleEventClick} />
         ) : (
           <form>
-            <div className="formularioFourthModule">
-              <div className="formularioFourthChildren">
+            <div className="formularioSecondModule">
+              <div className="formularioSecondChildren">
                 <label>Peso</label>
                 <input
-                  className="inputNumberFourth"
+                  className="inputNumberSecond"
                   type="number"
                   step="0.1"
                   value={pesoAnterior}
@@ -763,7 +788,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                   placeholder="(Kg)"
                 />
               </div>
-              <div className="formularioFourthChildren">
+              <div className="formularioSecondChildren">
                 <label>Talla</label>
                 <input
                   className="inputNumberFourth"
@@ -775,10 +800,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 />
               </div>
 
-              <div className="formularioFourthChildren">
+              <div className="formularioSecondChildren">
                 <label htmlFor="multi-last-name">IMC:</label>
                 <input
-                  className="inputNumberFourth"
+                  className="inputNumberSecond"
                   type="number"
                   step="0.01"
                   required
@@ -786,25 +811,25 @@ const SecondModuleScreen = ({ onSignOut }) => {
                   readOnly
                 />
               </div>
-              <div className="formularioFourthChildren">
+              <div className="formularioSecondChildren">
                 <label htmlFor="multi-last-name">FUM</label>
                 <input
-                  className="inputNumberFourth"
+                  className="inputNumberSecond"
                   type="date"
                   value={DateFUM}
                   onChange={(e) => setDateFUM(e.target.value)}
                 />
               </div>
-              <div className="formularioFourthChildren">
+              <div className="formularioSecondChildren">
                 <label htmlFor="multi-last-name">FPP</label>
                 <input
-                  className="inputNumberFourth"
+                  className="inputNumberSecond"
                   type="date"
                   value={DateFPP}
                   onChange={(e) => setDateFPP(e.target.value)}
                 />
               </div>
-              <div className="formularioFourthChildren">
+              <div className="formularioSecondChildren">
                 <label htmlFor="multi-last-Eco">ECOmenor20s</label>
 
                 <Switch
@@ -816,7 +841,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                   offColor="#888888" // Color cuando está en posición "No"
                 />
               </div>
-              <div className="formularioFourthChildren">
+              <div className="formularioSecondChildren">
                 <label>FUM</label>
                 <Switch
                   checked={selectedOptionFUM === "si"}
@@ -832,11 +857,11 @@ const SecondModuleScreen = ({ onSignOut }) => {
             <h2>Controles por Trimestre</h2>
             {trimestresData.map((trimestre, index) => (
               <div key={index}>
-                <div className="formularioFourthModule">
-                  <div className="formularioFourthChildren">
+                <div className="formularioSecondModule">
+                  <div className="formularioSecondChildren">
                     {`Trimestre ${index + 1}`}
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`fumaPas${index}`}>FumaPAS</label>
                     <Switch
                       id={`fumaPas${index}`}
@@ -848,7 +873,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`fumaAct${index}`}>FumaACT</label>
                     <Switch
                       id={`fumaAct${index}`}
@@ -860,7 +885,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`droga${index}`}>DROGA</label>
                     <Switch
                       id={`droga${index}`}
@@ -872,7 +897,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`alcohol${index}`}>ALCOHOL</label>
                     <Switch
                       id={`alcohol${index}`}
@@ -884,7 +909,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`violencia${index}`}>VIOLENCIA</label>
                     <Switch
                       id={`violencia${index}`}
@@ -904,8 +929,8 @@ const SecondModuleScreen = ({ onSignOut }) => {
             <h2>Antirubeola</h2>
             {Antirubeola.map((item, index) => (
               <div key={index}>
-                <div className="formularioFourthModule">
-                  <div className="formularioFourthChildren">
+                <div className="formularioSecondModule">
+                  <div className="formularioSecondChildren">
                     <label htmlFor="multi-last-name">Previa</label>
 
                     <Switch
@@ -918,7 +943,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor="multi-last-name">Embarazo</label>
                     <Switch
                       checked={item.embarazo === true}
@@ -929,7 +954,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor="multi-last-name">No sabe</label>
                     <Switch
                       checked={item.noSabe === true}
@@ -940,7 +965,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor="multi-last-name">No</label>
                     <Switch
                       checked={item.no === true}
@@ -958,8 +983,8 @@ const SecondModuleScreen = ({ onSignOut }) => {
             <h2>EX NORMAL</h2>
             {ExNormal.map((item, index) => (
               <div key={index}>
-                <div className="formularioFourthModule">
-                  <div className="formularioFourthChildren">
+                <div className="formularioSecondModule">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`Odont${item}`}>ODONT</label>
                     <Switch
                       id={`Odont${item}`}
@@ -971,7 +996,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`Mamas${item}`}>MAMÁS</label>
                     <Switch
                       id={`Mamas${item}`}
@@ -991,11 +1016,11 @@ const SecondModuleScreen = ({ onSignOut }) => {
             <h2>CERVIX</h2>
             {Cervix.map((item, index) => (
               <div key={index}>
-                <div className="formularioFourthModule">
-                  <div className="formularioFourthChildren">
+                <div className="formularioSecondModule">
+                  <div className="formularioSecondChildren">
                     <label>{item[item.InspVisual || item.PAP || item.COLP]}</label>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`normal${index}`}>Normal</label>
                     <Switch
                       id={`normal${index}`}
@@ -1007,7 +1032,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`anormal${index}`}>Anormal</label>
                     <Switch
                       id={`anormal${index}`}
@@ -1019,7 +1044,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`noSeHizo${index}`}>No se hizo</label>
                     <Switch
                       id={`noSeHizo${index}`}
@@ -1038,14 +1063,14 @@ const SecondModuleScreen = ({ onSignOut }) => {
 
             {GrupoA.map((item, index) => (
               <div key={index}>
-                <div className="formularioFourthModule">
-                  <div className="formularioFourthChildren">
+                <div className="formularioSecondModule">
+                  <div className="formularioSecondChildren">
                     <h2>Grupos</h2>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label> RH</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={item.RH}
                       onChange={(e) => handleGrupoA(index, "RH", e.target.value)}
                     >
@@ -1054,7 +1079,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       <option value="-">-</option>
                     </select>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label>inmuniz</label>
                     <Switch
                       checked={item.imuniz == true}
@@ -1063,10 +1088,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label> yglobulina_anti_D</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={item.yglobulina_anti_D}
                       onChange={(e) =>
                         handleGrupoA(index, "yglobulina_anti_D", e.target.value)
@@ -1082,20 +1107,20 @@ const SecondModuleScreen = ({ onSignOut }) => {
               </div>
             ))}
             {/* toxoplasmosis */}
-            <div className="formularioFourthChildren">
+            <div className="formularioSecondChildren">
               <h2>Toxoplasnosis</h2>
             </div>
             {Toxoplasnosis.map((trimestre, index) => (
               <div key={index}>
-                <div className="formularioFourthModule">
-                  <div className="formularioFourthChildren">
+                <div className="formularioSecondModule">
+                  <div className="formularioSecondChildren">
                     <label>
                       {trimestre.menor12Semanas_igG ||
                         trimestre.mayorigual_12Semanas_igG ||
                         trimestre.primera_consulta_igM}
                     </label>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`negativo${index}`}>-</label>
                     <Switch
                       id={`negativo${index}`}
@@ -1107,7 +1132,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`positivo${index}`}>+</label>
                     <Switch
                       id={`positivo${index}`}
@@ -1119,7 +1144,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`noSehizo${index}`}>No se hizo</label>
                     <Switch
                       id={`noSehizo${index}`}
@@ -1138,11 +1163,11 @@ const SecondModuleScreen = ({ onSignOut }) => {
             {/* SUPLEMENTO INICIAL */}
             {SuplementoIncial.map((item, index) => (
               <div key={index}>
-                <div className="formularioFourthModule">
-                  <div className="formularioFourthChildren">
+                <div className="formularioSecondModule">
+                  <div className="formularioSecondChildren">
                     <h2>Suplementos</h2>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label>Fe</label>
                     <Switch
                       checked={item.fe === true}
@@ -1153,7 +1178,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label>Folatos</label>
                     <Switch
                       checked={item.folatos === true}
@@ -1164,7 +1189,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label>Multi Vitaminas</label>
                     <Switch
                       checked={item.multi_vitaminas === true}
@@ -1182,14 +1207,14 @@ const SecondModuleScreen = ({ onSignOut }) => {
             {/* CHANGAS */}
             {Changas.map((item, index) => (
               <div key={index}>
-                <div className="formularioFourthModule">
-                  <div className="formularioFourthChildren">
-                    <h2>Changas</h2>
+                <div className="formularioSecondModule">
+                  <div className="formularioSecondChildren">
+                    <h2>Chagas</h2>
                   </div>
-                  <div className="formularioFourthChildren">
-                    <label>Changas</label>
+                  <div className="formularioSecondChildren">
+                    <label>Chagas</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={item.changas}
                       onChange={(e) =>
                         handleChangas(index, "changas", e.target.value)
@@ -1201,10 +1226,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       <option value="No se hizo">No se hizo</option>
                     </select>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label>Paludismo malaria</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={item.paludismo_malaria}
                       onChange={(e) =>
                         handleChangas(index, "paludismo_malaria", e.target.value)
@@ -1216,10 +1241,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       <option value="No se hizo">No se hizo</option>
                     </select>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label> Bacteriuria</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={item.bacteriuria}
                       onChange={(e) =>
                         handleChangas(index, "bacteriuria", e.target.value)
@@ -1231,10 +1256,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       <option value="No se hizo">No se hizo</option>
                     </select>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label> Glusemia en ayuna</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={item.glusemia_EnAyuna}
                       onChange={(e) =>
                         handleChangas(index, "glusemia_EnAyuna", e.target.value)
@@ -1246,10 +1271,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                     </select>
                   </div>
 
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label>Estreptococo</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={item.estreptococo}
                       onChange={(e) =>
                         handleChangas(index, "estreptococo", e.target.value)
@@ -1269,11 +1294,11 @@ const SecondModuleScreen = ({ onSignOut }) => {
 
             {Consejeria.map((item, index) => (
               <div key={index}>
-                <div className="formularioFourthModule">
-                  <div className="formularioFourthChildren">
+                <div className="formularioSecondModule">
+                  <div className="formularioSecondChildren">
                     <h3>CONSEJERIA</h3>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`PreparacionParto${item}`}>
                       PreparacionParto
                     </label>
@@ -1287,7 +1312,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`PlanificacionFamiliar${item}`}>
                       Planificacion Familiar
                     </label>
@@ -1302,7 +1327,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                     />
                   </div>
 
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`LactanciaMaterna${item}`}>
                       Lactancia Materna
                     </label>
@@ -1317,7 +1342,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                     />
                   </div>
 
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`AmorPara_Chiquitos${item}`}>
                       Amor Para los mas Chiquitos
                     </label>
@@ -1336,13 +1361,13 @@ const SecondModuleScreen = ({ onSignOut }) => {
             ))}
 
             {/* VIH Primera prueba solicitada */}
-            <div className="formularioFourthChildren">
+            <div className="formularioSecondChildren">
               <h2>VIH Primera prueba solicitada</h2>
             </div>
             {VIHPrimeraPrueba.map((trimestre, index) => (
               <div key={index}>
-                <div className="formularioFourthModule">
-                  <div className="formularioFourthChildren">
+                <div className="formularioSecondModule">
+                  <div className="formularioSecondChildren">
                     <label>
                       {
 
@@ -1351,7 +1376,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       }
                     </label>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`si${index}`}>Si</label>
                     <Switch
                       id={`si${index}`}
@@ -1363,7 +1388,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`no${index}`}>No</label>
                     <Switch
                       id={`no${index}`}
@@ -1375,7 +1400,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`nc${index}`}>N/C</label>
                     <Switch
                       id={`nc${index}`}
@@ -1387,10 +1412,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label>Resultado</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={trimestre.result}
                       onChange={(e) =>
                         handleVIHPrimeraPrueba(index, "result", e.target.value)
@@ -1404,10 +1429,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                     </select>
                   </div>
 
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label>TARV en Embarazo</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={trimestre.tarv_enEmbarazo}
                       onChange={(e) =>
                         handleVIHPrimeraPrueba(
@@ -1428,13 +1453,13 @@ const SecondModuleScreen = ({ onSignOut }) => {
             ))}
 
             {/* VIH Segunda prueba solicitada */}
-            <div className="formularioFourthChildren">
+            <div className="formularioSecondChildren">
               <h2>VIH Segunda prueba solicitada</h2>
             </div>
             {VIHSegundaPrueba.map((trimestre, index) => (
               <div key={index}>
-                <div className="formularioFourthModule">
-                  <div className="formularioFourthChildren">
+                <div className="formularioSecondModule">
+                  <div className="formularioSecondChildren">
                     <label>
                       {
 
@@ -1443,7 +1468,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       }
                     </label>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`si${index}`}>Si</label>
                     <Switch
                       id={`si${index}`}
@@ -1455,7 +1480,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`no${index}`}>No</label>
                     <Switch
                       id={`no${index}`}
@@ -1467,7 +1492,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`nc${index}`}>N/C</label>
                     <Switch
                       id={`nc${index}`}
@@ -1479,10 +1504,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label>Resultado</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={trimestre.result}
                       onChange={(e) =>
                         handleVIHPSegundaPrueba(index, "result", e.target.value)
@@ -1497,10 +1522,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                     </select>
                   </div>
 
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label>TARV en Embarazo</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={trimestre.tarv_enEmbarazo}
                       onChange={(e) =>
                         handleVIHPSegundaPrueba(
@@ -1521,18 +1546,18 @@ const SecondModuleScreen = ({ onSignOut }) => {
             ))}
 
             {/* Sifilis Primera prueba solicitada */}
-            <div className="formularioFourthChildren">
+            <div className="formularioSecondChildren">
               <h2> Sifilis Primera prueba solicitada</h2>
             </div>
             {SifilisPrimeraPrueba.map((item, index) => (
               <div key={index}>
-                <div className="formularioFourthModule">
-                  <div className="formularioFourthChildren">
+                <div className="formularioSecondModule">
+                  <div className="formularioSecondChildren">
                     <label>
                       {item.menor12Semanas || item.mayor12Semanas}
                     </label>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`si${index}`}>Si</label>
                     <Switch
                       id={`si${index}`}
@@ -1544,7 +1569,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`no${index}`}>No</label>
                     <Switch
                       id={`no${index}`}
@@ -1556,7 +1581,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`nc${index}`}>N/C</label>
                     <Switch
                       id={`nc${index}`}
@@ -1568,10 +1593,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label>Resultado</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={item.result}
                       onChange={(e) =>
                         handleSifilisPrimeraPrueba(index, "result", e.target.value)
@@ -1585,10 +1610,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                     </select>
                   </div>
 
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label>TARV en Embarazo</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={item.tratamientoCon_Penisilina}
                       onChange={(e) =>
                         handleSifilisPrimeraPrueba(
@@ -1604,7 +1629,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       <option value="N/C">N/C</option>
                     </select>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`TtoDeLa_Pareja${index}`}>
                       Tto De la Pareja
                     </label>
@@ -1627,18 +1652,18 @@ const SecondModuleScreen = ({ onSignOut }) => {
             ))}
 
             {/* Sifilis Segunda prueba solicitada */}
-            <div className="formularioFourthChildren">
+            <div className="formularioSecondChildren">
               <h2> Sifilis Segunda prueba solicitada</h2>
             </div>
             {SifilisSegundaPrueba.map((item, index) => (
               <div key={index}>
-                <div className="formularioFourthModule">
-                  <div className="formularioFourthChildren">
+                <div className="formularioSecondModule">
+                  <div className="formularioSecondChildren">
                     <label>
                       {item.menor12Semanas || item.mayor12Semanas}
                     </label>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`si${index}`}>Si</label>
                     <Switch
                       id={`si${index}`}
@@ -1650,7 +1675,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`no${index}`}>No</label>
                     <Switch
                       id={`no${index}`}
@@ -1662,7 +1687,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`nc${index}`}>N/C</label>
                     <Switch
                       id={`nc${index}`}
@@ -1674,10 +1699,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       offColor="#888888" // Color cuando está en posición "No"
                     />
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label>Resultado</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={item.result}
                       onChange={(e) =>
                         handleSifilisSegundaPrueba(index, "result", e.target.value)
@@ -1691,10 +1716,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                     </select>
                   </div>
 
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label>TARV en Embarazo</label>
                     <select
-                      className="inputNumberFourth"
+                      className="inputNumberSecond"
                       value={item.tratamientoCon_Penisilina}
                       onChange={(e) =>
                         handleSifilisSegundaPrueba(
@@ -1710,7 +1735,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       <option value="N/C">N/C</option>
                     </select>
                   </div>
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`TtoDeLa_Pareja${index}`}>
                       Tto De la Pareja
                     </label>
@@ -1729,7 +1754,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                     />
                   </div>
 
-                  <div className="formularioFourthChildren">
+                  <div className="formularioSecondChildren">
                     <label htmlFor={`AnomaliasPrenatales${index}`}>
                       Anomalias prenatales
                     </label>
@@ -1754,12 +1779,15 @@ const SecondModuleScreen = ({ onSignOut }) => {
             {/* Atenciones Prenatales */}
             <h2>Atenciones Prenatales</h2>
             {AtencionesPrenatales.map((atencion, index) => (
-              <div key={index}>
-                <div className="cita-form">
-                  <div className="form-group">
+              <div className="atenciones" key={index}>
+                <div className="formularioSecondModule">
+                <div className="formularioSecondChildren">
+                  Lista de Atenciones prentales {index + 1}
+                </div>
+                  <div className="formularioSecondChildren">
                     <label>Fecha</label>
                     <input
-                      className="text"
+                      className="inputNumberSecond"
                       type="date"
                       value={atencion.fecha}
                       onChange={(e) =>
@@ -1767,10 +1795,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       }
                     />
                   </div>
-                  <div className="form-group">
+                  <div className="formularioSecondChildren">
                     <label>Edad Gestacional</label>
                     <input
-                      className="text"
+                      className="inputNumberSecond"
                       type="number"
                       value={atencion.edadGestacional}
                       onChange={(e) =>
@@ -1782,10 +1810,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       }
                     />
                   </div>
-                  <div className="form-group">
+                  <div className="formularioSecondChildren">
                     <label>Peso</label>
                     <input
-                      className="text"
+                      className="inputNumberSecond"
                       type="number"
                       value={atencion.peso}
                       onChange={(e) =>
@@ -1793,10 +1821,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       }
                     />
                   </div>
-                  <div className="form-group">
+                  <div className="formularioSecondChildren">
                     <label>PA</label>
                     <input
-                      className="text"
+                      className="inputNumberSecond"
                       type="text"
                       value={atencion.PA}
                       onChange={(e) =>
@@ -1804,12 +1832,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       }
                     />
                   </div>
-                </div>
-                <div className="cita-form">
-                  <div className="form-group">
+                  <div className="formularioSecondChildren">
                     <label>Alture Uterina</label>
                     <input
-                      className="text"
+                      className="inputNumberSecond"
                       type="text"
                       value={atencion.alturaUterina}
                       onChange={(e) =>
@@ -1821,11 +1847,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       }
                     />
                   </div>
-
-                  <div className="form-group">
+                  <div className="formularioSecondChildren">
                     <label>Presentacion</label>
                     <input
-                      className="text"
+                      className="inputNumberSecond"
                       type="text"
                       value={atencion.presentacion}
                       onChange={(e) =>
@@ -1837,7 +1862,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       }
                     />
                   </div>
-                  <div className="form-group">
+                  <div className="formularioSecondChildren">
                     <label>FCF</label>
                     <input
                       className="text"
@@ -1848,7 +1873,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       }
                     />
                   </div>
-                  <div className="form-group">
+                  <div className="formularioSecondChildren">
                     <label>Movimiento Fetales</label>
                     <input
                       className="text"
@@ -1863,7 +1888,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       }
                     />
                   </div>
-                  <div className="form-group">
+                  <div className="formularioSecondChildren">
                     <label>Proteinuna</label>
                     <input
                       className="text"
@@ -1878,7 +1903,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       }
                     />
                   </div>
-                  <div className="form-group">
+                  <div className="formularioSecondChildren">
                     <label>Iniciales Personal salud</label>
                     <input
                       className="text"
@@ -1893,10 +1918,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       }
                     />
                   </div>
-                  <div className="form-group">
+                  <div className="formularioSecondChildren">
                     <label>Proxima Cita</label>
                     <input
-                      className="text"
+                      className="inputNumberSecond"
                       type="date"
                       value={atencion.proximaCita}
                       onChange={(e) =>
@@ -1908,10 +1933,11 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       }
                     />
                   </div>
-                  <div className="form-group">
-                    <label>Signos, Examenes Tratamiento</label>
+                  <div className="formularioSecondChildren">
+                    <label>Tratamiento</label>
                     <textarea
-                      className="textAreaAtenciones"
+                      className="texareaSignos"
+                      placeholder="Signos, Examenes Tratamiento"
                       value={atencion.signosExamenesTratamiento}
                       onChange={(e) =>
                         handleAtencionesPrenatales(
@@ -1923,12 +1949,16 @@ const SecondModuleScreen = ({ onSignOut }) => {
                     />
                   </div>
                 </div>
+ 
               </div>
-            ))}
+            ))} 
+
           </form>
+          
         )}
-        <div className="containerButtonFourth">
-          <button className="ButtonEnviarFourth" onClick={handleSubmit}>
+          <button className="ButtonEnviarSecond" onClick={addNewAtencionPrenatal}>Agregar Nueva Atención</button>
+        <div className="containerButtonSecond">
+          <button className="ButtonEnviarSecond" onClick={handleSubmit}>
             Guardar
           </button>
           <button
