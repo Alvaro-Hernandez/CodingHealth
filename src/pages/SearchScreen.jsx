@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import { db } from '../services/FirebaseServices';
 import { useLocation } from "wouter";
 import NavBarComponent from "../components/NavbarComponent";
+import { checkPatientId } from "../functions/checkPatientId";
 import ErrorModal from "../components/MessageErrorModal";
 import SuccessfulModal from "../components/MessageSuccessfulModal";
-import ConfirmationModal from "../components/ConfirmationModal"; // Asegúrate de tener la ruta correcta
+import ConfirmationModal from "../components/ConfirmationModal";
 import imgBuscar from "../assets/buscar.png";
 import "../styles/searchStyle.css";
 
@@ -68,26 +69,24 @@ const SearchScreen = ({ onSignOut }) => {
             });
     };
 
-    const handleCheckId = () => {
-        db.collection('cartilla')
-            .doc(idInput)
-            .get()
-            .then((doc) => {
-                if (doc.exists) {
-                    setIdInput('');
-                    localStorage.setItem("cachedId", idInput);
-                    setSuccessMessage("Paciente encontrado con éxito");
-                    setSuccessModalOpen(true);
-                    setShouldNavigate(true);
-                } else {
-                    setConfirmModalOpen(true);
-                }
-            })
-            .catch((error) => {
-                console.error('Error al buscar el ID:', error);
+    const handleCheckId = async () => {
+        await checkPatientId(
+            idInput,
+            (id) => {
+                localStorage.setItem("cachedId", id);
+                setIdInput('');
+                setSuccessMessage("Paciente encontrado con éxito");
+                setSuccessModalOpen(true);
+                setShouldNavigate(true);
+            },
+            () => {
+                setConfirmModalOpen(true);
+            },
+            () => {
                 setErrorMessage("Error al buscar el ID");
                 setErrorModalOpen(true);
-            });
+            }
+        );
     };
 
     return (
@@ -104,6 +103,7 @@ const SearchScreen = ({ onSignOut }) => {
                 <div className="inputContainer">
                     <input
                         type="text"
+                        maxLength="16"
                         placeholder="Ingrese su expediente unico"
                         className="customInputSearch"
                         value={idInput}
