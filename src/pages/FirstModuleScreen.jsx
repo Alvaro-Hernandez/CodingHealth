@@ -30,11 +30,11 @@ const FirstModuleScreen = ({ onSignOut }) => {
       Fecha_Nacimiento: "",
       Edad: "",
       Ednia: "",
-      // Alfa_Beta: "",
+       Alfa_Beta: false,
       Estudios: "",
       Estado_Civil: "",
       Numero_Expediente_Unico: "",
-      // Numero_INS: "",
+       Numero_INS: "",
       Numero_Identidad: "",
     },
   ]);
@@ -192,11 +192,11 @@ const FirstModuleScreen = ({ onSignOut }) => {
               Fecha_Nacimiento: "",
               Edad: "",
               Ednia: "",
-              // Alfa_Beta: "",
+              Alfa_Beta: false,
               Estudios: "",
               Estado_Civil: "",
               Numero_Expediente_Unico: "",
-              // Numero_INS: "",
+               Numero_INS: "",
               Numero_Identidad: "",
             },
           ]);
@@ -379,6 +379,23 @@ const FirstModuleScreen = ({ onSignOut }) => {
                   </select>
                 </div>
                 <div className="formularioFourthChildren">
+                <label htmlFor={`Alfa_Beta${index}`}>Alfa Beta</label>
+                  <Switch
+                    id={`Alfa_Beta${index}`}
+                    checked={item.Alfa_Beta === true}
+                    onChange={(newValue) =>
+                      handleDatosAfiliacion(
+                        index,
+                        "Alfa_Beta",
+                        newValue
+                      )
+                    }
+                    onColor="#eff303" // Color cuando está en posición "Sí"
+                    offColor="#888888" // Color cuando está en posición "No"
+                  />
+
+                </div>
+                <div className="formularioFourthChildren">
                   <label> Estudios:</label>
                   <select
                     className="inputNumberFourth"
@@ -426,6 +443,23 @@ const FirstModuleScreen = ({ onSignOut }) => {
                       handleDatosAfiliacion(
                         index,
                         "Numero_Expediente_Unico",
+                        e.target.value
+                      )
+                    }
+                  />
+                </div>
+                <div className="formularioFourthChildren">
+                  <label> Numero INS</label>
+                  <input
+                    type="text"
+                    maxLength="16"
+                    placeholder="Numero INS"
+                    className="inputNumberFourth"
+                    value={item.Numero_INS}
+                    onChange={(e) =>
+                      handleDatosAfiliacion(
+                        index,
+                        "Numero_INS",
                         e.target.value
                       )
                     }
