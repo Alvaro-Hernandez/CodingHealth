@@ -14,7 +14,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
     const [parto, setparto] = useState("");
     const [Parto, setPartoAborto] = useState([
         {
-            partoAborto: "",
+         
             referida: "",
             carnet: "",
             consultas_Prenatales_Totales: "",
@@ -268,7 +268,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
 
                     setPartoAborto([
                         {
-                            partoAborto: "",
+                           
                             referida: "",
                             carnet: "",
                             consultas_Prenatales_Totales: "",
@@ -496,18 +496,18 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                         <label>Hospitalizado en embarazo</label>
                                         <select
                                             className="select"
-                                            value={detalle.Hospitalizado_En_Embarazo}
+                                            value={detalle.Hospitalizado_En_Embarazo.toString()}
                                             onChange={(e) =>
                                                 handlePartoAborto(
                                                     index,
                                                     "Hospitalizado_En_Embarazo",
-                                                    e.target.value
+                                                    e.target.value === "true"
                                                 )
                                             }
                                         >
                                             <option value="">Opciones</option>
-                                            <option value="Si">Si</option>
-                                            <option value="No">No</option>
+                                            <option value= "true">Si</option>
+                                            <option value="false">No</option>
                                         </select>
                                     </div>
                                     <div className="form-group">
@@ -574,13 +574,13 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                                 handlePartoAborto(
                                                     index,
                                                     "tamano_Fetal_Acorde",
-                                                    e.target.value
+                                                    e.target.value ===  "true" 
                                                 )
                                             }
                                         >
                                             <option value="">Opciones</option>
-                                            <option value="Si">Si</option>
-                                            <option value="No">No</option>
+                                            <option value= "true">Si</option>
+                                            <option value="false">No</option>
                                         </select>
                                     </div>
                                     <div className="form-group">
@@ -1211,17 +1211,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                         {DetallesPartoGrama.map((detalle, index) => (
                             <div key={index}>
                                 <div className="cita-form">
-                                    <div className="form-group">
-                                        <label>ID</label>
-                                        <input
-                                            className="text"
-                                            type="text"
-                                            value={detalle.ID}
-                                            onChange={(e) =>
-                                                handleDetallesPartoGrama(index, "ID", e.target.value)
-                                            }
-                                        />
-                                    </div>
+                                   
                                     <div className="form-group">
                                         <label>Fecha</label>
                                         <input
@@ -1259,8 +1249,6 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                             }
                                         />
                                     </div>
-                                </div>
-                                <div className="cita-form">
                                     <div className="form-group">
                                         <label>Pulso</label>
                                         <input
@@ -1287,6 +1275,10 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                             }
                                         />
                                     </div>
+                                </div>
+                                <div className="cita-form">
+                                  
+                                    
                                     <div className="form-group">
                                         <label>Dilatacion</label>
                                         <input
@@ -1317,8 +1309,6 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                             }
                                         />
                                     </div>
-                                </div>
-                                <div className="cita-form">
                                     <div className="form-group">
                                         <label>VariedadPosic</label>
                                         <input
@@ -1364,7 +1354,9 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                             }
                                         />
                                     </div>
+
                                 </div>
+                              
                             </div>
                         ))}
 
