@@ -9,33 +9,31 @@ import Switch from "react-switch";
 const ThirdModuleScreen = ({ onSignOut }) => {
     const [, setLocation] = useLocation();
     const cachedId = localStorage.getItem("cachedId");
-    const [message, setMessage] = useState("");
     const [, setLoader] = useState(false); // Estado para la fecha
     const [parto, setparto] = useState("");
     const [Parto, setPartoAborto] = useState([
         {
-         
             referida: "",
             carnet: "",
             consultas_Prenatales_Totales: "",
             lugar_Parto: "",
             edad_Gestacional: "",
-            Hospitalizado_En_Embarazo: false,
+            Hospitalizado_En_Embarazo: "",
             corticloide_Antenatal: "",
             inicio: "",
             presentacion_Situacion: "",
-            tamano_Fetal_Acorde: false,
+            tamano_Fetal_Acorde: "",
             acompanante: "",
         },
     ]);
 
     const [RoturaMembrana, setRoturaMembrana] = useState([
         {
-            rotura_Membrana_AnteParto: false,
+            rotura_Membrana_AnteParto: "",
             fecha: "",
-            menor_37_Semanas: false,
-            mayor_18_Semanas: false,
-            temperatura_Mayor_a_38_Grado: false,
+            menor_37_Semanas: "",
+            mayor_18_Semanas: "",
+            temperatura_Mayor_a_38_Grado: "",
             tarv: "",
         },
     ]);
@@ -76,10 +74,10 @@ const ThirdModuleScreen = ({ onSignOut }) => {
     ]);
     const [Cumplimiento_Del_MATEPE, setCumplimiento_Del_MATEPE] = useState([
         {
-            Oxitosina_PrealumBR: "",
-            Pinzamiendo_de_Cordon: "",
-            Traccion_De_Cordon: "",
-            Masaje_uterino: "",
+            Oxitosina_PrealumBR: false,
+            Pinzamiendo_de_Cordon: false,
+            Traccion_De_Cordon: false,
+            Masaje_uterino: false,
         },
     ]);
 
@@ -87,7 +85,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
         {
             ocitocicos_TDP: false,
             antibiotico: false,
-            anagelsia: "",
+            anagelsia: false,
             anest_Local: false,
             anest_Region: false,
             anest_Gral: false,
@@ -135,11 +133,11 @@ const ThirdModuleScreen = ({ onSignOut }) => {
     const [Hemorragias, setHemorragias] = useState([
         {
             Hemorragias: "Hemorragias",
-            PrimerTrimestre: "",
-            SegundoTrimestre: "",
-            TercerTrimestre: "",
-            PosParto: "",
-            InfeccionPuerperal: "",
+            PrimerTrimestre: false,
+            SegundoTrimestre: false,
+            TercerTrimestre: false,
+            PosParto: false,
+            InfeccionPuerperal: false,
         },
     ]);
 
@@ -183,7 +181,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
 
     const handleHemorragias = (index, field, newValue) => {
         const updatedHemorragias = [...Hemorragias];
-        updatedHemorragias[index][field] = newValue ? "si" : "no";
+        updatedHemorragias[index][field] = newValue ? true : false;
         setHemorragias(updatedHemorragias);
     };
     const handleDetallesPartoGrama = (index, field, value) => {
@@ -257,7 +255,6 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                         DetallesPartoGrama: DetallesPartoGrama,
                         EnfermedadesData: EnfermedadesData,
                         Hemorragias: Hemorragias,
-                        message: message,
                     };
 
                     // Guarda los datos actualizados en el documento
@@ -268,7 +265,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
 
                     setPartoAborto([
                         {
-                           
+
                             referida: "",
                             carnet: "",
                             consultas_Prenatales_Totales: "",
@@ -330,10 +327,10 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                     ]);
                     setCumplimiento_Del_MATEPE([
                         {
-                            Oxitosina_PrealumBR: "",
-                            Pinzamiendo_de_Cordon: "",
-                            Traccion_De_Cordon: "",
-                            Masaje_uterino: "",
+                            Oxitosina_PrealumBR: false,
+                            Pinzamiendo_de_Cordon: false,
+                            Traccion_De_Cordon: false,
+                            Masaje_uterino: false,
                         },
                     ]);
 
@@ -351,7 +348,6 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                         },
                     ]);
 
-                    setMessage("");
                     setDetallesPartoGrama([
                         {
                             ID: "ID",
@@ -389,11 +385,11 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                     setHemorragias([
                         {
                             Hemorragias: "Hemorragias",
-                            PrimerTrimestre: "",
-                            SegundoTrimestre: "",
-                            TercerTrimestre: "",
-                            PosParto: "",
-                            InfeccionPuerperal: "",
+                            PrimerTrimestre: false,
+                            SegundoTrimestre: false,
+                            TercerTrimestre: false,
+                            PosParto: false,
+                            InfeccionPuerperal: false,
                         },
                     ]);
                 } else {
@@ -425,10 +421,8 @@ const ThirdModuleScreen = ({ onSignOut }) => {
             <div className="form-container">
                 <h1 className="nombre">Modulo Parto - Aborto 🤳</h1>
                 <form className="form" onSubmit={handleSubmit}>
-                    <h2>Agregar nueva cita</h2>
                     <div className="table-container">
                         {/* PartoAborto */}
-                        <h1>Parto o Aborto</h1>
 
                         {Parto.map((detalle, index) => (
                             <div key={index}>
@@ -479,6 +473,22 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     </div>
 
                                     <div className="form-group">
+                                        <label>Edad Gestacional</label>
+                                        <input
+                                            className="text"
+                                            type="text"
+                                            value={detalle.edad_Gestacional}
+                                            onChange={(e) =>
+                                                handlePartoAborto(
+                                                    index,
+                                                    "edad_Gestacional",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                    </div>
+
+                                    <div className="form-group">
                                         <label>Tienes Carnet</label>
                                         <select
                                             className="select"
@@ -501,13 +511,13 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                                 handlePartoAborto(
                                                     index,
                                                     "Hospitalizado_En_Embarazo",
-                                                    e.target.value === "true"
+                                                    e.target.value
                                                 )
                                             }
                                         >
                                             <option value="">Opciones</option>
-                                            <option value= "true">Si</option>
-                                            <option value="false">No</option>
+                                            <option value="Si">Si</option>
+                                            <option value="No">No</option>
                                         </select>
                                     </div>
                                     <div className="form-group">
@@ -574,13 +584,13 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                                 handlePartoAborto(
                                                     index,
                                                     "tamano_Fetal_Acorde",
-                                                    e.target.value ===  "true" 
+                                                    e.target.value
                                                 )
                                             }
                                         >
                                             <option value="">Opciones</option>
-                                            <option value= "true">Si</option>
-                                            <option value="false">No</option>
+                                            <option value="Si">Si</option>
+                                            <option value="No">No</option>
                                         </select>
                                     </div>
                                     <div className="form-group">
@@ -688,14 +698,14 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                         </select>
                                     </div>
                                     <div className="form-group">
-                                        <label>Mayor o igual a 18 Semanas</label>
+                                        <label>Temperatura Mayor a 38 Grado</label>
                                         <select
                                             className="select"
-                                            value={detalle.mayor_18_Semanas}
+                                            value={detalle.temperatura_Mayor_a_38_Grado}
                                             onChange={(e) =>
                                                 handleRoturaMembrana(
                                                     index,
-                                                    "mayor_18_Semanas",
+                                                    "temperatura_Mayor_a_38_Grado",
                                                     e.target.value
                                                 )
                                             }
@@ -989,8 +999,8 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                             }
                                         >
                                             <option value="">Selecciona una opción</option>
-                                            <option value="Menor_a_1_Minuto">Menor A 1 Minuto</option>
-                                            <option value="De_1_a_3_Minutos">De 1 a 3 Minutos</option>
+                                            <option value="Menor a 1 Minuto">Menor A 1 Minuto</option>
+                                            <option value="De 1 a 3 Minutos">De 1 a 3 Minutos</option>
                                         </select>
                                     </div>
                                 </div>
@@ -1211,7 +1221,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                         {DetallesPartoGrama.map((detalle, index) => (
                             <div key={index}>
                                 <div className="cita-form">
-                                   
+
                                     <div className="form-group">
                                         <label>Fecha</label>
                                         <input
@@ -1277,8 +1287,8 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     </div>
                                 </div>
                                 <div className="cita-form">
-                                  
-                                    
+
+
                                     <div className="form-group">
                                         <label>Dilatacion</label>
                                         <input
@@ -1356,7 +1366,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                     </div>
 
                                 </div>
-                              
+
                             </div>
                         ))}
 
@@ -1570,7 +1580,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                         <label>PrimerTrimestre</label>
                                         <Switch
                                             id={`PrimerTrimestre${index}`}
-                                            checked={Hemorragias[index].PrimerTrimestre === "si"}
+                                            checked={Hemorragias[index].PrimerTrimestre === true}
                                             onChange={(newValue) =>
                                                 handleHemorragias(index, "PrimerTrimestre", newValue)
                                             }
@@ -1582,7 +1592,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                         <label>SegundoTrimestre</label>
                                         <Switch
                                             id={`SegundoTrimestre${index}`}
-                                            checked={Hemorragias[index].SegundoTrimestre === "si"}
+                                            checked={Hemorragias[index].SegundoTrimestre === true}
                                             onChange={(newValue) =>
                                                 handleHemorragias(index, "SegundoTrimestre", newValue)
                                             }
@@ -1594,7 +1604,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                         <label>TercerTrimestre</label>
                                         <Switch
                                             id={`TercerTrimestre${index}`}
-                                            checked={Hemorragias[index].TercerTrimestre === "si"}
+                                            checked={Hemorragias[index].TercerTrimestre === true}
                                             onChange={(newValue) =>
                                                 handleHemorragias(index, "TercerTrimestre", newValue)
                                             }
@@ -1606,7 +1616,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                         <label>PosParto</label>
                                         <Switch
                                             id={`PosParto${index}`}
-                                            checked={Hemorragias[index].PosParto === "si"}
+                                            checked={Hemorragias[index].PosParto === true}
                                             onChange={(newValue) =>
                                                 handleHemorragias(index, "PosParto", newValue)
                                             }
@@ -1618,7 +1628,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                         <label>InfeccionPuerperal</label>
                                         <Switch
                                             id={`InfeccionPuerperal${index}`}
-                                            checked={Hemorragias[index].InfeccionPuerperal === "si"}
+                                            checked={Hemorragias[index].InfeccionPuerperal === true}
                                             onChange={(newValue) =>
                                                 handleHemorragias(index, "InfeccionPuerperal", newValue)
                                             }
