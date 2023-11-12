@@ -15,10 +15,7 @@ export const checkPatientId = async (
       onNotFound();
     }
   } catch (error) {
-    console.log("Entrando al bloque catch");
     console.error("Error al buscar el ID:", error);
-    console.log("Llamando a onError");
     onError();
-    console.log("Después de llamar a onError");
   }
 };
