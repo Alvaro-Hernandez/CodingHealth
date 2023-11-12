@@ -140,6 +140,18 @@ const ThirdModuleScreen = ({ onSignOut }) => {
             InfeccionPuerperal: false,
         },
     ]);
+    const [mostrarFormulario, setMostrarFormulario] = useState(true);
+
+    const [RecomendacionesThirdModule, setRecomendacionesThirdModule] = useState([
+      {
+        recomendaciones: "",
+        Id_Medico:"",
+      }
+    ]);
+
+    const toggleMostrarFormulario = () => {
+      setMostrarFormulario(!mostrarFormulario);
+    };
 
     const handlePartoAborto = (index, field, value) => {
         const updatedPartoAborto = [...Parto];
@@ -189,6 +201,11 @@ const ThirdModuleScreen = ({ onSignOut }) => {
         updatedDetallesPartoGrama[index][field] = value;
         setDetallesPartoGrama(updatedDetallesPartoGrama);
     };
+    const handleRecomendacionThirdModule = (index, campo, value) => {
+        const nuevasRecomendaciones = [...RecomendacionesThirdModule];
+        nuevasRecomendaciones[index][campo] = value;
+        setRecomendacionesThirdModule(nuevasRecomendaciones);
+      };
     // UseEffect para cargar los datos desde Firebase al montar el componente
     useEffect(() => {
         if (cachedId) {
@@ -209,6 +226,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                                 DetallesPartoGrama,
                                 EnfermedadesData,
                                 Hemorragias,
+                                RecomendacionesThirdModule,
                             } = data.ModuloPartoAborto;
                             // Establecer los datos recuperados en el estado
                             setPartoAborto(Parto);
@@ -221,6 +239,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                             setDetallesPartoGrama(DetallesPartoGrama);
                             setEnfermedades(EnfermedadesData);
                             setHemorragias(Hemorragias);
+                            setRecomendacionesThirdModule(RecomendacionesThirdModule);
                         }
                     }
                 });
@@ -255,6 +274,7 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                         DetallesPartoGrama: DetallesPartoGrama,
                         EnfermedadesData: EnfermedadesData,
                         Hemorragias: Hemorragias,
+                        RecomendacionesThirdModule:RecomendacionesThirdModule,
                     };
 
                     // Guarda los datos actualizados en el documento
@@ -392,6 +412,13 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                             InfeccionPuerperal: false,
                         },
                     ]);
+                    setRecomendacionesThirdModule([
+                        {
+                          recomendaciones: "",
+                          Id_Medico:"",
+                        }
+                      ]);
+                      
                 } else {
                     console.error("El documento no existe.");
                 }
@@ -416,11 +443,23 @@ const ThirdModuleScreen = ({ onSignOut }) => {
             <NavBarComponent
                 onSignOut={handleLogout}
                 showCloseExpedienteButton={false}
+                
             />
 
             <div className="form-container">
+                
                 <h1 className="nombre">Modulo Parto - Aborto 🤳</h1>
+                <div className="alertGroup">
+                        <span className="alert"></span>
+                        <h2 className="alertTitle">Amarillo es ALERTA</h2>
+                        <button onClick={toggleMostrarFormulario} >
+                            {/* <img src={Buscar} alt="Buscar" style={{ marginRight: '1%' }} /> */}
+                            {mostrarFormulario ? "Mostrar Recomendaciones" : "Mostrar Formulario"}
+                        </button>
+                    </div>
                 <form className="form" onSubmit={handleSubmit}>
+                   
+                 {mostrarFormulario ? (
                     <div className="table-container">
                         {/* PartoAborto */}
 
@@ -1640,6 +1679,54 @@ const ThirdModuleScreen = ({ onSignOut }) => {
                             </div>
                         ))}
                     </div>
+) : (
+    <div>
+      {/* Aquí deberías colocar tu lógica para mostrar las recomendaciones */}
+      <h2>Recomendaciones</h2>
+      {RecomendacionesThirdModule.map((rec, index) => (
+        <div key={index}>
+          <div className="formularioSecondModule">
+            <div className="formularioSecondChildren">
+              <label className="textCenter">ID del Médico </label>
+              <input
+                    className="recomendaciones"
+                    type="text" // Cambiado a tipo 'text' para permitir maxLength
+                    value={rec.Id_Medico}
+                    maxLength="5" // Limitar a 5 caracteres
+                    onInput={(e) => {
+                      // Filtrar solo los dígitos
+                      const inputValue = e.target.value.replace(/\D/g, '');
+                      // Actualizar el valor del estado con los primeros 5 caracteres
+                      handleRecomendacionThirdModule(index, 'Id_Medico', inputValue.slice(0, 5));
+                    }}
+                  />
+  
+            </div>
+            <div className="formularioSecondChildren">
+              <label className="textCenter">Recomendación del personal Médico</label>
+              <textarea
+              placeholder="Recomendaciones del personal Médico"
+              className="textAreaRecomendaciones"
+                rows="4"
+                cols="50"
+                value={rec.recomendaciones}
+                onChange={(e) => handleRecomendacionThirdModule(index, 'recomendaciones', e.target.value)}
+                style={{ resize: 'none' }}
+              />
+            </div>
+            {/* <div className="formularioSecondChildren">
+              <button type="button" onClick={agregarRecomendacion}>
+                Agregar Otra Recomendación
+              </button>
+            </div> */}
+  
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+  
+
 
                     <div className="containerButtonFourth">
                         <button className="ButtonEnviarFourth" type="submit">
