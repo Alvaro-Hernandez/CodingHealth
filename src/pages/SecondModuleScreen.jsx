@@ -135,9 +135,9 @@ const SecondModuleScreen = ({ onSignOut }) => {
     },
   ]);
 
-  const [Changas, setChangas] = useState([
+  const [Chagas, setChagas] = useState([
     {
-      changas: "",
+      chagas: "",
       paludismo_malaria: "",
       bacteriuria: "",
       glusemia_EnAyuna: "",
@@ -252,7 +252,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
       proximaCita: "",
     },
   ]);
-  
+
   const addNewAtencionPrenatal = () => {
     if (AtencionesPrenatales.length < 8) {
       const newAtencionPrenatal = {
@@ -319,10 +319,10 @@ const SecondModuleScreen = ({ onSignOut }) => {
     setSuplementoIncial(updatedhandleSuplementoInicial);
   };
 
-  const handleChangas = (index, field, value) => {
-    const updatedChangas = [...Changas];
-    updatedChangas[index][field] = value;
-    setChangas(updatedChangas);
+  const handleChagas = (index, field, value) => {
+    const updatedChagas = [...Chagas];
+    updatedChagas[index][field] = value;
+    setChagas(updatedChagas);
   };
 
   const handleConsejeria = (index, field, newValue) => {
@@ -384,7 +384,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 GrupoA,
                 Toxoplasnosis,
                 SuplementoIncial,
-                Changas,
+                Chagas,
                 Consejeria,
                 VIHPrimeraPrueba,
                 VIHSegundaPrueba,
@@ -408,7 +408,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
               setGrupoA(GrupoA);
               setToxoplasnosis(Toxoplasnosis);
               setSuplementoIncial(SuplementoIncial);
-              setChangas(Changas);
+              setChagas(Chagas);
               setConsejeria(Consejeria);
               setVIHPrimeraPrueba(VIHPrimeraPrueba);
               setVIHSegundaPrueba(VIHSegundaPrueba);
@@ -485,7 +485,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
             GrupoA: GrupoA,
             Toxoplasnosis: Toxoplasnosis,
             SuplementoIncial: SuplementoIncial,
-            Changas: Changas,
+            Chagas: Chagas,
             Consejeria: Consejeria,
             VIHPrimeraPrueba: VIHPrimeraPrueba,
             VIHSegundaPrueba: VIHSegundaPrueba,
@@ -605,16 +605,16 @@ const SecondModuleScreen = ({ onSignOut }) => {
 
           setSuplementoIncial([
             {
-              suplemento: "suplemento",
+              suplemento: "Suplemento",
               fe: false,
               folatos: false,
               multi_vitaminas: false,
             },
           ]);
 
-          setChangas([
+          setChagas([
             {
-              changas: "",
+              chagas: "",
               paludismo_malaria: "",
               bacteriuria: "",
               glusemia_EnAyuna: "",
@@ -1098,9 +1098,9 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       }
                     >
                       <option>Opciones</option>
-                      <option value="true">Si</option>
-                      <option value="false">No</option>
-                      <option value="n/c">N/C</option>
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                      <option value="N/C">N/C</option>
                     </select>
                   </div>
                 </div>
@@ -1204,8 +1204,8 @@ const SecondModuleScreen = ({ onSignOut }) => {
               </div>
             ))}
 
-            {/* CHANGAS */}
-            {Changas.map((item, index) => (
+            {/* CHAGAS */}
+            {Chagas.map((item, index) => (
               <div key={index}>
                 <div className="formularioSecondModule">
                   <div className="formularioSecondChildren">
@@ -1215,9 +1215,9 @@ const SecondModuleScreen = ({ onSignOut }) => {
                     <label>Chagas</label>
                     <select
                       className="inputNumberSecond"
-                      value={item.changas}
+                      value={item.chagas}
                       onChange={(e) =>
-                        handleChangas(index, "changas", e.target.value)
+                        handleChagas(index, "chagas", e.target.value)
                       }
                     >
                       <option>Opciones</option>
@@ -1232,7 +1232,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       className="inputNumberSecond"
                       value={item.paludismo_malaria}
                       onChange={(e) =>
-                        handleChangas(index, "paludismo_malaria", e.target.value)
+                        handleChagas(index, "paludismo_malaria", e.target.value)
                       }
                     >
                       <option>Opciones</option>
@@ -1247,7 +1247,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       className="inputNumberSecond"
                       value={item.bacteriuria}
                       onChange={(e) =>
-                        handleChangas(index, "bacteriuria", e.target.value)
+                        handleChagas(index, "bacteriuria", e.target.value)
                       }
                     >
                       <option>Opciones</option>
@@ -1262,7 +1262,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       className="inputNumberSecond"
                       value={item.glusemia_EnAyuna}
                       onChange={(e) =>
-                        handleChangas(index, "glusemia_EnAyuna", e.target.value)
+                        handleChagas(index, "glusemia_EnAyuna", e.target.value)
                       }
                     >
                       <option>Opciones</option>
@@ -1277,7 +1277,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                       className="inputNumberSecond"
                       value={item.estreptococo}
                       onChange={(e) =>
-                        handleChangas(index, "estreptococo", e.target.value)
+                        handleChagas(index, "estreptococo", e.target.value)
                       }
                     >
                       <option>Opciones</option>
@@ -1781,9 +1781,9 @@ const SecondModuleScreen = ({ onSignOut }) => {
             {AtencionesPrenatales.map((atencion, index) => (
               <div className="atenciones" key={index}>
                 <div className="formularioSecondModule">
-                <div className="formularioSecondChildren">
-                  Lista de Atenciones prentales {index + 1}
-                </div>
+                  <div className="formularioSecondChildren">
+                    Lista de Atenciones prentales {index + 1}
+                  </div>
                   <div className="formularioSecondChildren">
                     <label>Fecha</label>
                     <input
@@ -1949,14 +1949,14 @@ const SecondModuleScreen = ({ onSignOut }) => {
                     />
                   </div>
                 </div>
- 
+
               </div>
-            ))} 
+            ))}
 
           </form>
-          
+
         )}
-          <button className="ButtonEnviarSecond" onClick={addNewAtencionPrenatal}>Agregar Nueva Atención</button>
+        <button className="ButtonEnviarSecond" onClick={addNewAtencionPrenatal}>Agregar Nueva Atención</button>
         <div className="containerButtonSecond">
           <button className="ButtonEnviarSecond" onClick={handleSubmit}>
             Guardar
