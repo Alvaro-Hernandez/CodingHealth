@@ -276,6 +276,16 @@ const SecondModuleScreen = ({ onSignOut }) => {
       setCurrentIndex(AtencionesPrenatales.length);
     }
   };
+  const [mostrarFormulario, setMostrarFormulario] = useState(true);
+  const [Recomendaciones, setRecomendaciones] = useState([
+    {
+      recomendaciones: "",
+      Id_Medico:"",
+    }
+  ]);
+  const toggleMostrarFormulario = () => {
+    setMostrarFormulario(!mostrarFormulario);
+  };
 
   const handleTrimestreChange = (index, field, newValue) => {
     const updatedTrimestresData = [...trimestresData];
@@ -359,6 +369,11 @@ const SecondModuleScreen = ({ onSignOut }) => {
     updatedAtencionesPrenatales[index][field] = value;
     setAtencionesPrenatales(updatedAtencionesPrenatales);
   };
+  const handleRecomendacionChange = (index, campo, value) => {
+    const nuevasRecomendaciones = [...Recomendaciones];
+    nuevasRecomendaciones[index][campo] = value;
+    setRecomendaciones(nuevasRecomendaciones);
+  };
 
 
   useEffect(() => {
@@ -392,6 +407,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
                 SifilisSegundaPrueba,
                 AtencionesPrenatales,
                 Eventos,
+                Recomendaciones,
               } = data.ModuloGestacionActual;
 
               setPesoAnterior(pesoAnterior);
@@ -415,6 +431,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
               setSifilisPrimeraPrueba(SifilisPrimeraPrueba);
               setSifilisSegundaPrueba(SifilisSegundaPrueba);
               setAtencionesPrenatales(AtencionesPrenatales);
+              setRecomendaciones(Recomendaciones);
 
               //Cargar Eventos - Asegurando que los eventos sean un array
               setEventos(Eventos || []);
@@ -492,6 +509,7 @@ const SecondModuleScreen = ({ onSignOut }) => {
             SifilisPrimeraPrueba: SifilisPrimeraPrueba,
             SifilisSegundaPrueba: SifilisSegundaPrueba,
             AtencionesPrenatales: AtencionesPrenatales,
+            Recomendaciones: Recomendaciones,
           };
 
           await docRef.set(data);
@@ -728,6 +746,12 @@ const SecondModuleScreen = ({ onSignOut }) => {
               proximaCita: "",
             },
           ]);
+          setRecomendaciones([
+            {
+              recomendaciones: "",
+              Id_Medico:"",
+            }
+          ]);
 
           setShowCalendar(false);
 
@@ -770,11 +794,18 @@ const SecondModuleScreen = ({ onSignOut }) => {
             <button onClick={() => setShowCalendar(!showCalendar)}>
               {showCalendar ? "Mostrar Formulario" : "Mostrar Calendario"}
             </button>
+            <button onClick={toggleMostrarFormulario} >
+                {/* <img src={Buscar} alt="Buscar" style={{ marginRight: '1%' }} /> */}
+                {mostrarFormulario ? "Mostrar Recomendaciones" : "Mostrar Formulario"  }
+              </button>
           </div>
         </div>
         {showCalendar ? (
           <CalendarComponent events={eventsWithDatesConverted} onEventClick={handleEventClick} />
         ) : (
+          <div>
+             {mostrarFormulario ? (
+         
           <form>
             <div className="formularioSecondModule">
               <div className="formularioSecondChildren">
@@ -1954,6 +1985,55 @@ const SecondModuleScreen = ({ onSignOut }) => {
             ))}
 
           </form>
+ ) : (
+  <div>
+    {/* Aquí deberías colocar tu lógica para mostrar las recomendaciones */}
+    <h2>Recomendaciones</h2>
+    {Recomendaciones.map((rec, index) => (
+      <div key={index}>
+        <div className="formularioSecondModule">
+          <div className="formularioSecondChildren">
+            <label className="textCenter">ID del Médico </label>
+            <input
+                  className="recomendaciones"
+                  type="text" // Cambiado a tipo 'text' para permitir maxLength
+                  value={rec.Id_Medico}
+                  maxLength="5" // Limitar a 5 caracteres
+                  onInput={(e) => {
+                    // Filtrar solo los dígitos
+                    const inputValue = e.target.value.replace(/\D/g, '');
+                    // Actualizar el valor del estado con los primeros 5 caracteres
+                    handleRecomendacionChange(index, 'Id_Medico', inputValue.slice(0, 5));
+                  }}
+                />
+
+          </div>
+          <div className="formularioSecondChildren">
+            <label className="textCenter">Recomendación del personal Médico</label>
+            <textarea
+            placeholder="Recomendaciones del personal Médico"
+            className="textAreaRecomendaciones"
+              rows="4"
+              cols="50"
+              value={rec.recomendaciones}
+              onChange={(e) => handleRecomendacionChange(index, 'recomendaciones', e.target.value)}
+              style={{ resize: 'none' }}
+            />
+          </div>
+          {/* <div className="formularioSecondChildren">
+            <button type="button" onClick={agregarRecomendacion}>
+              Agregar Otra Recomendación
+            </button>
+          </div> */}
+
+        </div>
+      </div>
+    ))}
+  </div>
+)}
+
+
+           </div>
 
         )}
         <button className="ButtonEnviarSecond" onClick={addNewAtencionPrenatal}>Agregar Nueva Atención</button>
