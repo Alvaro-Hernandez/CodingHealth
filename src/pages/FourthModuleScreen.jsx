@@ -261,7 +261,7 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
     }
   ]);
   const [mostrarFormulario, setMostrarFormulario] = useState(true);
-  const [Recomendaciones, setRecomendaciones] = useState([
+  const [RecomendacionesFourthModule, setRecomendacionesFourthModule] = useState([
     {
       recomendaciones: "",
       Id_Medico:"",
@@ -294,7 +294,7 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
                  Egreso_RN, 
                  PuerperioInmediato,
                  Fecha_de_seguimiento,
-                 Recomendaciones,
+                 RecomendacionesFourthModule,
                 } = data.ModuloPuerperio;
               // Establecer los datos recuperados en el estado
               setRecienNacido(RecienNacido);
@@ -308,7 +308,7 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
               setEgreso_RN(Egreso_RN);
               setPuerperioInmediato(PuerperioInmediato);
               setFecha_de_seguimiento(Fecha_de_seguimiento);
-              setRecomendaciones(Recomendaciones);
+              setRecomendacionesFourthModule(RecomendacionesFourthModule);
             }
           }
         });
@@ -385,9 +385,9 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
     setFecha_de_seguimiento(updatedFecha_de_seguimiento);
   };
   const handleRecomendacionChange = (index, campo, value) => {
-    const nuevasRecomendaciones = [...Recomendaciones];
+    const nuevasRecomendaciones = [...RecomendacionesFourthModule];
     nuevasRecomendaciones[index][campo] = value;
-    setRecomendaciones(nuevasRecomendaciones);
+    setRecomendacionesFourthModule(nuevasRecomendaciones);
   };
 
   // Manejar el envío de datos a Firebase
@@ -413,7 +413,7 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
             Egreso_RN: Egreso_RN,
             PuerperioInmediato: PuerperioInmediato,
             Fecha_de_seguimiento: Fecha_de_seguimiento,
-            Recomendaciones: Recomendaciones,
+            RecomendacionesFourthModule: RecomendacionesFourthModule,
           };
 
           await docRef.set(data);
@@ -641,7 +641,7 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
               nombre_RN: "",
             }
           ]);
-          setRecomendaciones([
+          setRecomendacionesFourthModule([
             {
               recomendaciones: "",
               Id_Medico:"",
@@ -1849,7 +1849,7 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
         <div>
           {/* Aquí deberías colocar tu lógica para mostrar las recomendaciones */}
           <h2>Recomendaciones</h2>
-          {Recomendaciones.map((rec, index) => (
+          {RecomendacionesFourthModule.map((rec, index) => (
             <div key={index}>
               <div className="formularioSecondModule">
                 <div className="formularioSecondChildren">
