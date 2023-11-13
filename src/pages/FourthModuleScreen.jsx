@@ -259,7 +259,17 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
       idRN: "",
       nombre_RN: "",
     }
-  ])
+  ]);
+  const [mostrarFormulario, setMostrarFormulario] = useState(true);
+  const [Recomendaciones, setRecomendaciones] = useState([
+    {
+      recomendaciones: "",
+      Id_Medico:"",
+    }
+  ]);
+  const toggleMostrarFormulario = () => {
+    setMostrarFormulario(!mostrarFormulario);
+  };
    
 
 
@@ -284,6 +294,7 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
                  Egreso_RN, 
                  PuerperioInmediato,
                  Fecha_de_seguimiento,
+                 Recomendaciones,
                 } = data.ModuloPuerperio;
               // Establecer los datos recuperados en el estado
               setRecienNacido(RecienNacido);
@@ -297,6 +308,7 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
               setEgreso_RN(Egreso_RN);
               setPuerperioInmediato(PuerperioInmediato);
               setFecha_de_seguimiento(Fecha_de_seguimiento);
+              setRecomendaciones(Recomendaciones);
             }
           }
         });
@@ -372,6 +384,11 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
     updatedFecha_de_seguimiento[index][field] = value;
     setFecha_de_seguimiento(updatedFecha_de_seguimiento);
   };
+  const handleRecomendacionChange = (index, campo, value) => {
+    const nuevasRecomendaciones = [...Recomendaciones];
+    nuevasRecomendaciones[index][campo] = value;
+    setRecomendaciones(nuevasRecomendaciones);
+  };
 
   // Manejar el envío de datos a Firebase
   const handleSubmit = async (e) => {
@@ -396,6 +413,7 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
             Egreso_RN: Egreso_RN,
             PuerperioInmediato: PuerperioInmediato,
             Fecha_de_seguimiento: Fecha_de_seguimiento,
+            Recomendaciones: Recomendaciones,
           };
 
           await docRef.set(data);
@@ -622,7 +640,13 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
               idRN: "",
               nombre_RN: "",
             }
-          ])
+          ]);
+          setRecomendaciones([
+            {
+              recomendaciones: "",
+              Id_Medico:"",
+            }
+          ]);
            
         
         } else {
@@ -646,8 +670,22 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
         onSignOut={handleLogout}
         showCloseExpedienteButton={false}
       />
+      
+          <div className="formFourthModule">
+          <div className="alertGroup">
+            <span className="alert"></span>
+            <h2 className="alertTitle">Amarillo es ALERTA</h2>
+           
+            <button onClick={toggleMostrarFormulario} >
+                {/* <img src={Buscar} alt="Buscar" style={{ marginRight: '1%' }} /> */}
+                {mostrarFormulario ? "Mostrar Recomendaciones" : "Mostrar Formulario"  }
+              </button>
+          </div>
+          {mostrarFormulario ? (
 
-      <form className="formFourthModule" >
+        
+
+      <form  >
         {RecienNacido.map((item, index) => (
           <div key={index}>
             <h2>Recien Nacido</h2>
@@ -1805,7 +1843,55 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
             ))}
 
 
-        <div className="containerButtonFourth">
+       
+      </form>
+       ) : (
+        <div>
+          {/* Aquí deberías colocar tu lógica para mostrar las recomendaciones */}
+          <h2>Recomendaciones</h2>
+          {Recomendaciones.map((rec, index) => (
+            <div key={index}>
+              <div className="formularioSecondModule">
+                <div className="formularioSecondChildren">
+                  <label className="textCenter">ID del Médico </label>
+                  <input
+                        className="recomendaciones"
+                        type="text" // Cambiado a tipo 'text' para permitir maxLength
+                        value={rec.Id_Medico}
+                        maxLength="5" // Limitar a 5 caracteres
+                        onInput={(e) => {
+                          // Filtrar solo los dígitos
+                          const inputValue = e.target.value.replace(/\D/g, '');
+                          // Actualizar el valor del estado con los primeros 5 caracteres
+                          handleRecomendacionChange(index, 'Id_Medico', inputValue.slice(0, 5));
+                        }}
+                      />
+      
+                </div>
+                <div className="formularioSecondChildren">
+                  <label className="textCenter">Recomendación del personal Médico</label>
+                  <textarea
+                  placeholder="Recomendaciones del personal Médico"
+                  className="textAreaRecomendaciones"
+                    rows="4"
+                    cols="50"
+                    value={rec.recomendaciones}
+                    onChange={(e) => handleRecomendacionChange(index, 'recomendaciones', e.target.value)}
+                    style={{ resize: 'none' }}
+                  />
+                </div>
+                {/* <div className="formularioSecondChildren">
+                  <button type="button" onClick={agregarRecomendacion}>
+                    Agregar Otra Recomendación
+                  </button>
+                </div> */}
+      
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+       <div className="containerButtonFourth">
           <button className="ButtonEnviarFourth" type="button"onClick={handleSubmit}>
             Guardar
           </button>
@@ -1817,24 +1903,21 @@ const [TamizajeNeonatal, setTamizajeNeonatal] = useState([
             Cancelar
           </button>
 
-          <button
-            className="ButtonCancelFourth"
-            type="button"
-            onClick={recargarPagina}
+          <button className="ButtonEnviarFourth"
+           onClick={addNewPuerperioInmediato}
           >
-            Recargar
+            Agregar Nueva Atención
           </button>
         </div>
-      </form>
-      <div className="containerButtonFourth"></div>
-      <button className="ButtonEnviarFourth" onClick={addNewPuerperioInmediato}>Agregar Nueva Atención</button>
+      </div>
+      
+      
+     
     </div>
   );
 };
 
-const recargarPagina = () => {
-  window.location.reload(); // Esto recargará la página actual
-};
+
 
 FourthModuleScreen.propTypes = {
   onSignOut: PropTypes.func.isRequired,
