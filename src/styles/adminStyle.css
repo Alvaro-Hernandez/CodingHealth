@@ -1,0 +1,208 @@
+.adminScreenContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: var(--global-height);
+  background: linear-gradient(160deg, #3db9fb 50%, #fff 50%);
+}
+
+.navContainer {
+  width: 100%;
+}
+
+.tableContainer {
+  max-height: 500px;
+  overflow-y: auto;
+  width: 95%;
+}
+
+/* Tabla personalizada */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.custom-table th,
+.custom-table td {
+  border: 2px solid #484c52;
+  padding: 8px;
+  text-align: left;
+}
+
+.custom-table thead th {
+  background-color: #eb7c9c;
+  color: white;
+}
+
+.custom-table tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+.custom-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Botones personalizados */
+.btn {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-add {
+  background-color: #ffffff;
+  color: black;
+}
+
+.btn-edit {
+  background-color: #484c52;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #eb7c9c;
+  color: white;
+}
+
+.btn-save {
+  background-color: #3db9fb;
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: #78cffd;
+}
+
+.btn-add:hover {
+  background-color: #78cffd;
+}
+
+.btn-edit:hover {
+  background-color: #363a40;
+}
+
+.btn-delete:hover {
+  background-color: #d66a7b;
+}
+
+/* Estilos para modal */
+.modal {
+  display: flex;
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15px;
+  padding: 20px;
+  border-radius: 10px;
+  border: none;
+  width: 90%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos para el formulario dentro del modal */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content form .form-group {
+  margin-bottom: 15px;
+}
+
+.modal-content form label {
+  margin-bottom: 5px;
+}
+
+.modal-content form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.modal-content form button {
+  padding: 10px 20px;
+  margin-top: 10px;
+}
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Estilos para el elemento select con la clase selectionCat */
+.selectionCat {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 16px;
+  color: #333;
+  width: 100%;
+  margin-bottom: 15px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Hacer la tabla responsiva */
+@media screen and (max-width: 768px) {
+  .custom-table,
+  .custom-table thead,
+  .custom-table tbody,
+  .custom-table th,
+  .custom-table td {
+    display: block;
+  }
+
+  .custom-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .custom-table td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  .custom-table td:before {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    content: attr(data-title);
+    text-align: left;
+    font-weight: bold;
+  }
+}
