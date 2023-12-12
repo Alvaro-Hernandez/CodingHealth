@@ -9,33 +9,3 @@
 .navContainer {
   width: 100%;
 }
-
-.homeItemContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.homeCardsContainer {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-/* Estilos responsivos para tablets y teléfonos móviles */
-@media (max-width: 768px) {
-  .homeCardsContainer {
-    justify-content: space-around;
-    gap: 10px;
-  }
-}
-
-/* Estilos específicos para teléfonos móviles */
-@media (max-width: 480px) {
-  .homeCardsContainer {
-    flex-direction: column;
-    gap: 15px;
-  }
-}

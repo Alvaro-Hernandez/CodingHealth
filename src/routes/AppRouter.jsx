@@ -3,6 +3,7 @@ import { Route, Switch } from "wouter";
 import SplashScreen from "../pages/SplashScreen";
 import LoginScreen from "../pages/LoginScreen";
 import HomeScreen from "../pages/HomeScreen";
+import FunctionScreen from "../pages/FunctionScreen";
 import AdminScreen from "../pages/AdminScreen";
 import FirstModuleScreen from "../pages/FirstModuleScreen";
 import { auth, db } from "../services/FirebaseServices";
@@ -71,6 +72,9 @@ const AppRouter = () => {
       </Route>
       <Route path="/modules">
         {role === "minsa" && isLoggedIn ? <ModuleScreen onSignOut={handleSignOut} /> : <LoginScreen />}
+      </Route>
+      <Route path="/function">
+        {role === "minsa" && isLoggedIn ? <FunctionScreen onSignOut={handleSignOut} /> : <LoginScreen />}
       </Route>
       <Route path="/statistics">
         <StatisticsScreen onSignOut={handleSignOut} />

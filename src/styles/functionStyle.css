@@ -1,0 +1,41 @@
+.functionScreenContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: var(--global-height);
+  background: linear-gradient(160deg, #3db9fb 50%, #fff 50%);
+}
+
+.navContainer {
+  width: 100%;
+}
+
+.functionItemContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.functionCardsContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Estilos responsivos para tablets y teléfonos móviles */
+@media (max-width: 768px) {
+  .functionCardsContainer {
+    justify-content: space-around;
+    gap: 10px;
+  }
+}
+
+/* Estilos específicos para teléfonos móviles */
+@media (max-width: 480px) {
+  .functionCardsContainer {
+    flex-direction: column;
+    gap: 15px;
+  }
+}

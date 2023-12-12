@@ -1,38 +1,27 @@
 import PropTypes from "prop-types";
 import NavBarComponent from "../components/NavbarComponent";
-import CardFunction from "../components/CardFunctionComponent";
-import imgStatistics from "../assets/estadisticas.png";
-import imgPrimur from "../assets/cartillaPerinatal.png";
-import imgInformenes from "../assets/ManualesPNG.png";
+// import { useLocation } from "wouter";
 import '../styles/homeStyle.css';
 
 const HomeScreen = ({ onSignOut }) => {
+    // Estado para navegar a la ruta que se necesita
+    // const [, setLocation] = useLocation();
+
+    // Función para manejar el evento de clic
+    // const handleCardClick = () => {
+    //     setLocation('/function');
+    // }
+
     return (
         <div className="homeScreenContainer">
             <div className="navContainer">
                 <NavBarComponent onSignOut={onSignOut} showCloseExpedienteButton={false} />
-
             </div>
 
-            <div className="homeItemContainer">
-                <div className="homeCardsContainer">
-                    <CardFunction
-                        imageSrc={imgStatistics}
-                        text="Estadísticas"
-                        route="/statistics"
-                    />
-                    <CardFunction
-                        imageSrc={imgPrimur}
-                        text="Cartilla Perinatal"
-                        route="/search"
-                    />
-                    <CardFunction
-                        imageSrc={imgInformenes}
-                        text="Informes"
-                        route="/webminsa"
-                    />
-                </div>
-            </div>
+            {/* Aqui puedes ver el uso de la ruta que se necesita */}
+            {/* <button onClick={handleCardClick} className="homeButton">
+                Ir a funciones
+            </button> */}
         </div>
     )
 }
