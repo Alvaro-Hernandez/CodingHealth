@@ -35,7 +35,7 @@ const NavBarComponent = ({ onSignOut, showCloseExpedienteButton = false }) => {
 
     return (
         <nav>
-            <div className="navbar">
+            <div className="nav-bar">
                 <div className="logo" onClick={navigateToHome}> {/* Añadido evento onClick */}
                     <img src={logo} alt="CartiLife" />
                 </div>
