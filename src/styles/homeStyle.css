@@ -1,11 +1,241 @@
+:root {
+  --blue: #3db9fb;
+  --light-blue: #e8f0fe;
+  --text-color: #222;
+  --text-light: #666;
+  --footer-background: #ffffff;
+}
+
 .homeScreenContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: var(--global-height);
-  background: linear-gradient(160deg, #3db9fb 50%, #fff 50%);
+  background: linear-gradient(160deg, var(--blue) 50%, #fff 50%);
 }
 
 .navContainer {
   width: 100%;
+}
+
+.mainContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 2em;
+}
+
+.contentSection {
+  flex: 1;
+  text-align: left;
+  color: var(
+    --text-color
+  ); /* Cambiar a color de texto oscuro para visibilidad */
+  padding: 2em; /* Aumentar el relleno */
+  max-width: 600px; /* Aumentar el ancho máximo si es necesario */
+  margin-right: 2em; /* Agregar margen a la derecha */
+}
+
+.title {
+  font-size: 2.5em; /* Aumentar el tamaño de la fuente si es necesario */
+  margin-bottom: 0.5em;
+}
+.description {
+  font-size: 1.2em; /* Ajustar el tamaño de la fuente si es necesario */
+  margin-bottom: 2em; /* Aumentar el margen inferior */
+}
+
+.textToggleButton {
+  background: none;
+  border: none;
+  color: #78cffd;
+  cursor: pointer;
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 1em;
+  justify-content: start;
+}
+
+.actionButton {
+  padding: 1em 2em; /* Aumentar el relleno para un botón más grande */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  color: var(
+    --text-color
+  ); /* Cambiar a color de texto oscuro para visibilidad */
+  background-color: var(
+    --light-blue
+  ); /* Cambiar a un color de fondo más claro */
+  font-size: 1.2em; /* Aumentar el tamaño de la fuente si es necesario */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Agregar sombra para resaltar el botón */
+  transition: all 0.3s ease;
+}
+
+.actionButton:hover {
+  background-color: var(
+    --blue
+  ); /* Cambiar el color de fondo al pasar el mouse */
+  color: #fff;
+}
+
+.imageSection {
+  padding: 1em;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 250px;
+  text-align: center;
+}
+
+.cartiBabyTitle {
+  color: #3db9fb;
+  display: inline;
+}
+
+.cartiBabyTitleSecondPart {
+  color: #ec7c9c;
+}
+
+.imageSubtitle {
+  color: #000;
+  font-size: 0.8em;
+  margin-top: 0.5em;
+}
+
+.roundedImage {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.valuesSection {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.valueCard {
+  background: var(--light-blue);
+  border-radius: 15px;
+  padding: 20px;
+  width: calc(20% - 40px);
+  margin: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.valueCard:nth-child(odd) {
+  background-color: #fff;
+}
+
+.valueCard:nth-child(even) {
+  background-color: var(--light-blue);
+}
+
+.footerSection {
+  background-color: var(--footer-background);
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.footerContent {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.footerTitle {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.carti {
+  color: #3db9fb;
+}
+
+.baby {
+  color: #ec7c9c;
+}
+
+.footerLinks {
+  display: flex;
+  flex-direction: column;
+  margin-top: -65px;
+}
+.footerContact {
+  margin-top: -62px;
+}
+
+.footerLinks a,
+.footerContact p,
+.footerSocial a {
+  margin-bottom: 0.25rem;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.footerSocial {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: -62px;
+}
+
+.footerSocialLinks a {
+  flex-direction: row;
+  margin-right: 15px;
+}
+
+.footerSocial img {
+  width: 20px;
+  height: 20px;
+}
+
+.contact-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
+
+@media (max-width: 768px) {
+  .footerContent {
+    grid-template-columns: 1fr;
+  }
+
+  .valueCard {
+    width: 100%;
+    margin: 1em 0;
+  }
+
+  .footerContent {
+    grid-template-columns: 1fr;
+  }
+
+  .footerText {
+    grid-column: 1;
+  }
+
+  .footerLinks,
+  .footerContact,
+  .footerSocial {
+    align-items: center;
+  }
+
+  .footerSocial a {
+    margin: 0 10px;
+  }
 }

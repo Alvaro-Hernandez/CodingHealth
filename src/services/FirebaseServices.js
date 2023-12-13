@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import "firebase/compat/messaging";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBMq053lTIxpz6HFlh1L_NzkTty-vajTXo",
@@ -18,5 +19,21 @@ const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = app.firestore();
 
+// Initialize Messaging
+const messaging = firebase.messaging();
+
+// Request permission
+const requestPermission = async () => {
+  try {
+    await messaging.requestPermission();
+    const token = await messaging.getToken();
+    console.log("Token:", token);
+    return token;
+  } catch (error) {
+    console.error("Error al obtener el permiso para notificaciones", error);
+    return null;
+  }
+};
+
 // Export
-export { auth, db };
+export { auth, db, messaging, requestPermission };
