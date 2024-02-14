@@ -10,7 +10,7 @@ import Ubicacion from "../assets/Ubicacion.png";
 import telefono from "../assets/Telefono.png";
 import correo from "../assets/Correo.png";
 import InstagramIcon from "../assets/instagram.png";
-import FacebookIcon from "../assets/facebook.png";
+import FacebookIcon from "../assets/Facebook.png";
 import "../styles/homeStyle.css";
 
 const HomeScreen = ({ onSignOut }) => {
